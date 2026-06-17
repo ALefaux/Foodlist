@@ -40,6 +40,8 @@ kotlin {
         }
         commonMain.dependencies {
             api(projects.core)
+            implementation(projects.feature.dashboard)
+
             implementation(libs.compose.runtime)
             implementation(libs.compose.foundation)
             implementation(libs.compose.material3)
