@@ -20,5 +20,8 @@ fun DashboardPane(
     ) {
         SearchTextField()
         DashboardMenu()
+        ExpiredProductsPane(
+            expiredProductsCount = 3
+        )
     }
 }
