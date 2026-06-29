@@ -1,4 +1,4 @@
-package io.github.alefaux.foodlist.feature.dashboard.ui
+package io.github.alefaux.foodlist.feature.dashboard.ui.menu
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

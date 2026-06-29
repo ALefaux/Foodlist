@@ -1,4 +1,4 @@
-package io.github.alefaux.foodlist.feature.dashboard.ui
+package io.github.alefaux.foodlist.feature.dashboard.ui.search
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape

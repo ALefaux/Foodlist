@@ -1,4 +1,4 @@
-package io.github.alefaux.foodlist.feature.dashboard.ui
+package io.github.alefaux.foodlist.feature.dashboard.ui.expired
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding

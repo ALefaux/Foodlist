@@ -6,8 +6,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import io.github.alefaux.foodlist.feature.dashboard.ui.DashboardMenu
-import io.github.alefaux.foodlist.feature.dashboard.ui.SearchTextField
+import io.github.alefaux.foodlist.feature.dashboard.panes.expired.ExpiredProductsPane
+import io.github.alefaux.foodlist.feature.dashboard.ui.menu.DashboardMenu
+import io.github.alefaux.foodlist.feature.dashboard.ui.search.SearchTextField
 
 @Composable
 fun DashboardPane(
