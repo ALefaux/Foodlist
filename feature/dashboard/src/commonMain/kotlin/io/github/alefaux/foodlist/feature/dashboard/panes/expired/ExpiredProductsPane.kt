@@ -12,12 +12,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import io.github.alefaux.foodlist.feature.dashboard.modelui.DiscardedProducts
 import io.github.alefaux.foodlist.feature.dashboard.ui.expired.ExpiredProductCard
 import io.github.alefaux.foodlist.feature.dashboard.ui.expired.ExpiredProductCountBadge
 import io.github.alefaux.foodlist.feature.dashboard.ui.expired.ExpiredProductTitle
+import io.github.alefaux.foodlist.feature.dashboard.ui.stats.MonthlyStatCard
 
 @Composable
 fun ExpiredProductsPane(
+    discardedProducts: DiscardedProducts,
     expiredProductsCount: Int,
     modifier: Modifier = Modifier
 ) {
@@ -52,6 +55,19 @@ fun ExpiredProductsPane(
                 stockPlace = "Refrigerator"
             )
         }
+
+        when (discardedProducts) {
+            is DiscardedProducts.Positive -> MonthlyStatCard.Positive(
+                modifier = Modifier.fillMaxWidth(),
+                discardedProductsCount = discardedProducts.discardedProductsCount,
+                trendPercent = discardedProducts.trendPercent
+            )
+            is DiscardedProducts.Negative -> MonthlyStatCard.Negative(
+                modifier = Modifier.fillMaxWidth(),
+                discardedProductsCount = discardedProducts.discardedProductsCount,
+                trendPercent = discardedProducts.trendPercent
+            )
+        }
     }
 }
 
@@ -60,6 +76,10 @@ fun ExpiredProductsPane(
 fun ExpiredProductsPanePreview() {
     MaterialTheme {
         ExpiredProductsPane(
+            discardedProducts = DiscardedProducts.Positive(
+                discardedProductsCount = 10,
+                trendPercent = 10
+            ),
             expiredProductsCount = 3
         )
     }
