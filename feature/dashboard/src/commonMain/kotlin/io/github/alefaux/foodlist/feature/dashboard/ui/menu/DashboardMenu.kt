@@ -29,6 +29,7 @@ fun DashboardMenu(
             onClick = {},
             title = "Add"
         )
+        /* For V2
         ActionButton.Tertiary(
             icon = Icons.AutoMirrored.Outlined.MenuBook,
             onClick = {},
@@ -39,5 +40,6 @@ fun DashboardMenu(
             onClick = {},
             title = "List"
         )
+         */
     }
 }

@@ -62,6 +62,7 @@ fun ExpiredProductsPane(
                 discardedProductsCount = discardedProducts.discardedProductsCount,
                 trendPercent = discardedProducts.trendPercent
             )
+
             is DiscardedProducts.Negative -> MonthlyStatCard.Negative(
                 modifier = Modifier.fillMaxWidth(),
                 discardedProductsCount = discardedProducts.discardedProductsCount,
