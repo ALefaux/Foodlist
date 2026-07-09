@@ -29,6 +29,11 @@ kotlin {
             implementation(libs.compose.material.icons.extended)
             implementation(libs.compose.uiTooling)
             implementation(libs.compose.uiToolingPreview)
+
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.compose)
+            implementation(libs.koin.compose.viewmodel)
+            implementation(libs.koin.compose.viewmodel.navigation)
         }
     }
 }

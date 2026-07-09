@@ -9,10 +9,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import io.github.alefaux.foodlist.feature.dashboard.panes.DashboardPane
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun DashboardScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: DashboardViewModel = koinViewModel()
 ) {
     Scaffold(
         modifier = modifier,
