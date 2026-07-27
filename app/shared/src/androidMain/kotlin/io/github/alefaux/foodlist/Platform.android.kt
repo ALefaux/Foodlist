@@ -1,9 +1,20 @@
 package io.github.alefaux.foodlist
 
 import android.os.Build
+import io.github.alefaux.foodlist.database.getDatabaseBuilder
+import io.github.alefaux.foodlist.database.getRoomDatabase
+import org.koin.core.module.Module
+import org.koin.dsl.module
 
 class AndroidPlatform : Platform {
     override val name: String = "Android ${Build.VERSION.SDK_INT}"
 }
 
 actual fun getPlatform(): Platform = AndroidPlatform()
+
+actual fun platformModule(): Module = module {
+    single {
+        val builder = getDatabaseBuilder(context = get())
+        getRoomDatabase(builder)
+    }
+}
