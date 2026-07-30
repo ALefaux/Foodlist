@@ -12,13 +12,14 @@ import io.github.alefaux.foodlist.feature.dashboard.modelui.DiscardedProducts
 import io.github.alefaux.foodlist.feature.dashboard.modelui.ExpiredProductUi
 import io.github.alefaux.foodlist.feature.dashboard.panes.expired.ExpiredProductsPane
 import io.github.alefaux.foodlist.feature.dashboard.ui.menu.DashboardMenu
-import io.github.alefaux.foodlist.feature.dashboard.ui.search.SearchTextField
+import io.github.alefaux.foodlist.core.component.SearchTextField
 import kotlinx.collections.immutable.ImmutableList
 
 @Composable
 fun DashboardPane(
     expiredProducts: ImmutableList<ExpiredProductUi>,
     expiredProductsCount: Int,
+    onAddClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -28,7 +29,9 @@ fun DashboardPane(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         SearchTextField()
-        DashboardMenu()
+        DashboardMenu(
+            onAddClick = onAddClick
+        )
         ExpiredProductsPane(
             discardedProducts = DiscardedProducts.Positive(
                 discardedProductsCount = 10,

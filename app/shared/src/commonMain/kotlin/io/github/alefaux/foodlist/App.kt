@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
 import io.github.alefaux.foodlist.menu.BottomMenu
 import io.github.alefaux.foodlist.feature.dashboard.presentation.DashboardScreen
+import io.github.alefaux.foodlist.navigation.FoodlistNavHost
 import io.github.alefaux.foodlist.theme.FoodlistTheme
 
 @Composable
@@ -45,7 +46,7 @@ fun App() {
                 }
             }
         ) {
-            DashboardScreen()
+            FoodlistNavHost()
         }
     }
 }

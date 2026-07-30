@@ -101,7 +101,7 @@ object ActionButton {
                 shapes = IconButtonShapes(
                     shape = RoundedCornerShape(8.dp)
                 ),
-                onClick = {}
+                onClick = onClick
             )
             Text(
                 style = MaterialTheme.typography.labelSmall,

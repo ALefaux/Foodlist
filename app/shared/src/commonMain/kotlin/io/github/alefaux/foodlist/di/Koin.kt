@@ -13,7 +13,8 @@ fun initKoin(configuration: KoinAppDeclaration? = null) {
         modules(
             dashboardModule,
             platformModule(),
-            databaseModule
+            databaseModule,
+            networkModule
         )
         printLogger(Level.DEBUG)
     }

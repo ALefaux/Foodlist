@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun DashboardMenu(
+    onAddClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -24,7 +25,7 @@ fun DashboardMenu(
         )
         ActionButton.Secondary(
             icon = Icons.Outlined.Add,
-            onClick = {},
+            onClick = onAddClick,
             title = "Add"
         )
         /* For V2
