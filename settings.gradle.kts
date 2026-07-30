@@ -32,5 +32,3 @@ include(":app:androidApp")
 include(":app:shared")
 include(":core")
 include(":server")
-
-include(":feature:dashboard")
