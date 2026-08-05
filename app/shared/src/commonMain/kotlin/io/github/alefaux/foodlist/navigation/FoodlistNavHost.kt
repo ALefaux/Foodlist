@@ -7,9 +7,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import io.github.alefaux.foodlist.feature.add.presentation.AddScreen
 import io.github.alefaux.foodlist.feature.auth.presentation.CreateAccountScreen
 import io.github.alefaux.foodlist.feature.auth.presentation.LoginScreen
+import io.github.alefaux.foodlist.feature.search.presentation.SearchScreen
 import io.github.alefaux.foodlist.feature.dashboard.presentation.DashboardScreen
 import io.github.alefaux.foodlist.feature.productdetail.presentation.ProductDetailScreen
 import io.github.alefaux.foodlist.feature.profile.presentation.ProfileScreen
@@ -83,7 +83,7 @@ fun FoodlistNavHost(
             )
         }
         composable<FoodlistDestinations.Add> {
-            AddScreen(
+            SearchScreen(
                 onBackPress = {
                     navController.navigateUp()
                 }

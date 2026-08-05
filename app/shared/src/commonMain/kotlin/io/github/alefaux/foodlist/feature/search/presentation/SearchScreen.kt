@@ -1,4 +1,4 @@
-package io.github.alefaux.foodlist.feature.add.presentation
+package io.github.alefaux.foodlist.feature.search.presentation
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -12,12 +12,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import foodlist.app.shared.generated.resources.Res
 import foodlist.app.shared.generated.resources.add_top_bar_title
-import io.github.alefaux.foodlist.feature.add.pane.AddPane
 import org.jetbrains.compose.resources.stringResource
+import io.github.alefaux.foodlist.feature.search.pane.SearchPane
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun AddScreen(
+fun SearchScreen(
     modifier: Modifier = Modifier,
+    viewModel: SearchViewModel = koinViewModel(),
     onBackPress: () -> Unit
 ) {
     Scaffold(
@@ -41,7 +43,7 @@ fun AddScreen(
             )
         }
     ) { innerPadding ->
-        AddPane(
+        SearchPane(
             modifier = Modifier.padding(innerPadding)
         )
     }
