@@ -23,7 +23,7 @@ fun SearchTextField(
     query: String = ""
 ) {
     OutlinedTextField(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
         label = {
             Text(
                 text = stringResource(Res.string.search_pantry_placeholder)

@@ -44,7 +44,8 @@ fun SearchScreen(
         }
     ) { innerPadding ->
         SearchPane(
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(innerPadding),
+            onSearchClick = viewModel::searchProduct
         )
     }
 }

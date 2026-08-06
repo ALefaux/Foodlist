@@ -10,6 +10,11 @@ class SearchService(
 ) {
     suspend fun search(query: String): ResponseDto =
         httpClient
-            .get("https://world.openfoodfacts.org/api/v3/search?product_name=$query&fields=product_name,id,code")
+            .get("https://world.openfoodfacts.org/cgi/search?search_terms=$query&fields=product_name,id,code")
             .body<ResponseDto>()
+
+    // "https://world.openfoodfacts.org/api/v3/search?product_name=$query&fields=product_name,id,code"
+    // "https://world.openfoodfacts.org/api/v3/search?search_terms=$query&fields=product_name,id,code"
+
+    // search_terms
 }
