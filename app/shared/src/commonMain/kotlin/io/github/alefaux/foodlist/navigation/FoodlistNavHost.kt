@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import io.github.alefaux.foodlist.feature.add.presentation.AddScreen
 import io.github.alefaux.foodlist.feature.dashboard.presentation.DashboardScreen
+import io.github.alefaux.foodlist.feature.scan.presentation.ScanProductScreen
 
 @Composable
 fun FoodlistNavHost(
@@ -22,12 +23,28 @@ fun FoodlistNavHost(
             DashboardScreen(
                 onAddClick = {
                     navController.navigate(FoodlistDestinations.Add)
+                },
+                onScanClick = {
+                    navController.navigate(FoodlistDestinations.Scan)
                 }
             )
         }
         composable<FoodlistDestinations.Add> {
             AddScreen(
                 onBackPress = {
+                    navController.navigateUp()
+                }
+            )
+        }
+        composable<FoodlistDestinations.Scan> {
+            ScanProductScreen(
+                onBackPress = {
+                    navController.navigateUp()
+                },
+                onManualEntryClick = {
+                    navController.navigate(FoodlistDestinations.Add)
+                },
+                onProductAdded = {
                     navController.navigateUp()
                 }
             )

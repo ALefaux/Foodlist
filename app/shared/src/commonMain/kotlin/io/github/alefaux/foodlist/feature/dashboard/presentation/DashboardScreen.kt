@@ -16,6 +16,7 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun DashboardScreen(
     onAddClick: () -> Unit,
+    onScanClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: DashboardViewModel = koinViewModel()
 ) {
@@ -43,7 +44,8 @@ fun DashboardScreen(
             modifier = Modifier.padding(padding),
             expiredProducts = state.expiredProducts,
             expiredProductsCount = state.expiredProductsCount,
-            onAddClick = onAddClick
+            onAddClick = onAddClick,
+            onScanClick = onScanClick
         )
     }
 }

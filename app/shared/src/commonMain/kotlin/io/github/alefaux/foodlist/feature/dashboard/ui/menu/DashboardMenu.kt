@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 @Composable
 fun DashboardMenu(
     onAddClick: () -> Unit,
+    onScanClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -20,7 +21,7 @@ fun DashboardMenu(
     ) {
         ActionButton.Primary(
             icon = Icons.Outlined.PhotoCamera,
-            onClick = {},
+            onClick = onScanClick,
             title = "Scan"
         )
         ActionButton.Secondary(

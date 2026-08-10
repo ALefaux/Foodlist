@@ -9,7 +9,7 @@ import kotlinx.datetime.toLocalDateTime
 class DashboardRepositoryImpl(
     private val productDao: ProductDao
 ): DashboardRepository {
-    override fun getProducts(): List<Product> =
+    override suspend fun getProducts(): List<Product> =
         productDao.getAll().map {
             Product(
                 id = it.id,

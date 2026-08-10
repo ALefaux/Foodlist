@@ -7,4 +7,6 @@ sealed interface FoodlistDestinations {
     object Dashboard: FoodlistDestinations
     @Serializable
     object Add: FoodlistDestinations
+    @Serializable
+    object Scan: FoodlistDestinations
 }
