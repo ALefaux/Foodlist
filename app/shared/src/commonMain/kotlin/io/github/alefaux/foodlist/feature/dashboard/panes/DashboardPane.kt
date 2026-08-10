@@ -20,6 +20,7 @@ fun DashboardPane(
     expiredProducts: ImmutableList<ExpiredProductUi>,
     expiredProductsCount: Int,
     onAddClick: () -> Unit,
+    onScanClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -30,7 +31,8 @@ fun DashboardPane(
     ) {
         SearchTextField()
         DashboardMenu(
-            onAddClick = onAddClick
+            onAddClick = onAddClick,
+            onScanClick = onScanClick
         )
         ExpiredProductsPane(
             discardedProducts = DiscardedProducts.Positive(

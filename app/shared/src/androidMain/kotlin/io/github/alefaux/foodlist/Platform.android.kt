@@ -1,6 +1,8 @@
 package io.github.alefaux.foodlist
 
 import android.os.Build
+import io.github.alefaux.foodlist.core.network.AndroidNetworkConnectivityChecker
+import io.github.alefaux.foodlist.core.network.NetworkConnectivityChecker
 import io.github.alefaux.foodlist.database.getDatabaseBuilder
 import io.github.alefaux.foodlist.database.getRoomDatabase
 import org.koin.core.module.Module
@@ -16,5 +18,9 @@ actual fun platformModule(): Module = module {
     single {
         val builder = getDatabaseBuilder(context = get())
         getRoomDatabase(builder)
+    }
+
+    single<NetworkConnectivityChecker> {
+        AndroidNetworkConnectivityChecker(context = get())
     }
 }

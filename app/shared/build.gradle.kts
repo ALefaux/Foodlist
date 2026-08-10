@@ -44,6 +44,14 @@ kotlin {
             implementation(libs.jakewharton.timber)
             implementation(libs.ktor.client.okhttp)
             implementation(libs.kotlinx.coroutines.android)
+
+            // Camera & barcode scanning
+            implementation(libs.androidx.activity.compose)
+            implementation(libs.androidx.camera.core)
+            implementation(libs.androidx.camera.camera2)
+            implementation(libs.androidx.camera.lifecycle)
+            implementation(libs.androidx.camera.view)
+            implementation(libs.mlkit.barcode.scanning)
         }
         commonMain.dependencies {
             api(projects.core)
@@ -75,6 +83,7 @@ kotlin {
 
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negociation)
+            implementation(libs.ktor.client.logging)
             implementation(libs.ktor.serialization.json)
             implementation(libs.kotlinx.coroutines.core)
         }
