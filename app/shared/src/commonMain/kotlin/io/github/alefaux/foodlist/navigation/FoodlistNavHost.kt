@@ -2,18 +2,20 @@ package io.github.alefaux.foodlist.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import io.github.alefaux.foodlist.feature.add.presentation.AddScreen
 import io.github.alefaux.foodlist.feature.dashboard.presentation.DashboardScreen
 import io.github.alefaux.foodlist.feature.scan.presentation.ScanProductScreen
+import io.github.alefaux.foodlist.feature.storage.presentation.StorageScreen
 
 @Composable
 fun FoodlistNavHost(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navController: NavHostController = rememberNavController()
 ) {
-    val navController = rememberNavController()
     NavHost(
         modifier = modifier,
         navController = navController,
@@ -48,6 +50,9 @@ fun FoodlistNavHost(
                     navController.navigateUp()
                 }
             )
+        }
+        composable<FoodlistDestinations.Storage> {
+            StorageScreen()
         }
     }
 }
