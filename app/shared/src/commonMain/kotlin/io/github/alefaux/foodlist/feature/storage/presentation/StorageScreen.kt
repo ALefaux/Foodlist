@@ -12,6 +12,7 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun StorageScreen(
+    onStorageClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: StorageViewModel = koinViewModel()
 ) {
@@ -29,7 +30,8 @@ fun StorageScreen(
         StoragePane(
             modifier = Modifier.padding(padding),
             storageUnits = state.storageUnits,
-            onAddClick = viewModel::showAddDialog
+            onAddClick = viewModel::showAddDialog,
+            onStorageClick = onStorageClick
         )
     }
 

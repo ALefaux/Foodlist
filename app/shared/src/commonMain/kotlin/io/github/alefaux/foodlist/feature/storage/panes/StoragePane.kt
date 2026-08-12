@@ -11,7 +11,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import io.github.alefaux.foodlist.feature.storage.modelui.StorageUnitUi
-import io.github.alefaux.foodlist.feature.storage.ui.StorageBanner
 import io.github.alefaux.foodlist.feature.storage.ui.StorageHeader
 import io.github.alefaux.foodlist.feature.storage.ui.StorageUnitCard
 import kotlinx.collections.immutable.ImmutableList
@@ -20,6 +19,7 @@ import kotlinx.collections.immutable.ImmutableList
 fun StoragePane(
     storageUnits: ImmutableList<StorageUnitUi>,
     onAddClick: () -> Unit,
+    onStorageClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -41,7 +41,10 @@ fun StoragePane(
             }
         } else {
             items(storageUnits, key = { it.id }) { storageUnit ->
-                StorageUnitCard(storageUnit = storageUnit)
+                StorageUnitCard(
+                    storageUnit = storageUnit,
+                    onClick = { onStorageClick(storageUnit.id) }
+                )
             }
         }
     }
