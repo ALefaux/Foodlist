@@ -8,6 +8,7 @@ import androidx.room.TypeConverters
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import io.github.alefaux.foodlist.database.converter.Converters
 import io.github.alefaux.foodlist.database.dao.ProductDao
+import io.github.alefaux.foodlist.database.dao.StorageDao
 import io.github.alefaux.foodlist.database.entity.ProductEntity
 import io.github.alefaux.foodlist.database.entity.StorageEntity
 import kotlinx.coroutines.Dispatchers
@@ -24,6 +25,7 @@ import kotlinx.coroutines.IO
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun productDao(): ProductDao
+    abstract fun storageDao(): StorageDao
 }
 
 @Suppress("KotlinNoActualForExpect")

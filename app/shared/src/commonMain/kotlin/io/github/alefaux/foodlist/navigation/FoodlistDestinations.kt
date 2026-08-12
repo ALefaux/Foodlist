@@ -9,4 +9,6 @@ sealed interface FoodlistDestinations {
     object Add: FoodlistDestinations
     @Serializable
     object Scan: FoodlistDestinations
+    @Serializable
+    object Storage: FoodlistDestinations
 }
