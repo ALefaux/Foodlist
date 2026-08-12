@@ -4,6 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.Dashboard
 import androidx.compose.material.icons.filled.Inventory2
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.ui.graphics.vector.ImageVector
 
 sealed class BottomMenu(
@@ -21,5 +22,9 @@ sealed class BottomMenu(
     data object Recipes: BottomMenu(
         icon = Icons.AutoMirrored.Default.MenuBook,
         label = "Recipes"
+    )
+    data object Profile: BottomMenu(
+        icon = Icons.Filled.Person,
+        label = "Profile"
     )
 }

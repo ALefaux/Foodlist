@@ -32,7 +32,8 @@ fun App() {
                     listOf(
                         BottomMenu.Dashboard,
                         BottomMenu.Storage,
-                        BottomMenu.Recipes,
+                        // BottomMenu.Recipes, // Available in V2
+                        BottomMenu.Profile,
                     ).forEach { menu ->
                         val destination = menu.toDestination()
                         val selected = destination != null &&
@@ -79,4 +80,5 @@ private fun BottomMenu.toDestination(): FoodlistDestinations? = when (this) {
     BottomMenu.Dashboard -> FoodlistDestinations.Dashboard
     BottomMenu.Storage -> FoodlistDestinations.Storage
     BottomMenu.Recipes -> null
+    BottomMenu.Profile -> null
 }
