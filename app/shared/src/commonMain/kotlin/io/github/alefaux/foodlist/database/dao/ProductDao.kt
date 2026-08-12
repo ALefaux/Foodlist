@@ -10,6 +10,12 @@ interface ProductDao {
     @Query("SELECT * FROM ProductEntity")
     suspend fun getAll(): List<ProductEntity>
 
+    @Query("SELECT * FROM ProductEntity WHERE storageId = :storageId")
+    suspend fun getByStorageId(storageId: Long): List<ProductEntity>
+
     @Insert
     suspend fun insert(product: ProductEntity)
+
+    @Query("UPDATE ProductEntity SET storageId = NULL WHERE storageId = :storageId")
+    suspend fun clearStorageReference(storageId: Long)
 }

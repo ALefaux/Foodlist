@@ -6,9 +6,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import io.github.alefaux.foodlist.feature.add.presentation.AddScreen
 import io.github.alefaux.foodlist.feature.dashboard.presentation.DashboardScreen
 import io.github.alefaux.foodlist.feature.scan.presentation.ScanProductScreen
+import io.github.alefaux.foodlist.feature.storage.presentation.StorageDetailScreen
 import io.github.alefaux.foodlist.feature.storage.presentation.StorageScreen
 
 @Composable
@@ -52,7 +54,27 @@ fun FoodlistNavHost(
             )
         }
         composable<FoodlistDestinations.Storage> {
-            StorageScreen()
+            StorageScreen(
+                onStorageClick = { storageId ->
+                    navController.navigate(FoodlistDestinations.StorageDetail(storageId))
+                }
+            )
+        }
+        composable<FoodlistDestinations.StorageDetail> { backStackEntry ->
+            val destination = backStackEntry.toRoute<FoodlistDestinations.StorageDetail>()
+
+            StorageDetailScreen(
+                storageId = destination.storageId,
+                onBackPress = {
+                    navController.navigateUp()
+                },
+                onAddItemClick = {
+                    navController.navigate(FoodlistDestinations.Add)
+                },
+                onStorageDeleted = {
+                    navController.navigateUp()
+                }
+            )
         }
     }
 }

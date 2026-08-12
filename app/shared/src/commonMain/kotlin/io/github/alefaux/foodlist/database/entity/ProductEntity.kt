@@ -10,5 +10,8 @@ data class ProductEntity(
     val name: String,
     val expirationDate: Instant?,
     val ean: String,
-    val discardedDate: Instant?
+    val discardedDate: Instant?,
+    val storageId: Long? = null,
+    val quantity: String = "",
+    val category: String = "Other"
 )

@@ -27,10 +27,12 @@ import io.github.alefaux.foodlist.feature.storage.modelui.StorageUnitUi
 @Composable
 fun StorageUnitCard(
     storageUnit: StorageUnitUi,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
         modifier = modifier.fillMaxWidth(),
+        onClick = onClick,
         border = BorderStroke(
             width = 1.dp,
             color = MaterialTheme.colorScheme.outlineVariant
