@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -19,11 +20,13 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -32,22 +35,31 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import io.github.alefaux.foodlist.feature.auth.presentation.model.AuthUiState
 import io.github.alefaux.foodlist.feature.auth.ui.AuthAppIcon
 import io.github.alefaux.foodlist.feature.auth.ui.AuthDivider
 import io.github.alefaux.foodlist.feature.auth.ui.AuthTextField
 import io.github.alefaux.foodlist.feature.auth.ui.SocialSignInRow
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun LoginScreen(
-    onSignInClick: (email: String, password: String) -> Unit,
+    onSignInSuccess: () -> Unit,
     onForgotPasswordClick: () -> Unit,
     onGoogleClick: () -> Unit,
     onAppleClick: () -> Unit,
     onSignUpClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: AuthViewModel = koinViewModel()
 ) {
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
+    val state = viewModel.uiState.collectAsStateWithLifecycle().value
+
+    LaunchedEffect(state) {
+        if (state is AuthUiState.Success) onSignInSuccess()
+    }
 
     Column(
         modifier = modifier
@@ -121,19 +133,36 @@ fun LoginScreen(
                     )
                 }
 
+                if (state is AuthUiState.Error) {
+                    Text(
+                        text = state.message,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.error
+                    )
+                }
+
                 Button(
                     modifier = Modifier.fillMaxWidth(),
-                    onClick = { onSignInClick(email, password) },
+                    enabled = state != AuthUiState.Loading,
+                    onClick = { viewModel.signIn(email, password) },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.primary
                     )
                 ) {
-                    Text("Sign In")
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowForward,
-                        contentDescription = null
-                    )
+                    if (state == AuthUiState.Loading) {
+                        CircularProgressIndicator(
+                            modifier = Modifier.size(18.dp),
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            strokeWidth = 2.dp
+                        )
+                    } else {
+                        Text("Sign In")
+                        Spacer(modifier = Modifier.width(8.dp))
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowForward,
+                            contentDescription = null
+                        )
+                    }
                 }
 
                 AuthDivider(text = "Or continue with")
