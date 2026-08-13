@@ -13,6 +13,7 @@ composeMultiplatform = "1.11.1"
 mlkit-barcode-scanning = "17.3.0"
 koin = "4.2.2"
 kotlin = "2.4.10"
+kotlincrypto-hash = "0.7.0"
 kotlinxCollections = "0.5.1"
 kotlinx-coroutines = "1.11.0"
 kotlinxDatetime = "0.8.0"
@@ -61,6 +62,7 @@ kotlinx-collection-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collect
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
+kotlincrypto-hash-sha2 = { module = "org.kotlincrypto.hash:sha2", version.ref = "kotlincrypto-hash" }
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 mlkit-barcode-scanning = { module = "com.google.mlkit:barcode-scanning", version.ref = "mlkit-barcode-scanning" }
 ktor-client-content-negociation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }

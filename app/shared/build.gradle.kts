@@ -81,6 +81,9 @@ kotlin {
             // Datetime
             implementation(libs.kotlinx.datetime)
 
+            // Security
+            implementation(libs.kotlincrypto.hash.sha2)
+
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.content.negociation)
             implementation(libs.ktor.client.logging)

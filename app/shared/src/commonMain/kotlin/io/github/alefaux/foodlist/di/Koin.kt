@@ -1,5 +1,6 @@
 package io.github.alefaux.foodlist.di
 
+import io.github.alefaux.foodlist.feature.auth.di.authModule
 import io.github.alefaux.foodlist.feature.dashboard.di.dashboardModule
 import io.github.alefaux.foodlist.feature.scan.di.scanModule
 import io.github.alefaux.foodlist.feature.storage.di.storageModule
@@ -13,6 +14,7 @@ fun initKoin(configuration: KoinAppDeclaration? = null) {
     startKoin {
         includes(configuration)
         modules(
+            authModule,
             dashboardModule,
             scanModule,
             storageModule,
