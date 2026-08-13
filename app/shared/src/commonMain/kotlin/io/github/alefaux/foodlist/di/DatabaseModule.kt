@@ -6,4 +6,6 @@ import org.koin.dsl.module
 val databaseModule = module {
     factory { get<AppDatabase>().productDao() }
     factory { get<AppDatabase>().storageDao() }
+    factory { get<AppDatabase>().userDao() }
+    factory { get<AppDatabase>().sessionDao() }
 }
