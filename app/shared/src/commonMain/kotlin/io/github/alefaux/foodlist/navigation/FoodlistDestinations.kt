@@ -13,4 +13,10 @@ sealed interface FoodlistDestinations {
     object Storage: FoodlistDestinations
     @Serializable
     data class StorageDetail(val storageId: Long): FoodlistDestinations
+    @Serializable
+    object Login: FoodlistDestinations
+    @Serializable
+    object CreateAccount: FoodlistDestinations
+    @Serializable
+    object Profile: FoodlistDestinations
 }

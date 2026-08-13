@@ -8,7 +8,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import io.github.alefaux.foodlist.feature.add.presentation.AddScreen
+import io.github.alefaux.foodlist.feature.auth.presentation.CreateAccountScreen
+import io.github.alefaux.foodlist.feature.auth.presentation.LoginScreen
 import io.github.alefaux.foodlist.feature.dashboard.presentation.DashboardScreen
+import io.github.alefaux.foodlist.feature.profile.presentation.ProfileScreen
 import io.github.alefaux.foodlist.feature.scan.presentation.ScanProductScreen
 import io.github.alefaux.foodlist.feature.storage.presentation.StorageDetailScreen
 import io.github.alefaux.foodlist.feature.storage.presentation.StorageScreen
@@ -16,13 +19,48 @@ import io.github.alefaux.foodlist.feature.storage.presentation.StorageScreen
 @Composable
 fun FoodlistNavHost(
     modifier: Modifier = Modifier,
-    navController: NavHostController = rememberNavController()
+    navController: NavHostController = rememberNavController(),
+    startDestination: FoodlistDestinations = FoodlistDestinations.Dashboard
 ) {
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = FoodlistDestinations.Dashboard
+        startDestination = startDestination
     ) {
+        composable<FoodlistDestinations.Login> {
+            LoginScreen(
+                onSignInSuccess = {
+                    navController.navigate(FoodlistDestinations.Dashboard) {
+                        popUpTo(FoodlistDestinations.Login) { inclusive = true }
+                    }
+                },
+                onForgotPasswordClick = {},
+                onGoogleClick = {},
+                onAppleClick = {},
+                onSignUpClick = {
+                    navController.navigate(FoodlistDestinations.CreateAccount)
+                }
+            )
+        }
+        composable<FoodlistDestinations.CreateAccount> {
+            CreateAccountScreen(
+                onBackPress = {
+                    navController.navigateUp()
+                },
+                onAccountCreated = {
+                    navController.navigate(FoodlistDestinations.Dashboard) {
+                        popUpTo(FoodlistDestinations.Login) { inclusive = true }
+                    }
+                },
+                onGoogleClick = {},
+                onAppleClick = {},
+                onSignInClick = {
+                    navController.navigateUp()
+                },
+                onTermsClick = {},
+                onPrivacyPolicyClick = {}
+            )
+        }
         composable<FoodlistDestinations.Dashboard> {
             DashboardScreen(
                 onAddClick = {
@@ -75,6 +113,9 @@ fun FoodlistNavHost(
                     navController.navigateUp()
                 }
             )
+        }
+        composable<FoodlistDestinations.Profile> {
+            ProfileScreen()
         }
     }
 }
