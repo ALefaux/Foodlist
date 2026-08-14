@@ -18,4 +18,7 @@ interface ProductDao {
 
     @Query("UPDATE ProductEntity SET storageId = NULL WHERE storageId = :storageId")
     suspend fun clearStorageReference(storageId: Long)
+
+    @Query("DELETE FROM ProductEntity")
+    suspend fun deleteAll()
 }

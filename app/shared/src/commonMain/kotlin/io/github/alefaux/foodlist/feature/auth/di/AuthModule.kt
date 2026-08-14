@@ -11,7 +11,7 @@ import io.github.alefaux.foodlist.feature.auth.domain.SignInUseCase
 import io.github.alefaux.foodlist.feature.auth.domain.SignOutUseCase
 import io.github.alefaux.foodlist.feature.auth.domain.SignUpUseCase
 import io.github.alefaux.foodlist.feature.auth.presentation.AuthViewModel
-import io.github.alefaux.foodlist.feature.auth.presentation.SessionViewModel
+import io.github.alefaux.foodlist.feature.sync.domain.SyncLocalDataUseCase
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
@@ -19,7 +19,9 @@ val authModule = module {
     factory<AuthRepository> {
         AuthRepositoryImpl(
             httpClient = get(),
-            sessionDao = get()
+            sessionDao = get(),
+            productDao = get(),
+            storageDao = get()
         )
     }
 
@@ -42,13 +44,8 @@ val authModule = module {
     viewModel {
         AuthViewModel(
             signInUseCase = get(),
-            signUpUseCase = get()
-        )
-    }
-
-    viewModel {
-        SessionViewModel(
-            observeCurrentUserUseCase = get()
+            signUpUseCase = get(),
+            syncLocalDataUseCase = get<SyncLocalDataUseCase>()
         )
     }
 }

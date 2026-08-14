@@ -6,6 +6,7 @@ import io.github.alefaux.foodlist.core.logging.AppLogging
 import io.github.alefaux.foodlist.feature.auth.domain.SignInUseCase
 import io.github.alefaux.foodlist.feature.auth.domain.SignUpUseCase
 import io.github.alefaux.foodlist.feature.auth.presentation.model.AuthUiState
+import io.github.alefaux.foodlist.feature.sync.domain.SyncLocalDataUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -17,6 +18,7 @@ import kotlinx.coroutines.launch
 class AuthViewModel(
     private val signInUseCase: SignInUseCase,
     private val signUpUseCase: SignUpUseCase,
+    private val syncLocalDataUseCase: SyncLocalDataUseCase,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
 
@@ -30,6 +32,7 @@ class AuthViewModel(
             signInUseCase(email, password)
                 .onSuccess {
                     _uiState.update { AuthUiState.Success }
+                    syncLocalData()
                 }
                 .onFailure { error ->
                     AppLogging.e(error, "Sign in failed")
@@ -45,6 +48,7 @@ class AuthViewModel(
             signUpUseCase(name, email, password, confirmPassword)
                 .onSuccess {
                     _uiState.update { AuthUiState.Success }
+                    syncLocalData()
                 }
                 .onFailure { error ->
                     AppLogging.e(error, "Sign up failed")
@@ -55,5 +59,12 @@ class AuthViewModel(
 
     fun resetState() {
         _uiState.update { AuthUiState.Idle }
+    }
+
+    private fun syncLocalData() {
+        viewModelScope.launch(dispatcher) {
+            syncLocalDataUseCase()
+                .onFailure { error -> AppLogging.e(error, "Couldn't sync local data to the server") }
+        }
     }
 }

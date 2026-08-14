@@ -18,4 +18,7 @@ interface StorageDao {
 
     @Query("DELETE FROM StorageEntity WHERE id = :id")
     suspend fun deleteById(id: Long)
+
+    @Query("DELETE FROM StorageEntity")
+    suspend fun deleteAll()
 }

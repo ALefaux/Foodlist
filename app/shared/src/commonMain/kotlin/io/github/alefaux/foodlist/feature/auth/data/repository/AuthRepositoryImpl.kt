@@ -1,7 +1,9 @@
 package io.github.alefaux.foodlist.feature.auth.data.repository
 
 import io.github.alefaux.foodlist.core.network.NetworkConfig
+import io.github.alefaux.foodlist.database.dao.ProductDao
 import io.github.alefaux.foodlist.database.dao.SessionDao
+import io.github.alefaux.foodlist.database.dao.StorageDao
 import io.github.alefaux.foodlist.database.entity.SessionEntity
 import io.github.alefaux.foodlist.feature.auth.data.remote.AuthApiException
 import io.github.alefaux.foodlist.feature.auth.data.remote.AuthResponseDto
@@ -23,7 +25,9 @@ import kotlinx.coroutines.flow.map
 
 class AuthRepositoryImpl(
     private val httpClient: HttpClient,
-    private val sessionDao: SessionDao
+    private val sessionDao: SessionDao,
+    private val productDao: ProductDao,
+    private val storageDao: StorageDao
 ) : AuthRepository {
 
     override suspend fun signUp(name: String, email: String, password: String): Result<AuthUser> =
@@ -44,6 +48,8 @@ class AuthRepositoryImpl(
 
     override suspend fun signOut() {
         sessionDao.upsert(SessionEntity(token = null, userId = null, userName = null, userEmail = null))
+        productDao.deleteAll()
+        storageDao.deleteAll()
     }
 
     override fun observeCurrentUser(): Flow<AuthUser?> =
