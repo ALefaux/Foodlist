@@ -1,5 +1,14 @@
 package io.github.alefaux.foodlist
 
 import androidx.compose.ui.window.ComposeUIViewController
+import io.github.alefaux.foodlist.di.initKoin
+import org.koin.mp.KoinPlatformTools
+import platform.UIKit.UIViewController
 
-fun MainViewController() = ComposeUIViewController { App() }
+fun MainViewController(): UIViewController {
+    if (KoinPlatformTools.defaultContext().getOrNull() == null) {
+        initKoin()
+    }
+
+    return ComposeUIViewController { App() }
+}

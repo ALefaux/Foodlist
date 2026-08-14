@@ -1,6 +1,6 @@
 import UIKit
 import SwiftUI
-import Shared
+import FoodlistApp
 
 struct ComposeView: UIViewControllerRepresentable {
     func makeUIViewController(context: Self.Context) -> UIViewController {

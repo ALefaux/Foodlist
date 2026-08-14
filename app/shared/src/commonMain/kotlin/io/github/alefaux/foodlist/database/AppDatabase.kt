@@ -12,11 +12,9 @@ import io.github.alefaux.foodlist.database.converter.Converters
 import io.github.alefaux.foodlist.database.dao.ProductDao
 import io.github.alefaux.foodlist.database.dao.SessionDao
 import io.github.alefaux.foodlist.database.dao.StorageDao
-import io.github.alefaux.foodlist.database.dao.UserDao
 import io.github.alefaux.foodlist.database.entity.ProductEntity
 import io.github.alefaux.foodlist.database.entity.SessionEntity
 import io.github.alefaux.foodlist.database.entity.StorageEntity
-import io.github.alefaux.foodlist.database.entity.UserEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 
@@ -24,17 +22,15 @@ import kotlinx.coroutines.IO
     entities = [
         StorageEntity::class,
         ProductEntity::class,
-        UserEntity::class,
         SessionEntity::class
     ],
-    version = 3
+    version = 4
 )
 @ConstructedBy(AppDatabaseConstructor::class)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun productDao(): ProductDao
     abstract fun storageDao(): StorageDao
-    abstract fun userDao(): UserDao
     abstract fun sessionDao(): SessionDao
 }
 
@@ -65,10 +61,19 @@ private val MIGRATION_2_3 = object : Migration(startVersion = 2, endVersion = 3)
     }
 }
 
+private val MIGRATION_3_4 = object : Migration(startVersion = 3, endVersion = 4) {
+    override fun migrate(connection: androidx.sqlite.SQLiteConnection) {
+        connection.execSQL("DROP TABLE IF EXISTS `UserEntity`")
+        connection.execSQL("ALTER TABLE SessionEntity ADD COLUMN token TEXT")
+        connection.execSQL("ALTER TABLE SessionEntity ADD COLUMN userName TEXT")
+        connection.execSQL("ALTER TABLE SessionEntity ADD COLUMN userEmail TEXT")
+    }
+}
+
 fun getRoomDatabase(
     builder: RoomDatabase.Builder<AppDatabase>
 ): AppDatabase = builder
     .setDriver(BundledSQLiteDriver())
     .setQueryCoroutineContext(Dispatchers.IO)
-    .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
     .build()

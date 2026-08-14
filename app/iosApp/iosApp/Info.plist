@@ -6,5 +6,10 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Foodlist uses the camera to scan product barcodes so items can be added to your pantry.</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
 </dict>
 </plist>

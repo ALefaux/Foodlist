@@ -1,69 +1,95 @@
 package io.github.alefaux.foodlist.feature.auth.data.repository
 
-import io.github.alefaux.foodlist.core.security.PasswordHasher
+import io.github.alefaux.foodlist.core.network.NetworkConfig
 import io.github.alefaux.foodlist.database.dao.SessionDao
-import io.github.alefaux.foodlist.database.dao.UserDao
 import io.github.alefaux.foodlist.database.entity.SessionEntity
-import io.github.alefaux.foodlist.database.entity.UserEntity
+import io.github.alefaux.foodlist.feature.auth.data.remote.AuthApiException
+import io.github.alefaux.foodlist.feature.auth.data.remote.AuthResponseDto
+import io.github.alefaux.foodlist.feature.auth.data.remote.ErrorResponseDto
+import io.github.alefaux.foodlist.feature.auth.data.remote.LoginRequestDto
+import io.github.alefaux.foodlist.feature.auth.data.remote.RegisterRequestDto
 import io.github.alefaux.foodlist.feature.auth.domain.AuthUser
+import io.ktor.client.HttpClient
+import io.ktor.client.call.body
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
+import io.ktor.client.statement.HttpResponse
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
+import io.ktor.http.isSuccess
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlin.time.Clock
 
 class AuthRepositoryImpl(
-    private val userDao: UserDao,
+    private val httpClient: HttpClient,
     private val sessionDao: SessionDao
 ) : AuthRepository {
 
-    override suspend fun signUp(name: String, email: String, password: String): Result<AuthUser> {
-        val normalizedEmail = email.trim().lowercase()
-
-        if (userDao.getByEmail(normalizedEmail) != null) {
-            return Result.failure(IllegalStateException("An account with this email already exists."))
+    override suspend fun signUp(name: String, email: String, password: String): Result<AuthUser> =
+        authenticate {
+            httpClient.post("${NetworkConfig.baseUrl}/auth/register") {
+                contentType(ContentType.Application.Json)
+                setBody(RegisterRequestDto(name = name, email = email, password = password))
+            }
         }
 
-        val salt = PasswordHasher.generateSalt()
-        val hash = PasswordHasher.hash(password, salt)
-        val trimmedName = name.trim()
-
-        val userId = userDao.insert(
-            UserEntity(
-                name = trimmedName,
-                email = normalizedEmail,
-                passwordHash = hash,
-                passwordSalt = salt,
-                createdAt = Clock.System.now()
-            )
-        )
-
-        sessionDao.upsert(SessionEntity(userId = userId))
-
-        return Result.success(AuthUser(id = userId, name = trimmedName, email = normalizedEmail))
-    }
-
-    override suspend fun signIn(email: String, password: String): Result<AuthUser> {
-        val normalizedEmail = email.trim().lowercase()
-        val user = userDao.getByEmail(normalizedEmail)
-            ?: return Result.failure(IllegalStateException("No account found for this email."))
-
-        if (!PasswordHasher.verify(password, user.passwordSalt, user.passwordHash)) {
-            return Result.failure(IllegalStateException("Incorrect password."))
+    override suspend fun signIn(email: String, password: String): Result<AuthUser> =
+        authenticate {
+            httpClient.post("${NetworkConfig.baseUrl}/auth/login") {
+                contentType(ContentType.Application.Json)
+                setBody(LoginRequestDto(email = email, password = password))
+            }
         }
-
-        sessionDao.upsert(SessionEntity(userId = user.id))
-
-        return Result.success(AuthUser(id = user.id, name = user.name, email = user.email))
-    }
 
     override suspend fun signOut() {
-        sessionDao.upsert(SessionEntity(userId = null))
+        sessionDao.upsert(SessionEntity(token = null, userId = null, userName = null, userEmail = null))
     }
 
     override fun observeCurrentUser(): Flow<AuthUser?> =
         sessionDao.observe().map { session ->
-            val userId = session?.userId ?: return@map null
-            userDao.getById(userId)?.let {
-                AuthUser(id = it.id, name = it.name, email = it.email)
+            if (session?.token != null && session.userId != null) {
+                AuthUser(
+                    id = session.userId,
+                    name = session.userName.orEmpty(),
+                    email = session.userEmail.orEmpty()
+                )
+            } else {
+                null
             }
         }
+
+    private suspend fun authenticate(request: suspend () -> HttpResponse): Result<AuthUser> {
+        val response = try {
+            request()
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            return Result.failure(
+                AuthApiException("Couldn't connect to the server. Check your network and try again.")
+            )
+        }
+
+        if (!response.status.isSuccess()) {
+            val error = runCatching { response.body<ErrorResponseDto>() }.getOrNull()
+            return Result.failure(AuthApiException(error?.message ?: "Something went wrong."))
+        }
+
+        return try {
+            val auth = response.body<AuthResponseDto>()
+            sessionDao.upsert(
+                SessionEntity(
+                    token = auth.token,
+                    userId = auth.user.id,
+                    userName = auth.user.name,
+                    userEmail = auth.user.email
+                )
+            )
+            Result.success(AuthUser(id = auth.user.id, name = auth.user.name, email = auth.user.email))
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Result.failure(AuthApiException("Received an unexpected response from the server."))
+        }
+    }
 }

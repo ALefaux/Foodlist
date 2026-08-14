@@ -18,7 +18,7 @@ import org.koin.dsl.module
 val authModule = module {
     factory<AuthRepository> {
         AuthRepositoryImpl(
-            userDao = get(),
+            httpClient = get(),
             sessionDao = get()
         )
     }
