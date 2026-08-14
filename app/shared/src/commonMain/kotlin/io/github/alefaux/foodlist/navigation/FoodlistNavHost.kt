@@ -29,10 +29,11 @@ fun FoodlistNavHost(
     ) {
         composable<FoodlistDestinations.Login> {
             LoginScreen(
+                onBackPress = {
+                    navController.navigateUp()
+                },
                 onSignInSuccess = {
-                    navController.navigate(FoodlistDestinations.Dashboard) {
-                        popUpTo(FoodlistDestinations.Login) { inclusive = true }
-                    }
+                    navController.popBackStack(FoodlistDestinations.Profile, inclusive = false)
                 },
                 onForgotPasswordClick = {},
                 onGoogleClick = {},
@@ -48,9 +49,7 @@ fun FoodlistNavHost(
                     navController.navigateUp()
                 },
                 onAccountCreated = {
-                    navController.navigate(FoodlistDestinations.Dashboard) {
-                        popUpTo(FoodlistDestinations.Login) { inclusive = true }
-                    }
+                    navController.popBackStack(FoodlistDestinations.Profile, inclusive = false)
                 },
                 onGoogleClick = {},
                 onAppleClick = {},
@@ -115,7 +114,14 @@ fun FoodlistNavHost(
             )
         }
         composable<FoodlistDestinations.Profile> {
-            ProfileScreen()
+            ProfileScreen(
+                onSignInClick = {
+                    navController.navigate(FoodlistDestinations.Login)
+                },
+                onSignUpClick = {
+                    navController.navigate(FoodlistDestinations.CreateAccount)
+                }
+            )
         }
     }
 }

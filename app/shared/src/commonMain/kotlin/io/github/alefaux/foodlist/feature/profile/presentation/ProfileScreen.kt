@@ -15,12 +15,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import io.github.alefaux.foodlist.feature.profile.panes.GuestProfilePane
 import io.github.alefaux.foodlist.feature.profile.panes.ProfilePane
 import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(
+    onSignInClick: () -> Unit,
+    onSignUpClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ProfileViewModel = koinViewModel()
 ) {
@@ -54,12 +57,21 @@ fun ProfileScreen(
             )
         }
     ) { padding ->
-        ProfilePane(
-            modifier = Modifier.padding(padding),
-            userName = state.user?.name.orEmpty(),
-            onInviteMemberClick = {},
-            onAccountClick = {},
-            onSignOutClick = viewModel::signOut
-        )
+        val user = state.user
+        if (user != null) {
+            ProfilePane(
+                modifier = Modifier.padding(padding),
+                userName = user.name,
+                onInviteMemberClick = {},
+                onAccountClick = {},
+                onSignOutClick = viewModel::signOut
+            )
+        } else {
+            GuestProfilePane(
+                modifier = Modifier.padding(padding),
+                onSignInClick = onSignInClick,
+                onSignUpClick = onSignUpClick
+            )
+        }
     }
 }
