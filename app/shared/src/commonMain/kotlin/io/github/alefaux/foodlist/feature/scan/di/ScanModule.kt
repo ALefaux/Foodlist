@@ -14,7 +14,8 @@ val scanModule = module {
     factory<ScanRepository> {
         ScanRepositoryImpl(
             httpClient = get(),
-            productDao = get()
+            productDao = get(),
+            storageDao = get()
         )
     }
 

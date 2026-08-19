@@ -1,7 +1,9 @@
 package io.github.alefaux.foodlist.feature.scan.data.repository
 
 import io.github.alefaux.foodlist.database.dao.ProductDao
+import io.github.alefaux.foodlist.database.dao.StorageDao
 import io.github.alefaux.foodlist.database.entity.ProductEntity
+import io.github.alefaux.foodlist.database.entity.StorageEntity
 import io.github.alefaux.foodlist.feature.scan.data.remote.OpenFoodFactsResponseDto
 import io.github.alefaux.foodlist.feature.scan.domain.ScannedProduct
 import io.ktor.client.HttpClient
@@ -11,7 +13,8 @@ import io.ktor.client.request.parameter
 
 class ScanRepositoryImpl(
     private val httpClient: HttpClient,
-    private val productDao: ProductDao
+    private val productDao: ProductDao,
+    private val storageDao: StorageDao
 ) : ScanRepository {
 
     override suspend fun lookupProduct(ean: String): ScannedProduct? {
@@ -39,12 +42,18 @@ class ScanRepositoryImpl(
                 name = product.name,
                 expirationDate = null,
                 ean = product.ean,
-                discardedDate = null
+                discardedDate = null,
+                storageId = resolveStorageId()
             )
         )
     }
 
+    private suspend fun resolveStorageId(): Long =
+        storageDao.getLatest()?.id
+            ?: storageDao.insert(StorageEntity(name = DEFAULT_STORAGE_NAME))
+
     companion object {
         private const val OPEN_FOOD_FACTS_BASE_URL_V2 = "https://world.openfoodfacts.org/api"
+        private const val DEFAULT_STORAGE_NAME = "Storage"
     }
 }
