@@ -29,6 +29,7 @@ fun ExpiredProductsPane(
     discardedProducts: DiscardedProducts,
     expiredProducts: ImmutableList<ExpiredProductUi>,
     expiredProductsCount: Int,
+    onProductClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -57,7 +58,8 @@ fun ExpiredProductsPane(
                         expiredTime = product.expiredSince,
                         productIcon = Icons.Default.WaterDrop,
                         productName = product.name,
-                        stockPlace = product.stockageName
+                        stockPlace = product.stockageName,
+                        onClick = { onProductClick(product.id) }
                     )
                 }
             }
@@ -97,7 +99,8 @@ fun ExpiredProductsPanePreview() {
                 trendPercent = 10
             ),
             expiredProducts = persistentListOf(),
-            expiredProductsCount = 3
+            expiredProductsCount = 3,
+            onProductClick = {}
         )
     }
 }

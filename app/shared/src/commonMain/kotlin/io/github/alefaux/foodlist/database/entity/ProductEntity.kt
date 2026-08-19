@@ -13,5 +13,7 @@ data class ProductEntity(
     val discardedDate: Instant?,
     val storageId: Long? = null,
     val quantity: String = "",
-    val category: String = "Other"
+    val category: String = "Other",
+    val stock: Int = 1,
+    val createdAt: Instant? = null
 )

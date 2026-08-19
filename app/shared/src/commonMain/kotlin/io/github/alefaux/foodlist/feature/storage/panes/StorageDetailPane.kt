@@ -20,6 +20,7 @@ import io.github.alefaux.foodlist.feature.storage.ui.StorageProductRow
 fun StorageDetailPane(
     state: StorageDetailUiState,
     onCategorySelected: (String) -> Unit,
+    onProductClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -61,7 +62,7 @@ fun StorageDetailPane(
             }
         } else {
             items(state.products, key = { it.id }) { product ->
-                StorageProductRow(product = product)
+                StorageProductRow(product = product, onClick = onProductClick)
             }
         }
     }

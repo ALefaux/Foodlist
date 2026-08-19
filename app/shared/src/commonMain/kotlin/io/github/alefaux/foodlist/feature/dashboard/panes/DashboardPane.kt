@@ -21,6 +21,7 @@ fun DashboardPane(
     expiredProductsCount: Int,
     onAddClick: () -> Unit,
     onScanClick: () -> Unit,
+    onExpiredProductClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -40,7 +41,8 @@ fun DashboardPane(
                 trendPercent = 10
             ),
             expiredProducts = expiredProducts,
-            expiredProductsCount = expiredProductsCount
+            expiredProductsCount = expiredProductsCount,
+            onProductClick = onExpiredProductClick
         )
     }
 }

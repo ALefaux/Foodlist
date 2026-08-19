@@ -2,6 +2,7 @@ package io.github.alefaux.foodlist.di
 
 import io.github.alefaux.foodlist.feature.auth.di.authModule
 import io.github.alefaux.foodlist.feature.dashboard.di.dashboardModule
+import io.github.alefaux.foodlist.feature.productdetail.di.productDetailModule
 import io.github.alefaux.foodlist.feature.profile.di.profileModule
 import io.github.alefaux.foodlist.feature.scan.di.scanModule
 import io.github.alefaux.foodlist.feature.storage.di.storageModule
@@ -18,6 +19,7 @@ fun initKoin(configuration: KoinAppDeclaration? = null) {
         modules(
             authModule,
             dashboardModule,
+            productDetailModule,
             profileModule,
             scanModule,
             storageModule,

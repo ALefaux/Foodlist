@@ -17,3 +17,10 @@ fun LocalDate?.toFreshness(
         else -> ProductFreshness.FRESH
     }
 }
+
+private val MONTH_ABBREVIATIONS = listOf(
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+)
+
+fun LocalDate.toDisplayString(): String =
+    "${MONTH_ABBREVIATIONS[this.month.ordinal]} ${this.day}, ${this.year}"

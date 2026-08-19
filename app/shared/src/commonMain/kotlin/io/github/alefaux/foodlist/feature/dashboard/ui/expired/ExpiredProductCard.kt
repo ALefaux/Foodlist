@@ -1,6 +1,7 @@
 package io.github.alefaux.foodlist.feature.dashboard.ui.expired
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
@@ -23,10 +24,11 @@ fun ExpiredProductCard(
     productIcon: ImageVector,
     productName: String,
     stockPlace: String,
+    onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = modifier,
+        modifier = modifier.clickable(onClick = onClick),
         border = BorderStroke(
             width = 1.dp,
             color = MaterialTheme.colorScheme.outlineVariant
@@ -65,7 +67,8 @@ private fun ExpiredProductCardPreview() {
             expiredTime = "2 days",
             productIcon = Icons.Default.WaterDrop,
             productName = "Milk",
-            stockPlace = "Refrigerator"
+            stockPlace = "Refrigerator",
+            onClick = {}
         )
     }
 }

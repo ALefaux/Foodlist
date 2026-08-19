@@ -10,6 +10,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
+import kotlin.time.Clock
 
 class ScanRepositoryImpl(
     private val httpClient: HttpClient,
@@ -43,7 +44,9 @@ class ScanRepositoryImpl(
                 expirationDate = null,
                 ean = product.ean,
                 discardedDate = null,
-                storageId = resolveStorageId()
+                storageId = resolveStorageId(),
+                quantity = product.quantity,
+                createdAt = Clock.System.now()
             )
         )
     }

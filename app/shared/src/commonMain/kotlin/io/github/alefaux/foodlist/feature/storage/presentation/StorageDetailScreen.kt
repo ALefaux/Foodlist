@@ -36,6 +36,7 @@ fun StorageDetailScreen(
     onBackPress: () -> Unit,
     onAddItemClick: () -> Unit,
     onStorageDeleted: () -> Unit,
+    onProductClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: StorageDetailViewModel = koinViewModel(parameters = { parametersOf(storageId) })
 ) {
@@ -113,7 +114,8 @@ fun StorageDetailScreen(
         StorageDetailPane(
             modifier = Modifier.padding(padding),
             state = state,
-            onCategorySelected = viewModel::selectCategory
+            onCategorySelected = viewModel::selectCategory,
+            onProductClick = onProductClick
         )
     }
 

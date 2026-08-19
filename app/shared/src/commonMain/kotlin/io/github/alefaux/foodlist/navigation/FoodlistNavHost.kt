@@ -11,6 +11,7 @@ import io.github.alefaux.foodlist.feature.add.presentation.AddScreen
 import io.github.alefaux.foodlist.feature.auth.presentation.CreateAccountScreen
 import io.github.alefaux.foodlist.feature.auth.presentation.LoginScreen
 import io.github.alefaux.foodlist.feature.dashboard.presentation.DashboardScreen
+import io.github.alefaux.foodlist.feature.productdetail.presentation.ProductDetailScreen
 import io.github.alefaux.foodlist.feature.profile.presentation.ProfileScreen
 import io.github.alefaux.foodlist.feature.scan.presentation.ScanProductScreen
 import io.github.alefaux.foodlist.feature.storage.presentation.StorageDetailScreen
@@ -67,6 +68,9 @@ fun FoodlistNavHost(
                 },
                 onScanClick = {
                     navController.navigate(FoodlistDestinations.Scan)
+                },
+                onExpiredProductClick = { productId ->
+                    navController.navigate(FoodlistDestinations.ProductDetail(productId))
                 }
             )
         }
@@ -109,6 +113,22 @@ fun FoodlistNavHost(
                     navController.navigate(FoodlistDestinations.Add)
                 },
                 onStorageDeleted = {
+                    navController.navigateUp()
+                },
+                onProductClick = { productId ->
+                    navController.navigate(FoodlistDestinations.ProductDetail(productId))
+                }
+            )
+        }
+        composable<FoodlistDestinations.ProductDetail> { backStackEntry ->
+            val destination = backStackEntry.toRoute<FoodlistDestinations.ProductDetail>()
+
+            ProductDetailScreen(
+                productId = destination.productId,
+                onBackPress = {
+                    navController.navigateUp()
+                },
+                onProductDeleted = {
                     navController.navigateUp()
                 }
             )
