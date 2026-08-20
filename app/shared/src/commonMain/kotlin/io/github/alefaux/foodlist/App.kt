@@ -29,10 +29,13 @@ fun App() {
         val isOnAuthRoute = currentDestination?.hierarchy?.any {
             it.hasRoute(FoodlistDestinations.Login::class) || it.hasRoute(FoodlistDestinations.CreateAccount::class)
         } == true
+        val isOnSplashRoute = currentDestination?.hierarchy?.any {
+            it.hasRoute(FoodlistDestinations.Splash::class)
+        } == true
 
         Scaffold(
             bottomBar = {
-                if (!isOnAuthRoute) {
+                if (!isOnAuthRoute && !isOnSplashRoute) {
                     NavigationBar {
                         listOf(
                             BottomMenu.Dashboard,

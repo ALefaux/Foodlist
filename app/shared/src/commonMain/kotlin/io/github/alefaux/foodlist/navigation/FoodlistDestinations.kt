@@ -4,6 +4,8 @@ import kotlinx.serialization.Serializable
 
 sealed interface FoodlistDestinations {
     @Serializable
+    object Splash: FoodlistDestinations
+    @Serializable
     object Dashboard: FoodlistDestinations
     @Serializable
     object Add: FoodlistDestinations

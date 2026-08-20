@@ -3,6 +3,7 @@ package io.github.alefaux.foodlist.di
 import io.github.alefaux.foodlist.core.logging.AppLogging
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.DefaultRequest
+import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.UserAgent
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.LogLevel
@@ -37,6 +38,12 @@ val networkModule = module {
             }
             install(UserAgent) {
                 agent = "Foodlist/1.0 (axel.lefaux@outlook.fr)"
+            }
+            install(HttpTimeout) {
+                // Render's free tier can take up to ~50s to wake a sleeping instance.
+                requestTimeoutMillis = 45_000
+                connectTimeoutMillis = 45_000
+                socketTimeoutMillis = 45_000
             }
         }
     }
