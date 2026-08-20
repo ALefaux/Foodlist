@@ -29,6 +29,7 @@ dependencies {
     implementation(libs.exposed.dao)
     implementation(libs.exposed.jdbc)
     implementation(libs.h2database)
+    implementation(libs.postgresql)
 
     testImplementation(libs.ktor.serverTestHost)
     testImplementation(libs.kotlinx.coroutines.core)
