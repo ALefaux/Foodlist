@@ -24,6 +24,7 @@ dependencies {
 
     implementation(libs.auth0.java.jwt)
     implementation(libs.jbcrypt)
+    implementation(libs.google.api.client)
 
     implementation(libs.exposed.core)
     implementation(libs.exposed.dao)

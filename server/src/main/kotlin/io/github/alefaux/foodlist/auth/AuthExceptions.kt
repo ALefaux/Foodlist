@@ -5,3 +5,5 @@ class EmailAlreadyExistsException(email: String) : Exception("An account with em
 class InvalidCredentialsException : Exception("Invalid email or password.")
 
 class ValidationException(message: String) : Exception(message)
+
+class InvalidGoogleTokenException : Exception("Invalid Google sign-in token.")

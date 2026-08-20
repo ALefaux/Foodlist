@@ -1,6 +1,7 @@
 package io.github.alefaux.foodlist.auth
 
 import io.github.alefaux.foodlist.auth.dto.ErrorResponse
+import io.github.alefaux.foodlist.auth.dto.GoogleAuthRequest
 import io.github.alefaux.foodlist.auth.dto.LoginRequest
 import io.github.alefaux.foodlist.auth.dto.RegisterRequest
 import io.ktor.http.HttpStatusCode
@@ -26,6 +27,12 @@ fun Route.authRoutes(authService: AuthService) {
         post("/login") {
             val request = call.receive<LoginRequest>()
             val response = authService.login(request.email, request.password)
+            call.respond(HttpStatusCode.OK, response)
+        }
+
+        post("/google") {
+            val request = call.receive<GoogleAuthRequest>()
+            val response = authService.loginWithGoogle(request.idToken)
             call.respond(HttpStatusCode.OK, response)
         }
 

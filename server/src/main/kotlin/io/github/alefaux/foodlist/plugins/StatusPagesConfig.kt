@@ -2,6 +2,7 @@ package io.github.alefaux.foodlist.plugins
 
 import io.github.alefaux.foodlist.auth.EmailAlreadyExistsException
 import io.github.alefaux.foodlist.auth.InvalidCredentialsException
+import io.github.alefaux.foodlist.auth.InvalidGoogleTokenException
 import io.github.alefaux.foodlist.auth.ValidationException
 import io.github.alefaux.foodlist.auth.dto.ErrorResponse
 import io.ktor.http.HttpStatusCode
@@ -20,6 +21,9 @@ fun Application.configureStatusPages() {
         }
         exception<InvalidCredentialsException> { call, cause ->
             call.respond(HttpStatusCode.Unauthorized, ErrorResponse(cause.message ?: "Invalid credentials."))
+        }
+        exception<InvalidGoogleTokenException> { call, cause ->
+            call.respond(HttpStatusCode.Unauthorized, ErrorResponse(cause.message ?: "Invalid Google sign-in token."))
         }
         exception<Throwable> { call, _ ->
             call.respond(HttpStatusCode.InternalServerError, ErrorResponse("Something went wrong."))

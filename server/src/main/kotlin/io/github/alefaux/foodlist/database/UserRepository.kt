@@ -21,7 +21,7 @@ class UserRepository {
             .singleOrNull()
     }
 
-    fun insert(name: String, email: String, passwordHash: String, createdAt: Long): UserRecord = transaction {
+    fun insert(name: String, email: String, passwordHash: String?, createdAt: Long): UserRecord = transaction {
         val id = Users.insert {
             it[Users.name] = name
             it[Users.email] = email

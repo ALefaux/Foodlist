@@ -6,7 +6,8 @@ import io.github.alefaux.foodlist.database.UserRecord
 import io.github.alefaux.foodlist.database.UserRepository
 
 class AuthService(
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val googleAuthVerifier: GoogleAuthVerifier = GoogleAuthVerifier()
 ) {
     fun register(name: String, email: String, password: String): AuthResponse {
         val normalizedEmail = email.trim().lowercase()
@@ -42,9 +43,26 @@ class AuthService(
         val normalizedEmail = email.trim().lowercase()
         val user = userRepository.findByEmail(normalizedEmail) ?: throw InvalidCredentialsException()
 
-        if (!PasswordHasher.verify(password, user.passwordHash)) {
+        if (user.passwordHash == null || !PasswordHasher.verify(password, user.passwordHash)) {
             throw InvalidCredentialsException()
         }
+
+        return AuthResponse(
+            token = JwtConfig.generateToken(user.id, user.email),
+            user = user.toResponse()
+        )
+    }
+
+    fun loginWithGoogle(idToken: String): AuthResponse {
+        val payload = googleAuthVerifier.verify(idToken)
+        val email = payload.email?.trim()?.lowercase() ?: throw InvalidGoogleTokenException()
+
+        val user = userRepository.findByEmail(email) ?: userRepository.insert(
+            name = (payload["name"] as? String)?.trim()?.takeIf { it.isNotBlank() } ?: email.substringBefore("@"),
+            email = email,
+            passwordHash = null,
+            createdAt = System.currentTimeMillis()
+        )
 
         return AuthResponse(
             token = JwtConfig.generateToken(user.id, user.email),
