@@ -38,15 +38,13 @@ fun AuthTextField(
     var isPasswordVisible by remember { mutableStateOf(false) }
 
     Column(modifier = modifier) {
-        if (label.isNotBlank()) {
-            Text(
-                text = label,
-                style = MaterialTheme.typography.labelMedium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        }
         OutlinedTextField(
             modifier = Modifier.fillMaxWidth(),
+            label = {
+                Text(
+                    text = label
+                )
+            },
             value = value,
             onValueChange = onValueChange,
             placeholder = if (placeholder.isNotBlank()) {

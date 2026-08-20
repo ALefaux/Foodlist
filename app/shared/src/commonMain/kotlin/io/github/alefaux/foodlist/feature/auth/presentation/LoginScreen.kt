@@ -127,15 +127,16 @@ fun LoginScreen(
                 )
 
                 Column {
+                    AuthTextField(
+                        label = "Password",
+                        value = password,
+                        onValueChange = { password = it },
+                        isPassword = true
+                    )
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                        horizontalArrangement = Arrangement.End
                     ) {
-                        Text(
-                            text = "Password",
-                            style = MaterialTheme.typography.labelMedium,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
                         TextButton(
                             onClick = onForgotPasswordClick,
                             contentPadding = PaddingValues(0.dp)
@@ -147,12 +148,6 @@ fun LoginScreen(
                             )
                         }
                     }
-                    AuthTextField(
-                        label = "",
-                        value = password,
-                        onValueChange = { password = it },
-                        isPassword = true
-                    )
                 }
 
                 if (state is AuthUiState.Error) {
@@ -198,7 +193,9 @@ fun LoginScreen(
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        Row {
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Text(
                 text = "Don't have an account? ",
                 style = MaterialTheme.typography.bodyMedium,

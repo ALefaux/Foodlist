@@ -42,7 +42,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import io.github.alefaux.foodlist.feature.auth.presentation.model.AuthUiState
-import io.github.alefaux.foodlist.feature.auth.ui.AuthBanner
 import io.github.alefaux.foodlist.feature.auth.ui.AuthDivider
 import io.github.alefaux.foodlist.feature.auth.ui.AuthTermsText
 import io.github.alefaux.foodlist.feature.auth.ui.AuthTextField
@@ -113,8 +112,6 @@ fun CreateAccountScreen(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(top = 4.dp, bottom = 20.dp)
             )
-
-            AuthBanner(modifier = Modifier.padding(bottom = 20.dp))
 
             Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 AuthTextField(
@@ -203,7 +200,10 @@ fun CreateAccountScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            Row(modifier = Modifier.align(Alignment.CenterHorizontally)) {
+            Row(
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Text(
                     text = "Already have an account? ",
                     style = MaterialTheme.typography.bodyMedium,
