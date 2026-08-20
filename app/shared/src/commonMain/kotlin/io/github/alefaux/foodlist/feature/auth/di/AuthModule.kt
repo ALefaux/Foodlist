@@ -4,10 +4,12 @@ import io.github.alefaux.foodlist.feature.auth.data.repository.AuthRepository
 import io.github.alefaux.foodlist.feature.auth.data.repository.AuthRepositoryImpl
 import io.github.alefaux.foodlist.feature.auth.data.usecase.ObserveCurrentUserUseCaseImpl
 import io.github.alefaux.foodlist.feature.auth.data.usecase.SignInUseCaseImpl
+import io.github.alefaux.foodlist.feature.auth.data.usecase.SignInWithGoogleUseCaseImpl
 import io.github.alefaux.foodlist.feature.auth.data.usecase.SignOutUseCaseImpl
 import io.github.alefaux.foodlist.feature.auth.data.usecase.SignUpUseCaseImpl
 import io.github.alefaux.foodlist.feature.auth.domain.ObserveCurrentUserUseCase
 import io.github.alefaux.foodlist.feature.auth.domain.SignInUseCase
+import io.github.alefaux.foodlist.feature.auth.domain.SignInWithGoogleUseCase
 import io.github.alefaux.foodlist.feature.auth.domain.SignOutUseCase
 import io.github.alefaux.foodlist.feature.auth.domain.SignUpUseCase
 import io.github.alefaux.foodlist.feature.auth.presentation.AuthViewModel
@@ -37,6 +39,10 @@ val authModule = module {
         SignOutUseCaseImpl(repository = get())
     }
 
+    factory<SignInWithGoogleUseCase> {
+        SignInWithGoogleUseCaseImpl(repository = get())
+    }
+
     factory<ObserveCurrentUserUseCase> {
         ObserveCurrentUserUseCaseImpl(repository = get())
     }
@@ -45,6 +51,8 @@ val authModule = module {
         AuthViewModel(
             signInUseCase = get(),
             signUpUseCase = get(),
+            signInWithGoogleUseCase = get(),
+            googleAuthProvider = get(),
             syncLocalDataUseCase = get<SyncLocalDataUseCase>()
         )
     }

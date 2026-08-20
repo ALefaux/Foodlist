@@ -47,7 +47,6 @@ fun FoodlistNavHost(
                     navController.popBackStack(FoodlistDestinations.Profile, inclusive = false)
                 },
                 onForgotPasswordClick = {},
-                onGoogleClick = {},
                 onAppleClick = {},
                 onSignUpClick = {
                     navController.navigate(FoodlistDestinations.CreateAccount)
@@ -62,7 +61,6 @@ fun FoodlistNavHost(
                 onAccountCreated = {
                     navController.popBackStack(FoodlistDestinations.Profile, inclusive = false)
                 },
-                onGoogleClick = {},
                 onAppleClick = {},
                 onSignInClick = {
                     navController.navigateUp()

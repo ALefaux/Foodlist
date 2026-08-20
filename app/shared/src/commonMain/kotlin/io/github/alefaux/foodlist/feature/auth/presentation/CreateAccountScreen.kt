@@ -41,6 +41,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import io.github.alefaux.foodlist.core.auth.rememberGoogleSignInContext
 import io.github.alefaux.foodlist.feature.auth.presentation.model.AuthUiState
 import io.github.alefaux.foodlist.feature.auth.ui.AuthDivider
 import io.github.alefaux.foodlist.feature.auth.ui.AuthTermsText
@@ -53,7 +54,6 @@ import org.koin.compose.viewmodel.koinViewModel
 fun CreateAccountScreen(
     onBackPress: () -> Unit,
     onAccountCreated: () -> Unit,
-    onGoogleClick: () -> Unit,
     onAppleClick: () -> Unit,
     onSignInClick: () -> Unit,
     onTermsClick: () -> Unit,
@@ -66,6 +66,7 @@ fun CreateAccountScreen(
     var password by rememberSaveable { mutableStateOf("") }
     var confirmPassword by rememberSaveable { mutableStateOf("") }
     val state = viewModel.uiState.collectAsStateWithLifecycle().value
+    val googleSignInContext = rememberGoogleSignInContext()
 
     LaunchedEffect(state) {
         if (state is AuthUiState.Success) onAccountCreated()
@@ -184,7 +185,7 @@ fun CreateAccountScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             SocialSignInRow(
-                onGoogleClick = onGoogleClick,
+                onGoogleClick = { viewModel.signInWithGoogle(googleSignInContext) },
                 onAppleClick = onAppleClick
             )
 

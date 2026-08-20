@@ -1,5 +1,7 @@
 package io.github.alefaux.foodlist
 
+import io.github.alefaux.foodlist.core.auth.GoogleAuthProvider
+import io.github.alefaux.foodlist.core.auth.IosGoogleAuthProvider
 import io.github.alefaux.foodlist.core.network.IosNetworkConnectivityChecker
 import io.github.alefaux.foodlist.core.network.NetworkConnectivityChecker
 import io.github.alefaux.foodlist.database.AppDatabase
@@ -23,5 +25,9 @@ actual fun platformModule(): Module = module {
 
     single<NetworkConnectivityChecker> {
         IosNetworkConnectivityChecker()
+    }
+
+    single<GoogleAuthProvider> {
+        IosGoogleAuthProvider()
     }
 }

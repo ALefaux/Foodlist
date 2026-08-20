@@ -1,6 +1,8 @@
 package io.github.alefaux.foodlist
 
 import android.os.Build
+import io.github.alefaux.foodlist.core.auth.AndroidGoogleAuthProvider
+import io.github.alefaux.foodlist.core.auth.GoogleAuthProvider
 import io.github.alefaux.foodlist.core.network.AndroidNetworkConnectivityChecker
 import io.github.alefaux.foodlist.core.network.NetworkConnectivityChecker
 import io.github.alefaux.foodlist.database.getDatabaseBuilder
@@ -22,5 +24,9 @@ actual fun platformModule(): Module = module {
 
     single<NetworkConnectivityChecker> {
         AndroidNetworkConnectivityChecker(context = get())
+    }
+
+    single<GoogleAuthProvider> {
+        AndroidGoogleAuthProvider()
     }
 }

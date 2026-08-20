@@ -52,6 +52,11 @@ kotlin {
             implementation(libs.androidx.camera.lifecycle)
             implementation(libs.androidx.camera.view)
             implementation(libs.mlkit.barcode.scanning)
+
+            // Google sign-in
+            implementation(libs.androidx.credentials)
+            implementation(libs.androidx.credentials.playServicesAuth)
+            implementation(libs.google.id)
         }
         commonMain.dependencies {
             api(projects.core)

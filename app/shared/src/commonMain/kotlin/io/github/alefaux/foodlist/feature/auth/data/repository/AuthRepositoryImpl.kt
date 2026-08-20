@@ -8,6 +8,7 @@ import io.github.alefaux.foodlist.database.entity.SessionEntity
 import io.github.alefaux.foodlist.feature.auth.data.remote.AuthApiException
 import io.github.alefaux.foodlist.feature.auth.data.remote.AuthResponseDto
 import io.github.alefaux.foodlist.feature.auth.data.remote.ErrorResponseDto
+import io.github.alefaux.foodlist.feature.auth.data.remote.GoogleAuthRequestDto
 import io.github.alefaux.foodlist.feature.auth.data.remote.LoginRequestDto
 import io.github.alefaux.foodlist.feature.auth.data.remote.RegisterRequestDto
 import io.github.alefaux.foodlist.feature.auth.domain.AuthUser
@@ -43,6 +44,14 @@ class AuthRepositoryImpl(
             httpClient.post("${NetworkConfig.baseUrl}/auth/login") {
                 contentType(ContentType.Application.Json)
                 setBody(LoginRequestDto(email = email, password = password))
+            }
+        }
+
+    override suspend fun signInWithGoogle(idToken: String): Result<AuthUser> =
+        authenticate {
+            httpClient.post("${NetworkConfig.baseUrl}/auth/google") {
+                contentType(ContentType.Application.Json)
+                setBody(GoogleAuthRequestDto(idToken = idToken))
             }
         }
 

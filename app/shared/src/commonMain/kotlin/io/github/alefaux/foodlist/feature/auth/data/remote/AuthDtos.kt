@@ -16,6 +16,11 @@ data class LoginRequestDto(
 )
 
 @Serializable
+data class GoogleAuthRequestDto(
+    val idToken: String
+)
+
+@Serializable
 data class UserResponseDto(
     val id: Long,
     val name: String,

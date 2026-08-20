@@ -40,6 +40,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import io.github.alefaux.foodlist.core.auth.rememberGoogleSignInContext
 import io.github.alefaux.foodlist.feature.auth.presentation.model.AuthUiState
 import io.github.alefaux.foodlist.feature.auth.ui.AuthAppIcon
 import io.github.alefaux.foodlist.feature.auth.ui.AuthDivider
@@ -52,7 +53,6 @@ fun LoginScreen(
     onBackPress: () -> Unit,
     onSignInSuccess: () -> Unit,
     onForgotPasswordClick: () -> Unit,
-    onGoogleClick: () -> Unit,
     onAppleClick: () -> Unit,
     onSignUpClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -61,6 +61,7 @@ fun LoginScreen(
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
     val state = viewModel.uiState.collectAsStateWithLifecycle().value
+    val googleSignInContext = rememberGoogleSignInContext()
 
     LaunchedEffect(state) {
         if (state is AuthUiState.Success) onSignInSuccess()
@@ -185,7 +186,7 @@ fun LoginScreen(
                 AuthDivider(text = "Or continue with")
 
                 SocialSignInRow(
-                    onGoogleClick = onGoogleClick,
+                    onGoogleClick = { viewModel.signInWithGoogle(googleSignInContext) },
                     onAppleClick = onAppleClick
                 )
             }
