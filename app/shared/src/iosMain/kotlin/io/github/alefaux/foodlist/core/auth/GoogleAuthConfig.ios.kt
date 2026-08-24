@@ -4,5 +4,5 @@ package io.github.alefaux.foodlist.core.auth
 // (com.googleusercontent.apps.<id-prefix>) doubles as the redirect URL scheme for the
 // browser-based sign-in flow in IosGoogleAuthProvider.
 actual object GoogleAuthConfig {
-    actual val clientId: String = "REPLACE-WITH-IOS-CLIENT-ID.apps.googleusercontent.com"
+    actual val clientId: String = "1046062730644-omm477dpnlbskn862jl409gsti7mu9f2.apps.googleusercontent.com"
 }
