@@ -179,7 +179,7 @@ fun CreateAccountScreen(
             }
 
             Spacer(modifier = Modifier.height(20.dp))
-
+/*
             AuthDivider(text = "OR CONTINUE WITH")
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -188,9 +188,8 @@ fun CreateAccountScreen(
                 onGoogleClick = { viewModel.signInWithGoogle(googleSignInContext) },
                 onAppleClick = onAppleClick
             )
-
             Spacer(modifier = Modifier.height(20.dp))
-
+ */
             AuthTermsText(
                 modifier = Modifier
                     .fillMaxWidth()

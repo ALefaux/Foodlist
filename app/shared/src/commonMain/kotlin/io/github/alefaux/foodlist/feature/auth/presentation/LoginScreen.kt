@@ -183,12 +183,14 @@ fun LoginScreen(
                     }
                 }
 
+                /*
                 AuthDivider(text = "Or continue with")
 
                 SocialSignInRow(
                     onGoogleClick = { viewModel.signInWithGoogle(googleSignInContext) },
                     onAppleClick = onAppleClick
                 )
+                */
             }
         }
 
