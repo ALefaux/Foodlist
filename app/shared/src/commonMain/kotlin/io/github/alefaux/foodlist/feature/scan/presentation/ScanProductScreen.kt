@@ -21,7 +21,7 @@ import org.koin.compose.viewmodel.koinViewModel
 fun ScanProductScreen(
     onBackPress: () -> Unit,
     onManualEntryClick: () -> Unit,
-    onProductAdded: () -> Unit,
+    onProductAdded: (storageId: Long) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ScanViewModel = koinViewModel()
 ) {
@@ -35,7 +35,8 @@ fun ScanProductScreen(
     }
 
     LaunchedEffect(state) {
-        if (state is ScanUiState.Saved) onProductAdded()
+        val saved = state as? ScanUiState.Saved ?: return@LaunchedEffect
+        onProductAdded(saved.storageId)
     }
 
     Box(modifier = modifier.fillMaxSize()) {

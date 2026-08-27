@@ -37,18 +37,22 @@ class ScanRepositoryImpl(
         )
     }
 
-    override suspend fun saveProduct(product: ScannedProduct) {
+    override suspend fun saveProduct(product: ScannedProduct): Long {
+        val storageId = resolveStorageId()
+
         productDao.insert(
             ProductEntity(
                 name = product.name,
                 expirationDate = null,
                 ean = product.ean,
                 discardedDate = null,
-                storageId = resolveStorageId(),
+                storageId = storageId,
                 quantity = product.quantity,
                 createdAt = Clock.System.now()
             )
         )
+
+        return storageId
     }
 
     private suspend fun resolveStorageId(): Long =

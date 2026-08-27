@@ -15,6 +15,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Inventory2
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -31,7 +32,9 @@ fun ScannedProductSheet(
     product: ScannedProductUi,
     onCancel: () -> Unit,
     onAddToPantry: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isSaving: Boolean = false,
+    saveError: String? = null
 ) {
     Column(
         modifier = modifier
@@ -93,6 +96,15 @@ fun ScannedProductSheet(
             }
         }
 
+        if (saveError != null) {
+            Spacer(modifier = Modifier.height(12.dp))
+            Text(
+                text = saveError,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.error
+            )
+        }
+
         Spacer(modifier = Modifier.height(24.dp))
 
         Row(
@@ -101,6 +113,7 @@ fun ScannedProductSheet(
         ) {
             OutlinedButton(
                 modifier = Modifier.weight(1f),
+                enabled = !isSaving,
                 onClick = onCancel
             ) {
                 Text("Cancel")
@@ -108,18 +121,27 @@ fun ScannedProductSheet(
 
             Button(
                 modifier = Modifier.weight(1f),
+                enabled = !isSaving,
                 onClick = onAddToPantry,
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary
                 )
             ) {
-                Icon(
-                    imageVector = Icons.Filled.Add,
-                    contentDescription = null,
-                    modifier = Modifier.size(18.dp)
-                )
-                Spacer(modifier = Modifier.width(4.dp))
-                Text("Add to Pantry")
+                if (isSaving) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(18.dp),
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        strokeWidth = 2.dp
+                    )
+                } else {
+                    Icon(
+                        imageVector = Icons.Filled.Add,
+                        contentDescription = null,
+                        modifier = Modifier.size(18.dp)
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text("Add to Pantry")
+                }
             }
         }
     }

@@ -7,7 +7,5 @@ import io.github.alefaux.foodlist.feature.scan.domain.ScannedProduct
 class AddScannedProductUseCaseImpl(
     private val repository: ScanRepository
 ) : AddScannedProductUseCase {
-    override suspend fun invoke(product: ScannedProduct) {
-        repository.saveProduct(product)
-    }
+    override suspend fun invoke(product: ScannedProduct): Long = repository.saveProduct(product)
 }

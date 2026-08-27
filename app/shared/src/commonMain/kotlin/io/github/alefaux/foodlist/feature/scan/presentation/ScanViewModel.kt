@@ -90,14 +90,21 @@ class ScanViewModel(
 
     fun addToPantry() {
         val product = scannedProduct ?: return
+        val current = _uiState.value as? ScanUiState.ProductFound ?: return
+        if (current.isSaving) return
+
+        _uiState.update { current.copy(isSaving = true, saveError = null) }
 
         viewModelScope.launch(dispatcher) {
             runCatching {
                 addScannedProductUseCase(product)
             }.onFailure { error ->
                 AppLogging.e(error, "Couldn't save scanned product ${product.ean}")
-            }.onSuccess {
-                _uiState.update { ScanUiState.Saved }
+                _uiState.update {
+                    current.copy(isSaving = false, saveError = "Couldn't save this product. Please try again.")
+                }
+            }.onSuccess { storageId ->
+                _uiState.update { ScanUiState.Saved(storageId) }
             }
         }
     }

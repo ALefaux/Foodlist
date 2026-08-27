@@ -97,8 +97,10 @@ fun FoodlistNavHost(
                 onManualEntryClick = {
                     navController.navigate(FoodlistDestinations.Add)
                 },
-                onProductAdded = {
-                    navController.navigateUp()
+                onProductAdded = { storageId ->
+                    navController.navigate(FoodlistDestinations.StorageDetail(storageId)) {
+                        popUpTo(FoodlistDestinations.Scan) { inclusive = true }
+                    }
                 }
             )
         }

@@ -160,13 +160,15 @@ fun ScanPane(
 
     if (state is ScanUiState.ProductFound) {
         ModalBottomSheet(
-            onDismissRequest = onCancel,
+            onDismissRequest = { if (!state.isSaving) onCancel() },
             sheetState = rememberModalBottomSheetState()
         ) {
             ScannedProductSheet(
                 product = state.product,
                 onCancel = onCancel,
-                onAddToPantry = onAddToPantry
+                onAddToPantry = onAddToPantry,
+                isSaving = state.isSaving,
+                saveError = state.saveError
             )
         }
     }
