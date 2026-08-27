@@ -22,7 +22,7 @@ class ScanRepositoryImpl(
         val response = httpClient.get("$OPEN_FOOD_FACTS_BASE_URL_V2/v2/product/$ean") {
             parameter("cc", "fr")
             parameter("lc", "fr")
-            parameter("fields", "product_name,quantity,brands")
+            parameter("fields", "product_name,quantity,brands,categories_hierarchy")
         }.body<OpenFoodFactsResponseDto>()
 
         val product = response.product ?: return null
@@ -33,7 +33,9 @@ class ScanRepositoryImpl(
             ean = ean,
             name = name,
             quantity = product.quantity.orEmpty(),
-            brand = product.brands
+            brand = product.brands,
+            category = product.categories.firstOrNull { it.contains("fr:") }
+                ?.replace("fr:", "")
         )
     }
 
@@ -48,7 +50,8 @@ class ScanRepositoryImpl(
                 discardedDate = null,
                 storageId = storageId,
                 quantity = product.quantity,
-                createdAt = Clock.System.now()
+                createdAt = Clock.System.now(),
+                category = product.category ?: "Other"
             )
         )
 

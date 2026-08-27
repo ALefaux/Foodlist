@@ -13,5 +13,6 @@ data class OpenFoodFactsResponseDto(
 data class OpenFoodFactsProductDto(
     @SerialName("product_name") val productName: String? = null,
     val quantity: String? = null,
-    val brands: String? = null
+    val brands: String? = null,
+    @SerialName("categories_hierarchy") val categories: List<String>
 )
