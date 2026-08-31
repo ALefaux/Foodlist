@@ -17,10 +17,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.product_detail_top_bar_title
 import io.github.alefaux.foodlist.feature.productdetail.panes.ProductDetailPane
 import io.github.alefaux.foodlist.feature.productdetail.ui.DeleteProductDialog
 import io.github.alefaux.foodlist.feature.productdetail.ui.EditProductSheet
 import io.github.alefaux.foodlist.feature.productdetail.ui.MoveToStorageSheet
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -60,7 +63,7 @@ fun ProductDetailScreen(
                 },
                 title = {
                     Text(
-                        text = "Item Details",
+                        text = stringResource(Res.string.product_detail_top_bar_title),
                         color = MaterialTheme.colorScheme.primary
                     )
                 }

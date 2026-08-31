@@ -9,6 +9,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.add_storage_dialog_title
+import foodlist.app.shared.generated.resources.common_add
+import foodlist.app.shared.generated.resources.common_cancel
+import foodlist.app.shared.generated.resources.common_name_label
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun AddStorageUnitDialog(
@@ -20,13 +26,13 @@ fun AddStorageUnitDialog(
     AlertDialog(
         onDismissRequest = onDismiss,
         title = {
-            Text("New Storage Unit")
+            Text(stringResource(Res.string.add_storage_dialog_title))
         },
         text = {
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },
-                label = { Text("Name") },
+                label = { Text(stringResource(Res.string.common_name_label)) },
                 singleLine = true
             )
         },
@@ -35,12 +41,12 @@ fun AddStorageUnitDialog(
                 onClick = { onConfirm(name) },
                 enabled = name.isNotBlank()
             ) {
-                Text("Add")
+                Text(stringResource(Res.string.common_add))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Cancel")
+                Text(stringResource(Res.string.common_cancel))
             }
         }
     )

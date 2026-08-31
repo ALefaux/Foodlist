@@ -11,6 +11,13 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withLink
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.auth_terms_and
+import foodlist.app.shared.generated.resources.auth_terms_period
+import foodlist.app.shared.generated.resources.auth_terms_prefix
+import foodlist.app.shared.generated.resources.auth_terms_privacy_policy
+import foodlist.app.shared.generated.resources.auth_terms_terms_of_service
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun AuthTermsText(
@@ -25,8 +32,14 @@ fun AuthTermsText(
         )
     )
 
+    val termsPrefix = stringResource(Res.string.auth_terms_prefix)
+    val termsOfService = stringResource(Res.string.auth_terms_terms_of_service)
+    val termsAnd = stringResource(Res.string.auth_terms_and)
+    val privacyPolicy = stringResource(Res.string.auth_terms_privacy_policy)
+    val termsPeriod = stringResource(Res.string.auth_terms_period)
+
     val text = buildAnnotatedString {
-        append("By signing up, you agree to our ")
+        append(termsPrefix)
         withLink(
             LinkAnnotation.Clickable(
                 tag = "terms",
@@ -34,9 +47,9 @@ fun AuthTermsText(
                 linkInteractionListener = { onTermsClick() }
             )
         ) {
-            append("Terms of Service")
+            append(termsOfService)
         }
-        append(" and ")
+        append(termsAnd)
         withLink(
             LinkAnnotation.Clickable(
                 tag = "privacy",
@@ -44,9 +57,9 @@ fun AuthTermsText(
                 linkInteractionListener = { onPrivacyPolicyClick() }
             )
         ) {
-            append("Privacy Policy")
+            append(privacyPolicy)
         }
-        append(".")
+        append(termsPeriod)
     }
 
     Text(

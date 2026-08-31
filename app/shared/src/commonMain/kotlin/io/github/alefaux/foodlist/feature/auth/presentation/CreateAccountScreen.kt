@@ -41,12 +41,26 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.create_account_already_have_account
+import foodlist.app.shared.generated.resources.create_account_button
+import foodlist.app.shared.generated.resources.create_account_confirm_password_label
+import foodlist.app.shared.generated.resources.create_account_email_label
+import foodlist.app.shared.generated.resources.create_account_email_placeholder
+import foodlist.app.shared.generated.resources.create_account_full_name_label
+import foodlist.app.shared.generated.resources.create_account_full_name_placeholder
+import foodlist.app.shared.generated.resources.create_account_password_label
+import foodlist.app.shared.generated.resources.create_account_sign_in_link
+import foodlist.app.shared.generated.resources.create_account_subtitle
+import foodlist.app.shared.generated.resources.create_account_title
+import foodlist.app.shared.generated.resources.create_account_top_bar_title
 import io.github.alefaux.foodlist.core.auth.rememberGoogleSignInContext
 import io.github.alefaux.foodlist.feature.auth.presentation.model.AuthUiState
 import io.github.alefaux.foodlist.feature.auth.ui.AuthDivider
 import io.github.alefaux.foodlist.feature.auth.ui.AuthTermsText
 import io.github.alefaux.foodlist.feature.auth.ui.AuthTextField
 import io.github.alefaux.foodlist.feature.auth.ui.SocialSignInRow
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -87,7 +101,7 @@ fun CreateAccountScreen(
                 },
                 title = {
                     Text(
-                        text = "Home Pantry",
+                        text = stringResource(Res.string.create_account_top_bar_title),
                         color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.Bold
                     )
@@ -103,12 +117,12 @@ fun CreateAccountScreen(
                 .padding(horizontal = 24.dp)
         ) {
             Text(
-                text = "Create Account",
+                text = stringResource(Res.string.create_account_title),
                 style = MaterialTheme.typography.headlineMedium,
                 modifier = Modifier.padding(top = 8.dp)
             )
             Text(
-                text = "Join the community and start reducing food waste.",
+                text = stringResource(Res.string.create_account_subtitle),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(top = 4.dp, bottom = 20.dp)
@@ -116,26 +130,26 @@ fun CreateAccountScreen(
 
             Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 AuthTextField(
-                    label = "FULL NAME",
+                    label = stringResource(Res.string.create_account_full_name_label),
                     value = fullName,
                     onValueChange = { fullName = it },
-                    placeholder = "Enter your name"
+                    placeholder = stringResource(Res.string.create_account_full_name_placeholder)
                 )
                 AuthTextField(
-                    label = "EMAIL ADDRESS",
+                    label = stringResource(Res.string.create_account_email_label),
                     value = email,
                     onValueChange = { email = it },
-                    placeholder = "chef@pantry.com",
+                    placeholder = stringResource(Res.string.create_account_email_placeholder),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
                 )
                 AuthTextField(
-                    label = "PASSWORD",
+                    label = stringResource(Res.string.create_account_password_label),
                     value = password,
                     onValueChange = { password = it },
                     isPassword = true
                 )
                 AuthTextField(
-                    label = "CONFIRM PASSWORD",
+                    label = stringResource(Res.string.create_account_confirm_password_label),
                     value = confirmPassword,
                     onValueChange = { confirmPassword = it },
                     isPassword = true
@@ -169,7 +183,7 @@ fun CreateAccountScreen(
                         strokeWidth = 2.dp
                     )
                 } else {
-                    Text("CREATE ACCOUNT")
+                    Text(stringResource(Res.string.create_account_button))
                     Spacer(modifier = Modifier.width(8.dp))
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowForward,
@@ -205,7 +219,7 @@ fun CreateAccountScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Already have an account? ",
+                    text = stringResource(Res.string.create_account_already_have_account),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -214,7 +228,7 @@ fun CreateAccountScreen(
                     contentPadding = PaddingValues(0.dp)
                 ) {
                     Text(
-                        text = "Sign In",
+                        text = stringResource(Res.string.create_account_sign_in_link),
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Bold
                     )

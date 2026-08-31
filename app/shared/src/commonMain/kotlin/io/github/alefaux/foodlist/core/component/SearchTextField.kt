@@ -10,6 +10,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.search_pantry_placeholder
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun SearchTextField(
@@ -19,7 +22,7 @@ fun SearchTextField(
         modifier = modifier.fillMaxWidth(),
         label = {
             Text(
-                text = "Search your pantry..."
+                text = stringResource(Res.string.search_pantry_placeholder)
             )
         },
         leadingIcon = {

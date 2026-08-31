@@ -10,6 +10,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.dashboard_expired_alerts_badge
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ExpiredProductCountBadge(
@@ -24,7 +27,7 @@ fun ExpiredProductCountBadge(
             )
             .padding(horizontal = 8.dp),
         color = Color.White,
-        text = "$count Alerts"
+        text = stringResource(Res.string.dashboard_expired_alerts_badge, count)
     )
 }
 

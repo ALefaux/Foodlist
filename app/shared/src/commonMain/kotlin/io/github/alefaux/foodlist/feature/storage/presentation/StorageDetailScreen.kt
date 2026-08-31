@@ -24,8 +24,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.storage_detail_add_item_fab
+import foodlist.app.shared.generated.resources.storage_detail_delete_menu_item
 import io.github.alefaux.foodlist.feature.storage.panes.StorageDetailPane
 import io.github.alefaux.foodlist.feature.storage.ui.DeleteStorageDialog
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -85,7 +89,7 @@ fun StorageDetailScreen(
                     ) {
                         DropdownMenuItem(
                             text = {
-                                Text("Delete storage")
+                                Text(stringResource(Res.string.storage_detail_delete_menu_item))
                             },
                             onClick = {
                                 isMenuExpanded = false
@@ -106,7 +110,7 @@ fun StorageDetailScreen(
                     )
                 },
                 text = {
-                    Text("ADD ITEM")
+                    Text(stringResource(Res.string.storage_detail_add_item_fab))
                 }
             )
         }

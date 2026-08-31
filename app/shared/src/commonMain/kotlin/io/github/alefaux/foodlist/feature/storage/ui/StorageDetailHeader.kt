@@ -15,6 +15,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.storage_detail_expiring_soon
+import foodlist.app.shared.generated.resources.storage_detail_total_items
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun StorageDetailHeader(
@@ -56,13 +60,13 @@ fun StorageDetailHeader(
                 .padding(horizontal = 14.dp, vertical = 6.dp)
         ) {
             Text(
-                text = "$totalCount Items",
+                text = stringResource(Res.string.storage_detail_total_items, totalCount),
                 style = MaterialTheme.typography.labelMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             if (expiringCount > 0) {
                 Text(
-                    text = " • $expiringCount Expiring Soon",
+                    text = stringResource(Res.string.storage_detail_expiring_soon, expiringCount),
                     style = MaterialTheme.typography.labelMedium,
                     color = MaterialTheme.colorScheme.error
                 )

@@ -1,0 +1,166 @@
+<resources>
+    <!-- Common -->
+    <string name="common_cancel">Annuler</string>
+    <string name="common_save">Enregistrer</string>
+    <string name="common_delete">Supprimer</string>
+    <string name="common_ok">OK</string>
+    <string name="common_add">Ajouter</string>
+    <string name="common_name_label">Nom</string>
+
+    <!-- Core / search -->
+    <string name="search_pantry_placeholder">Rechercher dans votre garde-manger…</string>
+
+    <!-- Bottom navigation menu -->
+    <string name="menu_dashboard">Tableau de bord</string>
+    <string name="menu_storage">Stockage</string>
+    <string name="menu_recipes">Recettes</string>
+    <string name="menu_profile">Profil</string>
+
+    <!-- Splash -->
+    <string name="splash_app_name">Foodlist</string>
+    <string name="splash_getting_ready">Préparation en cours…</string>
+
+    <!-- Auth: social sign-in -->
+    <string name="auth_apple_button">Apple</string>
+    <string name="auth_google_button">Google</string>
+
+    <!-- Auth: terms text -->
+    <string name="auth_terms_prefix">En vous inscrivant, vous acceptez nos </string>
+    <string name="auth_terms_terms_of_service">Conditions d'utilisation</string>
+    <string name="auth_terms_and"> et notre </string>
+    <string name="auth_terms_privacy_policy">Politique de confidentialité</string>
+    <string name="auth_terms_period">.</string>
+
+    <!-- Auth: create account -->
+    <string name="create_account_top_bar_title">Home Pantry</string>
+    <string name="create_account_title">Créer un compte</string>
+    <string name="create_account_subtitle">Rejoignez la communauté et réduisez le gaspillage alimentaire.</string>
+    <string name="create_account_full_name_label">NOM COMPLET</string>
+    <string name="create_account_full_name_placeholder">Entrez votre nom</string>
+    <string name="create_account_email_label">ADRESSE E-MAIL</string>
+    <string name="create_account_email_placeholder">chef@pantry.com</string>
+    <string name="create_account_password_label">MOT DE PASSE</string>
+    <string name="create_account_confirm_password_label">CONFIRMER LE MOT DE PASSE</string>
+    <string name="create_account_button">CRÉER UN COMPTE</string>
+    <string name="create_account_already_have_account">Vous avez déjà un compte ? </string>
+    <string name="create_account_sign_in_link">Se connecter</string>
+
+    <!-- Auth: login -->
+    <string name="login_top_bar_title">Home Pantry</string>
+    <string name="login_welcome_back">Content de vous revoir !</string>
+    <string name="login_email_label">E-mail</string>
+    <string name="login_email_placeholder">chef@example.com</string>
+    <string name="login_password_label">Mot de passe</string>
+    <string name="login_forgot_password">Mot de passe oublié ?</string>
+    <string name="login_sign_in_button">Se connecter</string>
+    <string name="login_no_account">Vous n'avez pas de compte ? </string>
+    <string name="login_sign_up_link">S'inscrire</string>
+
+    <!-- Product detail: delete dialog -->
+    <string name="delete_product_dialog_title">Supprimer %1$s ?</string>
+    <string name="delete_product_dialog_message">Cet article sera définitivement retiré de votre garde-manger.</string>
+
+    <!-- Product detail: pane -->
+    <string name="product_detail_storage_label">STOCKAGE</string>
+    <string name="product_detail_storage_unassigned">Non attribué</string>
+    <string name="product_detail_category_label">CATÉGORIE</string>
+    <string name="product_detail_category_other">Autre</string>
+    <string name="product_detail_added_on">Ajouté à l'inventaire le</string>
+    <string name="product_detail_edit_button">Modifier le produit</string>
+    <string name="product_detail_move_button">Déplacer vers…</string>
+    <string name="product_detail_delete_button">Supprimer l'article</string>
+    <string name="product_detail_top_bar_title">Détails de l'article</string>
+
+    <!-- Product detail: move to storage sheet -->
+    <string name="move_sheet_title">Déplacer vers…</string>
+    <string name="move_sheet_empty">Aucun espace de stockage pour le moment.</string>
+
+    <!-- Product detail: stock level card -->
+    <string name="stock_level_label">NIVEAU DE STOCK</string>
+    <string name="stock_decrease_content_description">Diminuer le stock</string>
+    <string name="stock_increase_content_description">Augmenter le stock</string>
+
+    <!-- Product detail: edit product sheet -->
+    <string name="edit_product_title">Modifier le produit</string>
+    <string name="edit_product_quantity_label">Quantité</string>
+    <string name="edit_product_category_label">Catégorie</string>
+    <string name="edit_product_expiration_date_label">Date de péremption</string>
+    <string name="edit_product_pick_date_content_description">Choisir la date de péremption</string>
+
+    <!-- Product detail: expiration date card -->
+    <string name="expiration_date_label">DATE DE PÉREMPTION</string>
+    <string name="expiration_date_none">Aucune date de péremption</string>
+
+    <!-- Scan -->
+    <string name="scan_top_bar_title">Scanner un article</string>
+    <string name="scan_manual_entry_button">Saisie manuelle</string>
+    <string name="scanned_product_fresh_badge">FRAIS</string>
+    <string name="scanned_product_quantity_pantry">%1$s • Garde-manger</string>
+    <string name="scanned_product_add_button">Ajouter au garde-manger</string>
+    <string name="scan_checking_connection">Vérification de la connexion…</string>
+    <string name="scan_no_internet_message">Aucune connexion internet. Connectez-vous au Wi-Fi ou aux données mobiles pour rechercher les produits scannés.</string>
+    <string name="scan_retry_button">Réessayer</string>
+    <string name="scan_camera_permission_message">L'accès à la caméra est nécessaire pour scanner les codes-barres. Activez-le dans les réglages, ou ajoutez le produit manuellement.</string>
+    <string name="scan_looking_up_product">Recherche du produit…</string>
+    <string name="scan_align_barcode">Alignez le code-barres dans le cadre</string>
+    <string name="product_not_found_title">Produit introuvable</string>
+    <string name="product_not_found_message">Nous n'avons pas trouvé de produit pour le code-barres %1$s. Réessayez de scanner ou ajoutez-le manuellement.</string>
+    <string name="product_not_found_try_again_button">Réessayer</string>
+    <string name="product_not_found_manual_entry_button">Saisir manuellement</string>
+
+    <!-- Storage -->
+    <string name="storage_detail_total_items">%1$d articles</string>
+    <string name="storage_detail_expiring_soon"> • %1$d bientôt périmés</string>
+    <string name="storage_header_title">Espaces de stockage</string>
+    <string name="storage_header_subtitle">Gérez les zones de votre cuisine</string>
+    <string name="storage_banner_text">Gardez votre cuisine fraîche et sans gaspillage.</string>
+    <string name="storage_freshness_expiring">%1$d bientôt périmés</string>
+    <string name="storage_freshness_all_fresh">Tout est frais</string>
+    <string name="delete_storage_dialog_title">Supprimer %1$s ?</string>
+    <string name="delete_storage_dialog_message">Les articles de cet espace de stockage seront conservés, mais désassignés de %1$s.</string>
+    <string name="storage_unit_products_total">%1$d produits au total</string>
+    <string name="add_storage_dialog_title">Nouvel espace de stockage</string>
+    <string name="storage_detail_empty_no_items">Aucun article dans cet espace de stockage. Appuyez sur Ajouter un article pour commencer.</string>
+    <string name="storage_detail_empty_category">Aucun article dans cette catégorie.</string>
+    <string name="storage_pane_empty">Aucun espace de stockage pour le moment. Appuyez sur + pour ajouter le premier.</string>
+    <string name="storage_detail_delete_menu_item">Supprimer l'espace de stockage</string>
+    <string name="storage_detail_add_item_fab">AJOUTER UN ARTICLE</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_expired_alerts_badge">%1$d alertes</string>
+    <string name="dashboard_discarded_this_month">Jetés ce mois-ci</string>
+    <string name="dashboard_products_label">Produits</string>
+    <string name="dashboard_trend_less">%1$d%% de moins que le mois dernier</string>
+    <string name="dashboard_trend_more">%1$d%% de plus que le mois dernier</string>
+    <string name="dashboard_expired_products_title">Produits périmés</string>
+    <string name="dashboard_expired_state">Périmé</string>
+    <string name="dashboard_no_expired_products">Aucun produit périmé pour le moment</string>
+    <string name="dashboard_greeting">Bonjour, chef de cuisine</string>
+    <string name="dashboard_menu_scan">Scanner</string>
+    <string name="dashboard_menu_add">Ajouter</string>
+
+    <!-- Add -->
+    <string name="add_top_bar_title">Ajouter</string>
+
+    <!-- Profile -->
+    <string name="profile_top_bar_title">Profil</string>
+    <string name="profile_authenticated_badge">Authentifié</string>
+    <string name="profile_guest_title">Vous naviguez en tant qu'invité</string>
+    <string name="profile_guest_message">Votre garde-manger est enregistré uniquement sur cet appareil. Connectez-vous pour le sauvegarder et le synchroniser avec votre compte.</string>
+    <string name="profile_guest_sign_in_button">Se connecter</string>
+    <string name="profile_guest_create_account_button">Créer un compte</string>
+    <string name="profile_household_title">Foyer</string>
+    <string name="profile_household_member_count">1 membre</string>
+    <string name="profile_member_you">Vous</string>
+    <string name="profile_member_owner">Propriétaire</string>
+    <string name="profile_invite_member_button">Inviter un membre</string>
+    <string name="profile_settings_title">Réglages</string>
+    <string name="profile_settings_account">Compte</string>
+    <string name="profile_settings_notifications">Notifications</string>
+    <string name="profile_settings_notifications_on">Activées</string>
+    <string name="profile_settings_theme">Thème</string>
+    <string name="profile_settings_units">Unités</string>
+    <string name="profile_settings_units_metric">Métrique</string>
+    <string name="profile_sign_out_button">Se déconnecter</string>
+    <string name="profile_footer">PantryPal v1.0.2 • Domestic Utility Engine</string>
+</resources>

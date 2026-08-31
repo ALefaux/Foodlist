@@ -12,6 +12,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.product_not_found_manual_entry_button
+import foodlist.app.shared.generated.resources.product_not_found_message
+import foodlist.app.shared.generated.resources.product_not_found_title
+import foodlist.app.shared.generated.resources.product_not_found_try_again_button
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ProductNotFoundSheet(
@@ -27,11 +33,11 @@ fun ProductNotFoundSheet(
             .padding(bottom = 24.dp)
     ) {
         Text(
-            text = "Product not found",
+            text = stringResource(Res.string.product_not_found_title),
             style = MaterialTheme.typography.headlineSmall
         )
         Text(
-            text = "We couldn't find a product for barcode $ean. Try scanning again or add it manually.",
+            text = stringResource(Res.string.product_not_found_message, ean),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -42,7 +48,7 @@ fun ProductNotFoundSheet(
             modifier = Modifier.fillMaxWidth(),
             onClick = onTryAgain
         ) {
-            Text("Try Again")
+            Text(stringResource(Res.string.product_not_found_try_again_button))
         }
 
         Spacer(modifier = Modifier.height(12.dp))
@@ -51,7 +57,7 @@ fun ProductNotFoundSheet(
             modifier = Modifier.fillMaxWidth(),
             onClick = onManualEntryClick
         ) {
-            Text("Enter Manually")
+            Text(stringResource(Res.string.product_not_found_manual_entry_button))
         }
     }
 }

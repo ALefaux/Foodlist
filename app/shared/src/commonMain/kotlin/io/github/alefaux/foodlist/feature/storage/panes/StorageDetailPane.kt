@@ -11,10 +11,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.storage_detail_empty_category
+import foodlist.app.shared.generated.resources.storage_detail_empty_no_items
 import io.github.alefaux.foodlist.feature.storage.presentation.model.StorageDetailUiState
 import io.github.alefaux.foodlist.feature.storage.ui.CategoryFilterChip
 import io.github.alefaux.foodlist.feature.storage.ui.StorageDetailHeader
 import io.github.alefaux.foodlist.feature.storage.ui.StorageProductRow
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun StorageDetailPane(
@@ -52,9 +56,9 @@ fun StorageDetailPane(
             item {
                 Text(
                     text = if (state.totalCount == 0) {
-                        "No items in this storage yet. Tap Add Item to get started."
+                        stringResource(Res.string.storage_detail_empty_no_items)
                     } else {
-                        "No items in this category."
+                        stringResource(Res.string.storage_detail_empty_category)
                     },
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant

@@ -18,6 +18,7 @@ import io.github.alefaux.foodlist.menu.BottomMenu
 import io.github.alefaux.foodlist.navigation.FoodlistDestinations
 import io.github.alefaux.foodlist.navigation.FoodlistNavHost
 import io.github.alefaux.foodlist.theme.FoodlistTheme
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 @Preview
@@ -56,7 +57,7 @@ fun App() {
                                 },
                                 label = {
                                     Text(
-                                        text = menu.label
+                                        text = stringResource(menu.label)
                                     )
                                 },
                                 onClick = {

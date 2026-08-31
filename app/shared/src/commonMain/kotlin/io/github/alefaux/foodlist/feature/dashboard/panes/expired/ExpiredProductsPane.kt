@@ -15,6 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.dashboard_no_expired_products
 import io.github.alefaux.foodlist.feature.dashboard.modelui.DiscardedProducts
 import io.github.alefaux.foodlist.feature.dashboard.modelui.ExpiredProductUi
 import io.github.alefaux.foodlist.feature.dashboard.ui.expired.ExpiredProductCard
@@ -23,6 +25,7 @@ import io.github.alefaux.foodlist.feature.dashboard.ui.expired.ExpiredProductTit
 import io.github.alefaux.foodlist.feature.dashboard.ui.stats.MonthlyStatCard
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ExpiredProductsPane(
@@ -69,7 +72,7 @@ fun ExpiredProductsPane(
                     .padding(vertical = 24.dp),
                 contentAlignment = Alignment.Center
             ) {
-                Text("No expired products for now")
+                Text(stringResource(Res.string.dashboard_no_expired_products))
             }
         }
 

@@ -16,6 +16,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.splash_app_name
+import foodlist.app.shared.generated.resources.splash_getting_ready
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -35,14 +39,14 @@ fun SplashScreen(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Foodlist",
+            text = stringResource(Res.string.splash_app_name),
             style = MaterialTheme.typography.headlineLarge
         )
         Spacer(modifier = Modifier.height(32.dp))
         CircularProgressIndicator()
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = "Getting things ready…",
+            text = stringResource(Res.string.splash_getting_ready),
             style = MaterialTheme.typography.bodyMedium
         )
     }

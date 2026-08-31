@@ -38,9 +38,25 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.profile_footer
+import foodlist.app.shared.generated.resources.profile_household_member_count
+import foodlist.app.shared.generated.resources.profile_household_title
+import foodlist.app.shared.generated.resources.profile_invite_member_button
+import foodlist.app.shared.generated.resources.profile_member_owner
+import foodlist.app.shared.generated.resources.profile_member_you
+import foodlist.app.shared.generated.resources.profile_settings_account
+import foodlist.app.shared.generated.resources.profile_settings_notifications
+import foodlist.app.shared.generated.resources.profile_settings_notifications_on
+import foodlist.app.shared.generated.resources.profile_settings_theme
+import foodlist.app.shared.generated.resources.profile_settings_title
+import foodlist.app.shared.generated.resources.profile_settings_units
+import foodlist.app.shared.generated.resources.profile_settings_units_metric
+import foodlist.app.shared.generated.resources.profile_sign_out_button
 import io.github.alefaux.foodlist.feature.profile.ui.HouseholdMemberRow
 import io.github.alefaux.foodlist.feature.profile.ui.ProfileHeaderCard
 import io.github.alefaux.foodlist.feature.profile.ui.SettingsRow
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ProfilePane(
@@ -67,11 +83,11 @@ fun ProfilePane(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "Household",
+                    text = stringResource(Res.string.profile_household_title),
                     style = MaterialTheme.typography.headlineSmall
                 )
                 Text(
-                    text = "1 Member",
+                    text = stringResource(Res.string.profile_household_member_count),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -85,8 +101,8 @@ fun ProfilePane(
             ) {
                 HouseholdMemberRow(
                     initials = userInitials(userName),
-                    name = "You",
-                    role = "Owner"
+                    name = stringResource(Res.string.profile_member_you),
+                    role = stringResource(Res.string.profile_member_owner)
                 )
             }
 
@@ -101,7 +117,7 @@ fun ProfilePane(
                     tint = MaterialTheme.colorScheme.primary
                 )
                 Text(
-                    text = "Invite Member",
+                    text = stringResource(Res.string.profile_invite_member_button),
                     color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.padding(start = 8.dp)
                 )
@@ -110,7 +126,7 @@ fun ProfilePane(
 
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Text(
-                text = "Settings",
+                text = stringResource(Res.string.profile_settings_title),
                 style = MaterialTheme.typography.headlineSmall
             )
 
@@ -123,7 +139,7 @@ fun ProfilePane(
                 Column {
                     SettingsRow(
                         icon = Icons.Filled.ManageAccounts,
-                        label = "Account",
+                        label = stringResource(Res.string.profile_settings_account),
                         onClick = onAccountClick
                     ) {
                         Icon(
@@ -135,10 +151,10 @@ fun ProfilePane(
                     HorizontalDivider()
                     SettingsRow(
                         icon = Icons.Filled.Notifications,
-                        label = "Notifications"
+                        label = stringResource(Res.string.profile_settings_notifications)
                     ) {
                         Text(
-                            text = "On",
+                            text = stringResource(Res.string.profile_settings_notifications_on),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -146,7 +162,7 @@ fun ProfilePane(
                     HorizontalDivider()
                     SettingsRow(
                         icon = Icons.Filled.DarkMode,
-                        label = "Theme"
+                        label = stringResource(Res.string.profile_settings_theme)
                     ) {
                         Switch(
                             checked = isDarkThemeEnabled,
@@ -159,10 +175,10 @@ fun ProfilePane(
                     HorizontalDivider()
                     SettingsRow(
                         icon = Icons.Filled.Straighten,
-                        label = "Units"
+                        label = stringResource(Res.string.profile_settings_units)
                     ) {
                         Text(
-                            text = "Metric",
+                            text = stringResource(Res.string.profile_settings_units_metric),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -185,13 +201,13 @@ fun ProfilePane(
                 contentDescription = null
             )
             Text(
-                text = "Sign Out",
+                text = stringResource(Res.string.profile_sign_out_button),
                 modifier = Modifier.padding(start = 8.dp)
             )
         }
 
         Text(
-            text = "PantryPal v1.0.2 • Domestic Utility Engine",
+            text = stringResource(Res.string.profile_footer),
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,

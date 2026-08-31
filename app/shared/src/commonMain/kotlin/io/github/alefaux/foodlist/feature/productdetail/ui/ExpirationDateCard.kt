@@ -16,9 +16,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.expiration_date_label
+import foodlist.app.shared.generated.resources.expiration_date_none
 import io.github.alefaux.foodlist.core.model.ProductFreshness
 import io.github.alefaux.foodlist.core.model.extension.toDisplayString
 import kotlinx.datetime.LocalDate
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ExpirationDateCard(
@@ -52,14 +56,14 @@ fun ExpirationDateCard(
                     modifier = Modifier.padding(end = 8.dp)
                 )
                 Text(
-                    text = "EXPIRATION DATE",
+                    text = stringResource(Res.string.expiration_date_label),
                     style = MaterialTheme.typography.labelMedium,
                     color = contentColor
                 )
             }
 
             Text(
-                text = expirationDate?.toDisplayString() ?: "No expiration date",
+                text = expirationDate?.toDisplayString() ?: stringResource(Res.string.expiration_date_none),
                 style = MaterialTheme.typography.headlineSmall,
                 fontWeight = FontWeight.Bold,
                 color = contentColor,

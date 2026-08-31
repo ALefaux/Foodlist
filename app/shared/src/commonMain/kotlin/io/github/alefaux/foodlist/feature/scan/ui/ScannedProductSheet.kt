@@ -25,7 +25,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.common_cancel
+import foodlist.app.shared.generated.resources.scanned_product_add_button
+import foodlist.app.shared.generated.resources.scanned_product_fresh_badge
+import foodlist.app.shared.generated.resources.scanned_product_quantity_pantry
 import io.github.alefaux.foodlist.feature.scan.modelui.ScannedProductUi
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ScannedProductSheet(
@@ -64,7 +70,7 @@ fun ScannedProductSheet(
                         color = MaterialTheme.colorScheme.primaryContainer
                     ) {
                         Text(
-                            text = "FRESH",
+                            text = stringResource(Res.string.scanned_product_fresh_badge),
                             style = MaterialTheme.typography.labelSmall,
                             color = MaterialTheme.colorScheme.onPrimaryContainer,
                             modifier = Modifier.padding(horizontal = 8.dp, vertical = 2.dp)
@@ -88,7 +94,7 @@ fun ScannedProductSheet(
 
                 if (product.quantity.isNotBlank()) {
                     Text(
-                        text = "${product.quantity} • Pantry",
+                        text = stringResource(Res.string.scanned_product_quantity_pantry, product.quantity),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -116,7 +122,7 @@ fun ScannedProductSheet(
                 enabled = !isSaving,
                 onClick = onCancel
             ) {
-                Text("Cancel")
+                Text(stringResource(Res.string.common_cancel))
             }
 
             Button(
@@ -140,7 +146,7 @@ fun ScannedProductSheet(
                         modifier = Modifier.size(18.dp)
                     )
                     Spacer(modifier = Modifier.width(4.dp))
-                    Text("Add to Pantry")
+                    Text(stringResource(Res.string.scanned_product_add_button))
                 }
             }
         }

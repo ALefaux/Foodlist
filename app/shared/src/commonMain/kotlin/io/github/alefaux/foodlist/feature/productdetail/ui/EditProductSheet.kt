@@ -28,11 +28,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.common_cancel
+import foodlist.app.shared.generated.resources.common_name_label
+import foodlist.app.shared.generated.resources.common_ok
+import foodlist.app.shared.generated.resources.common_save
+import foodlist.app.shared.generated.resources.edit_product_category_label
+import foodlist.app.shared.generated.resources.edit_product_expiration_date_label
+import foodlist.app.shared.generated.resources.edit_product_pick_date_content_description
+import foodlist.app.shared.generated.resources.edit_product_quantity_label
+import foodlist.app.shared.generated.resources.edit_product_title
 import io.github.alefaux.foodlist.core.model.extension.toDisplayString
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atStartOfDayIn
 import kotlinx.datetime.toLocalDateTime
+import org.jetbrains.compose.resources.stringResource
 import kotlin.time.Instant
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -59,7 +70,7 @@ fun EditProductSheet(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
-            text = "Edit Product",
+            text = stringResource(Res.string.edit_product_title),
             style = MaterialTheme.typography.headlineSmall
         )
 
@@ -67,7 +78,7 @@ fun EditProductSheet(
             modifier = Modifier.fillMaxWidth(),
             value = editedName,
             onValueChange = { editedName = it },
-            label = { Text("Name") },
+            label = { Text(stringResource(Res.string.common_name_label)) },
             singleLine = true
         )
 
@@ -75,7 +86,7 @@ fun EditProductSheet(
             modifier = Modifier.fillMaxWidth(),
             value = editedQuantity,
             onValueChange = { editedQuantity = it },
-            label = { Text("Quantity") },
+            label = { Text(stringResource(Res.string.edit_product_quantity_label)) },
             singleLine = true
         )
 
@@ -83,7 +94,7 @@ fun EditProductSheet(
             modifier = Modifier.fillMaxWidth(),
             value = editedCategory,
             onValueChange = { editedCategory = it },
-            label = { Text("Category") },
+            label = { Text(stringResource(Res.string.edit_product_category_label)) },
             singleLine = true
         )
 
@@ -91,12 +102,15 @@ fun EditProductSheet(
             modifier = Modifier.fillMaxWidth(),
             value = editedExpirationDate?.toDisplayString().orEmpty(),
             onValueChange = {},
-            label = { Text("Expiration date") },
+            label = { Text(stringResource(Res.string.edit_product_expiration_date_label)) },
             singleLine = true,
             readOnly = true,
             trailingIcon = {
                 IconButton(onClick = { isDatePickerVisible = true }) {
-                    Icon(imageVector = Icons.Filled.Event, contentDescription = "Pick expiration date")
+                    Icon(
+                        imageVector = Icons.Filled.Event,
+                        contentDescription = stringResource(Res.string.edit_product_pick_date_content_description)
+                    )
                 }
             }
         )
@@ -109,7 +123,7 @@ fun EditProductSheet(
                 modifier = Modifier.weight(1f),
                 onClick = onDismiss
             ) {
-                Text("Cancel")
+                Text(stringResource(Res.string.common_cancel))
             }
             Button(
                 modifier = Modifier.weight(1f),
@@ -118,7 +132,7 @@ fun EditProductSheet(
                     onSave(editedName, editedQuantity, editedCategory, editedExpirationDate)
                 }
             ) {
-                Text("Save")
+                Text(stringResource(Res.string.common_save))
             }
         }
     }
@@ -142,12 +156,12 @@ fun EditProductSheet(
                         isDatePickerVisible = false
                     }
                 ) {
-                    Text("OK")
+                    Text(stringResource(Res.string.common_ok))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { isDatePickerVisible = false }) {
-                    Text("Cancel")
+                    Text(stringResource(Res.string.common_cancel))
                 }
             }
         ) {

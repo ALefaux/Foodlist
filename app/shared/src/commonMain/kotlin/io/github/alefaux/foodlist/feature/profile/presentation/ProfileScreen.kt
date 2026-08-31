@@ -15,8 +15,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.profile_top_bar_title
 import io.github.alefaux.foodlist.feature.profile.panes.GuestProfilePane
 import io.github.alefaux.foodlist.feature.profile.panes.ProfilePane
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,7 +38,7 @@ fun ProfileScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = "Profile",
+                        text = stringResource(Res.string.profile_top_bar_title),
                         color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.Bold
                     )

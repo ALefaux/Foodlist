@@ -15,6 +15,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.storage_banner_text
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun StorageBanner(
@@ -37,7 +40,7 @@ fun StorageBanner(
         contentAlignment = Alignment.BottomStart
     ) {
         Text(
-            text = "Keep your kitchen fresh and waste-free.",
+            text = stringResource(Res.string.storage_banner_text),
             style = MaterialTheme.typography.bodyLarge,
             color = Color.White
         )

@@ -12,6 +12,9 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.scan_top_bar_title
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ScanTopBar(
@@ -29,7 +32,7 @@ fun ScanTopBar(
             actionIconContentColor = Color.White
         ),
         title = {
-            Text("Scan Item")
+            Text(stringResource(Res.string.scan_top_bar_title))
         },
         navigationIcon = {
             IconButton(onClick = onBackPress) {

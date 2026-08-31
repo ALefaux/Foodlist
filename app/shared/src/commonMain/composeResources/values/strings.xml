@@ -1,0 +1,166 @@
+<resources>
+    <!-- Common -->
+    <string name="common_cancel">Cancel</string>
+    <string name="common_save">Save</string>
+    <string name="common_delete">Delete</string>
+    <string name="common_ok">OK</string>
+    <string name="common_add">Add</string>
+    <string name="common_name_label">Name</string>
+
+    <!-- Core / search -->
+    <string name="search_pantry_placeholder">Search your pantry…</string>
+
+    <!-- Bottom navigation menu -->
+    <string name="menu_dashboard">Dashboard</string>
+    <string name="menu_storage">Storage</string>
+    <string name="menu_recipes">Recipes</string>
+    <string name="menu_profile">Profile</string>
+
+    <!-- Splash -->
+    <string name="splash_app_name">Foodlist</string>
+    <string name="splash_getting_ready">Getting things ready…</string>
+
+    <!-- Auth: social sign-in -->
+    <string name="auth_apple_button">Apple</string>
+    <string name="auth_google_button">Google</string>
+
+    <!-- Auth: terms text -->
+    <string name="auth_terms_prefix">By signing up, you agree to our </string>
+    <string name="auth_terms_terms_of_service">Terms of Service</string>
+    <string name="auth_terms_and"> and </string>
+    <string name="auth_terms_privacy_policy">Privacy Policy</string>
+    <string name="auth_terms_period">.</string>
+
+    <!-- Auth: create account -->
+    <string name="create_account_top_bar_title">Home Pantry</string>
+    <string name="create_account_title">Create Account</string>
+    <string name="create_account_subtitle">Join the community and start reducing food waste.</string>
+    <string name="create_account_full_name_label">FULL NAME</string>
+    <string name="create_account_full_name_placeholder">Enter your name</string>
+    <string name="create_account_email_label">EMAIL ADDRESS</string>
+    <string name="create_account_email_placeholder">chef@pantry.com</string>
+    <string name="create_account_password_label">PASSWORD</string>
+    <string name="create_account_confirm_password_label">CONFIRM PASSWORD</string>
+    <string name="create_account_button">CREATE ACCOUNT</string>
+    <string name="create_account_already_have_account">Already have an account? </string>
+    <string name="create_account_sign_in_link">Sign In</string>
+
+    <!-- Auth: login -->
+    <string name="login_top_bar_title">Home Pantry</string>
+    <string name="login_welcome_back">Welcome back!</string>
+    <string name="login_email_label">Email</string>
+    <string name="login_email_placeholder">chef@example.com</string>
+    <string name="login_password_label">Password</string>
+    <string name="login_forgot_password">Forgot Password?</string>
+    <string name="login_sign_in_button">Sign In</string>
+    <string name="login_no_account">Don\'t have an account? </string>
+    <string name="login_sign_up_link">Sign Up</string>
+
+    <!-- Product detail: delete dialog -->
+    <string name="delete_product_dialog_title">Delete %1$s?</string>
+    <string name="delete_product_dialog_message">This item will be permanently removed from your pantry.</string>
+
+    <!-- Product detail: pane -->
+    <string name="product_detail_storage_label">STORAGE</string>
+    <string name="product_detail_storage_unassigned">Unassigned</string>
+    <string name="product_detail_category_label">CATEGORY</string>
+    <string name="product_detail_category_other">Other</string>
+    <string name="product_detail_added_on">Added to inventory on</string>
+    <string name="product_detail_edit_button">Edit Product</string>
+    <string name="product_detail_move_button">Move to…</string>
+    <string name="product_detail_delete_button">Delete Item</string>
+    <string name="product_detail_top_bar_title">Item Details</string>
+
+    <!-- Product detail: move to storage sheet -->
+    <string name="move_sheet_title">Move to…</string>
+    <string name="move_sheet_empty">No storage units yet.</string>
+
+    <!-- Product detail: stock level card -->
+    <string name="stock_level_label">STOCK LEVEL</string>
+    <string name="stock_decrease_content_description">Decrease stock</string>
+    <string name="stock_increase_content_description">Increase stock</string>
+
+    <!-- Product detail: edit product sheet -->
+    <string name="edit_product_title">Edit Product</string>
+    <string name="edit_product_quantity_label">Quantity</string>
+    <string name="edit_product_category_label">Category</string>
+    <string name="edit_product_expiration_date_label">Expiration date</string>
+    <string name="edit_product_pick_date_content_description">Pick expiration date</string>
+
+    <!-- Product detail: expiration date card -->
+    <string name="expiration_date_label">EXPIRATION DATE</string>
+    <string name="expiration_date_none">No expiration date</string>
+
+    <!-- Scan -->
+    <string name="scan_top_bar_title">Scan Item</string>
+    <string name="scan_manual_entry_button">Manual Entry</string>
+    <string name="scanned_product_fresh_badge">FRESH</string>
+    <string name="scanned_product_quantity_pantry">%1$s • Pantry</string>
+    <string name="scanned_product_add_button">Add to Pantry</string>
+    <string name="scan_checking_connection">Checking connection…</string>
+    <string name="scan_no_internet_message">No internet connection. Connect to Wi-Fi or mobile data to look up scanned products.</string>
+    <string name="scan_retry_button">Retry</string>
+    <string name="scan_camera_permission_message">Camera access is needed to scan barcodes. Enable it in Settings, or add the product manually.</string>
+    <string name="scan_looking_up_product">Looking up product…</string>
+    <string name="scan_align_barcode">Align barcode within frame</string>
+    <string name="product_not_found_title">Product not found</string>
+    <string name="product_not_found_message">We couldn\'t find a product for barcode %1$s. Try scanning again or add it manually.</string>
+    <string name="product_not_found_try_again_button">Try Again</string>
+    <string name="product_not_found_manual_entry_button">Enter Manually</string>
+
+    <!-- Storage -->
+    <string name="storage_detail_total_items">%1$d Items</string>
+    <string name="storage_detail_expiring_soon"> • %1$d Expiring Soon</string>
+    <string name="storage_header_title">Storage Units</string>
+    <string name="storage_header_subtitle">Manage your kitchen zones</string>
+    <string name="storage_banner_text">Keep your kitchen fresh and waste-free.</string>
+    <string name="storage_freshness_expiring">%1$d Expiring</string>
+    <string name="storage_freshness_all_fresh">All Fresh</string>
+    <string name="delete_storage_dialog_title">Delete %1$s?</string>
+    <string name="delete_storage_dialog_message">Items in this storage unit will be kept, but unassigned from %1$s.</string>
+    <string name="storage_unit_products_total">%1$d Products total</string>
+    <string name="add_storage_dialog_title">New Storage Unit</string>
+    <string name="storage_detail_empty_no_items">No items in this storage yet. Tap Add Item to get started.</string>
+    <string name="storage_detail_empty_category">No items in this category.</string>
+    <string name="storage_pane_empty">No storage units yet. Tap + to add your first one.</string>
+    <string name="storage_detail_delete_menu_item">Delete storage</string>
+    <string name="storage_detail_add_item_fab">ADD ITEM</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_expired_alerts_badge">%1$d Alerts</string>
+    <string name="dashboard_discarded_this_month">Discarded This Month</string>
+    <string name="dashboard_products_label">Products</string>
+    <string name="dashboard_trend_less">%1$d%% less than last month</string>
+    <string name="dashboard_trend_more">%1$d%% more than last month</string>
+    <string name="dashboard_expired_products_title">Expired products</string>
+    <string name="dashboard_expired_state">Expired</string>
+    <string name="dashboard_no_expired_products">No expired products for now</string>
+    <string name="dashboard_greeting">Good morning, Kitchen manager</string>
+    <string name="dashboard_menu_scan">Scan</string>
+    <string name="dashboard_menu_add">Add</string>
+
+    <!-- Add -->
+    <string name="add_top_bar_title">Add</string>
+
+    <!-- Profile -->
+    <string name="profile_top_bar_title">Profile</string>
+    <string name="profile_authenticated_badge">Authenticated</string>
+    <string name="profile_guest_title">You\'re browsing as a guest</string>
+    <string name="profile_guest_message">Your pantry is saved on this device only. Sign in to back it up and sync it to your account.</string>
+    <string name="profile_guest_sign_in_button">Sign In</string>
+    <string name="profile_guest_create_account_button">Create Account</string>
+    <string name="profile_household_title">Household</string>
+    <string name="profile_household_member_count">1 Member</string>
+    <string name="profile_member_you">You</string>
+    <string name="profile_member_owner">Owner</string>
+    <string name="profile_invite_member_button">Invite Member</string>
+    <string name="profile_settings_title">Settings</string>
+    <string name="profile_settings_account">Account</string>
+    <string name="profile_settings_notifications">Notifications</string>
+    <string name="profile_settings_notifications_on">On</string>
+    <string name="profile_settings_theme">Theme</string>
+    <string name="profile_settings_units">Units</string>
+    <string name="profile_settings_units_metric">Metric</string>
+    <string name="profile_sign_out_button">Sign Out</string>
+    <string name="profile_footer">PantryPal v1.0.2 • Domestic Utility Engine</string>
+</resources>

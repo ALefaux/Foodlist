@@ -17,6 +17,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.storage_freshness_all_fresh
+import foodlist.app.shared.generated.resources.storage_freshness_expiring
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun StorageFreshnessBadge(
@@ -51,7 +55,11 @@ fun StorageFreshnessBadge(
         )
         Spacer(modifier = Modifier.width(4.dp))
         Text(
-            text = if (isExpiring) "$expiringCount Expiring" else "All Fresh",
+            text = if (isExpiring) {
+                stringResource(Res.string.storage_freshness_expiring, expiringCount)
+            } else {
+                stringResource(Res.string.storage_freshness_all_fresh)
+            },
             style = MaterialTheme.typography.labelSmall,
             color = contentColor
         )

@@ -8,6 +8,10 @@ import androidx.compose.material.icons.outlined.Add
 import androidx.compose.material.icons.outlined.PhotoCamera
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.dashboard_menu_add
+import foodlist.app.shared.generated.resources.dashboard_menu_scan
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun DashboardMenu(
@@ -22,12 +26,12 @@ fun DashboardMenu(
         ActionButton.Primary(
             icon = Icons.Outlined.PhotoCamera,
             onClick = onScanClick,
-            title = "Scan"
+            title = stringResource(Res.string.dashboard_menu_scan)
         )
         ActionButton.Secondary(
             icon = Icons.Outlined.Add,
             onClick = onAddClick,
-            title = "Add"
+            title = stringResource(Res.string.dashboard_menu_add)
         )
         /* For V2
         ActionButton.Tertiary(

@@ -20,12 +20,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.scan_align_barcode
+import foodlist.app.shared.generated.resources.scan_camera_permission_message
+import foodlist.app.shared.generated.resources.scan_checking_connection
+import foodlist.app.shared.generated.resources.scan_looking_up_product
+import foodlist.app.shared.generated.resources.scan_no_internet_message
+import foodlist.app.shared.generated.resources.scan_retry_button
 import io.github.alefaux.foodlist.feature.scan.camera.BarcodeScannerView
 import io.github.alefaux.foodlist.feature.scan.presentation.model.ScanUiState
 import io.github.alefaux.foodlist.feature.scan.ui.ManualEntryButton
 import io.github.alefaux.foodlist.feature.scan.ui.ProductNotFoundSheet
 import io.github.alefaux.foodlist.feature.scan.ui.ScannedProductSheet
 import io.github.alefaux.foodlist.feature.scan.ui.ScannerViewfinder
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -68,7 +76,7 @@ fun ScanPane(
                 ) {
                     CircularProgressIndicator(color = Color.White)
                     Text(
-                        text = "Checking connection...",
+                        text = stringResource(Res.string.scan_checking_connection),
                         color = Color.White,
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier.padding(top = 16.dp)
@@ -82,7 +90,7 @@ fun ScanPane(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "No internet connection. Connect to Wi-Fi or mobile data to look up scanned products.",
+                        text = stringResource(Res.string.scan_no_internet_message),
                         color = Color.White,
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.bodyMedium
@@ -91,7 +99,7 @@ fun ScanPane(
                         onClick = onRetryConnectivity,
                         modifier = Modifier.padding(top = 16.dp)
                     ) {
-                        Text("Retry")
+                        Text(stringResource(Res.string.scan_retry_button))
                     }
                 }
 
@@ -109,7 +117,7 @@ fun ScanPane(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Camera access is needed to scan barcodes. Enable it in Settings, or add the product manually.",
+                        text = stringResource(Res.string.scan_camera_permission_message),
                         color = Color.White,
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.bodyMedium
@@ -138,9 +146,9 @@ fun ScanPane(
 
                     Text(
                         text = if (state is ScanUiState.LookingUp) {
-                            "Looking up product..."
+                            stringResource(Res.string.scan_looking_up_product)
                         } else {
-                            "Align barcode within frame"
+                            stringResource(Res.string.scan_align_barcode)
                         },
                         color = Color.White,
                         style = MaterialTheme.typography.bodyMedium,

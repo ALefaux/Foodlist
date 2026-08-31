@@ -12,6 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.scan_manual_entry_button
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ManualEntryButton(
@@ -31,6 +34,6 @@ fun ManualEntryButton(
             contentDescription = null,
             modifier = Modifier.padding(end = 8.dp)
         )
-        Text("Manual Entry")
+        Text(stringResource(Res.string.scan_manual_entry_button))
     }
 }

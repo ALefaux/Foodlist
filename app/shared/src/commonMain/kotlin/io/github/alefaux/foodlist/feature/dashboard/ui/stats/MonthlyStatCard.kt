@@ -28,6 +28,12 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.dashboard_discarded_this_month
+import foodlist.app.shared.generated.resources.dashboard_products_label
+import foodlist.app.shared.generated.resources.dashboard_trend_less
+import foodlist.app.shared.generated.resources.dashboard_trend_more
+import org.jetbrains.compose.resources.stringResource
 
 object MonthlyStatCard {
     @Composable
@@ -42,7 +48,7 @@ object MonthlyStatCard {
             backgroundColor = Color(0xFF3F6B34),
             discardedProductsCount = discardedProductsCount,
             trendIcon = Icons.AutoMirrored.Default.TrendingDown,
-            trendText = "${trendPercent}% less than last month",
+            trendText = stringResource(Res.string.dashboard_trend_less, trendPercent),
             waveColor = Color(0xFF5A8A4A)
         )
     }
@@ -59,7 +65,7 @@ object MonthlyStatCard {
             backgroundColor = Color(0xFF7A342C),
             discardedProductsCount = discardedProductsCount,
             trendIcon = Icons.AutoMirrored.Default.TrendingUp,
-            trendText = "${trendPercent}% more than last month",
+            trendText = stringResource(Res.string.dashboard_trend_more, trendPercent),
             waveColor = Color(0xFF9C5449)
         )
     }
@@ -96,7 +102,7 @@ object MonthlyStatCard {
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Text(
-                        text = "Discarded This Month",
+                        text = stringResource(Res.string.dashboard_discarded_this_month),
                         style = MaterialTheme.typography.labelMedium,
                         fontWeight = FontWeight.Bold,
                         color = accentColor
@@ -112,7 +118,7 @@ object MonthlyStatCard {
                             color = Color.White
                         )
                         Text(
-                            text = "Products",
+                            text = stringResource(Res.string.dashboard_products_label),
                             style = MaterialTheme.typography.headlineLarge,
                             fontWeight = FontWeight.Bold,
                             color = Color.White

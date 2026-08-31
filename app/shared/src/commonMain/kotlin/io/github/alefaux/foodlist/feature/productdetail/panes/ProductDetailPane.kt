@@ -25,12 +25,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.product_detail_added_on
+import foodlist.app.shared.generated.resources.product_detail_category_label
+import foodlist.app.shared.generated.resources.product_detail_category_other
+import foodlist.app.shared.generated.resources.product_detail_delete_button
+import foodlist.app.shared.generated.resources.product_detail_edit_button
+import foodlist.app.shared.generated.resources.product_detail_move_button
+import foodlist.app.shared.generated.resources.product_detail_storage_label
+import foodlist.app.shared.generated.resources.product_detail_storage_unassigned
 import io.github.alefaux.foodlist.core.model.extension.toDisplayString
 import io.github.alefaux.foodlist.feature.productdetail.presentation.model.ProductDetailUiState
 import io.github.alefaux.foodlist.feature.productdetail.ui.ExpirationDateCard
 import io.github.alefaux.foodlist.feature.productdetail.ui.ProductHeroHeader
 import io.github.alefaux.foodlist.feature.productdetail.ui.ProductInfoTile
 import io.github.alefaux.foodlist.feature.productdetail.ui.StockLevelCard
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ProductDetailPane(
@@ -89,14 +99,14 @@ fun ProductDetailPane(
             ProductInfoTile(
                 modifier = Modifier.weight(1f),
                 icon = Icons.Filled.Kitchen,
-                label = "STORAGE",
-                value = state.storageName ?: "Unassigned"
+                label = stringResource(Res.string.product_detail_storage_label),
+                value = state.storageName ?: stringResource(Res.string.product_detail_storage_unassigned)
             )
             ProductInfoTile(
                 modifier = Modifier.weight(1f),
                 icon = Icons.Filled.Category,
-                label = "CATEGORY",
-                value = state.category.ifBlank { "Other" }
+                label = stringResource(Res.string.product_detail_category_label),
+                value = state.category.ifBlank { stringResource(Res.string.product_detail_category_other) }
             )
         }
 
@@ -106,7 +116,7 @@ fun ProductDetailPane(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "Added to inventory on",
+                    text = stringResource(Res.string.product_detail_added_on),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -126,7 +136,7 @@ fun ProductDetailPane(
         ) {
             Icon(imageVector = Icons.Filled.Edit, contentDescription = null)
             Text(
-                text = "Edit Product",
+                text = stringResource(Res.string.product_detail_edit_button),
                 modifier = Modifier.padding(start = 8.dp)
             )
         }
@@ -141,7 +151,7 @@ fun ProductDetailPane(
             ) {
                 Icon(imageVector = Icons.AutoMirrored.Filled.Logout, contentDescription = null)
                 Text(
-                    text = "Move to...",
+                    text = stringResource(Res.string.product_detail_move_button),
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(start = 8.dp)
                 )
@@ -156,7 +166,7 @@ fun ProductDetailPane(
             ) {
                 Icon(imageVector = Icons.Filled.Delete, contentDescription = null)
                 Text(
-                    text = "Delete Item",
+                    text = stringResource(Res.string.product_detail_delete_button),
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(start = 8.dp)
                 )

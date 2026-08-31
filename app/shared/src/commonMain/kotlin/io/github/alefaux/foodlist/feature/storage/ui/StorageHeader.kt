@@ -17,6 +17,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.storage_header_subtitle
+import foodlist.app.shared.generated.resources.storage_header_title
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun StorageHeader(
@@ -30,11 +34,11 @@ fun StorageHeader(
     ) {
         Column {
             Text(
-                text = "Storage Units",
+                text = stringResource(Res.string.storage_header_title),
                 style = MaterialTheme.typography.headlineMedium
             )
             Text(
-                text = "Manage your kitchen zones",
+                text = stringResource(Res.string.storage_header_subtitle),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

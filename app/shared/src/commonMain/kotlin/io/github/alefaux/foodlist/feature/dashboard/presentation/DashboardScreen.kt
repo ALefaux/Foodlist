@@ -10,7 +10,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.dashboard_greeting
 import io.github.alefaux.foodlist.feature.dashboard.panes.DashboardPane
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -35,7 +38,7 @@ fun DashboardScreen(
             MediumTopAppBar(
                 title = {
                     Text(
-                        text = "Good morning, Kitchen manager"
+                        text = stringResource(Res.string.dashboard_greeting)
                     )
                 }
             )

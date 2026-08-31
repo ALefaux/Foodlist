@@ -40,12 +40,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.login_email_label
+import foodlist.app.shared.generated.resources.login_email_placeholder
+import foodlist.app.shared.generated.resources.login_forgot_password
+import foodlist.app.shared.generated.resources.login_no_account
+import foodlist.app.shared.generated.resources.login_password_label
+import foodlist.app.shared.generated.resources.login_sign_in_button
+import foodlist.app.shared.generated.resources.login_sign_up_link
+import foodlist.app.shared.generated.resources.login_top_bar_title
+import foodlist.app.shared.generated.resources.login_welcome_back
 import io.github.alefaux.foodlist.core.auth.rememberGoogleSignInContext
 import io.github.alefaux.foodlist.feature.auth.presentation.model.AuthUiState
 import io.github.alefaux.foodlist.feature.auth.ui.AuthAppIcon
 import io.github.alefaux.foodlist.feature.auth.ui.AuthDivider
 import io.github.alefaux.foodlist.feature.auth.ui.AuthTextField
 import io.github.alefaux.foodlist.feature.auth.ui.SocialSignInRow
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -96,13 +107,13 @@ fun LoginScreen(
         AuthAppIcon()
 
         Text(
-            text = "Home Pantry",
+            text = stringResource(Res.string.login_top_bar_title),
             style = MaterialTheme.typography.headlineMedium,
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier.padding(top = 12.dp)
         )
         Text(
-            text = "Welcome back!",
+            text = stringResource(Res.string.login_welcome_back),
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -120,16 +131,16 @@ fun LoginScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 AuthTextField(
-                    label = "Email",
+                    label = stringResource(Res.string.login_email_label),
                     value = email,
                     onValueChange = { email = it },
-                    placeholder = "chef@example.com",
+                    placeholder = stringResource(Res.string.login_email_placeholder),
                     leadingIcon = Icons.Filled.Email
                 )
 
                 Column {
                     AuthTextField(
-                        label = "Password",
+                        label = stringResource(Res.string.login_password_label),
                         value = password,
                         onValueChange = { password = it },
                         isPassword = true
@@ -143,7 +154,7 @@ fun LoginScreen(
                             contentPadding = PaddingValues(0.dp)
                         ) {
                             Text(
-                                text = "Forgot Password?",
+                                text = stringResource(Res.string.login_forgot_password),
                                 style = MaterialTheme.typography.labelMedium,
                                 fontWeight = FontWeight.Bold
                             )
@@ -174,7 +185,7 @@ fun LoginScreen(
                             strokeWidth = 2.dp
                         )
                     } else {
-                        Text("Sign In")
+                        Text(stringResource(Res.string.login_sign_in_button))
                         Spacer(modifier = Modifier.width(8.dp))
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowForward,
@@ -200,7 +211,7 @@ fun LoginScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Don't have an account? ",
+                text = stringResource(Res.string.login_no_account),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -209,7 +220,7 @@ fun LoginScreen(
                 contentPadding = PaddingValues(0.dp)
             ) {
                 Text(
-                    text = "Sign Up",
+                    text = stringResource(Res.string.login_sign_up_link),
                     style = MaterialTheme.typography.bodyMedium,
                     fontWeight = FontWeight.Bold
                 )

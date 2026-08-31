@@ -19,8 +19,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.auth_apple_button
+import foodlist.app.shared.generated.resources.auth_google_button
 import foodlist.app.shared.generated.resources.google_logo
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun SocialSignInRow(
@@ -42,7 +45,7 @@ fun SocialSignInRow(
             onClick = onAppleClick,
             shape = RoundedCornerShape(12.dp)
         ) {
-            Text("Apple")
+            Text(stringResource(Res.string.auth_apple_button))
         }
     }
 }
@@ -77,7 +80,7 @@ private fun GoogleSignInButton(
         )
         Spacer(modifier = Modifier.width(8.dp))
         Text(
-            text = "Google",
+            text = stringResource(Res.string.auth_google_button),
             fontWeight = FontWeight.Medium
         )
     }

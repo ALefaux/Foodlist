@@ -18,6 +18,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.profile_guest_create_account_button
+import foodlist.app.shared.generated.resources.profile_guest_message
+import foodlist.app.shared.generated.resources.profile_guest_sign_in_button
+import foodlist.app.shared.generated.resources.profile_guest_title
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun GuestProfilePane(
@@ -40,14 +46,14 @@ fun GuestProfilePane(
         )
 
         Text(
-            text = "You're browsing as a guest",
+            text = stringResource(Res.string.profile_guest_title),
             style = MaterialTheme.typography.headlineSmall,
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(top = 16.dp)
         )
 
         Text(
-            text = "Your pantry is saved on this device only. Sign in to back it up and sync it to your account.",
+            text = stringResource(Res.string.profile_guest_message),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
@@ -64,14 +70,14 @@ fun GuestProfilePane(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = onSignInClick
             ) {
-                Text("Sign In")
+                Text(stringResource(Res.string.profile_guest_sign_in_button))
             }
 
             OutlinedButton(
                 modifier = Modifier.fillMaxWidth(),
                 onClick = onSignUpClick
             ) {
-                Text("Create Account")
+                Text(stringResource(Res.string.profile_guest_create_account_button))
             }
         }
     }

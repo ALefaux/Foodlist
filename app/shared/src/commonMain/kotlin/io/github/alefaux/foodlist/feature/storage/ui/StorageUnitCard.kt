@@ -22,7 +22,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.storage_unit_products_total
 import io.github.alefaux.foodlist.feature.storage.modelui.StorageUnitUi
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun StorageUnitCard(
@@ -84,7 +87,7 @@ fun StorageUnitCard(
                         style = MaterialTheme.typography.headlineSmall
                     )
                     Text(
-                        text = "${storageUnit.productCount} Products total",
+                        text = stringResource(Res.string.storage_unit_products_total, storageUnit.productCount),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

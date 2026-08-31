@@ -10,10 +10,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.storage_pane_empty
 import io.github.alefaux.foodlist.feature.storage.modelui.StorageUnitUi
 import io.github.alefaux.foodlist.feature.storage.ui.StorageHeader
 import io.github.alefaux.foodlist.feature.storage.ui.StorageUnitCard
 import kotlinx.collections.immutable.ImmutableList
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun StoragePane(
@@ -34,7 +37,7 @@ fun StoragePane(
         if (storageUnits.isEmpty()) {
             item {
                 Text(
-                    text = "No storage units yet. Tap + to add your first one.",
+                    text = stringResource(Res.string.storage_pane_empty),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

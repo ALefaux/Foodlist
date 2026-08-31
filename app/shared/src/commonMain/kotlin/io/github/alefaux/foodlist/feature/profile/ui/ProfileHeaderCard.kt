@@ -23,6 +23,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.profile_authenticated_badge
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun ProfileHeaderCard(
@@ -93,7 +96,7 @@ fun ProfileHeaderCard(
                             .background(MaterialTheme.colorScheme.primary, CircleShape)
                     )
                     Text(
-                        text = "Authenticated",
+                        text = stringResource(Res.string.profile_authenticated_badge),
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
                         modifier = Modifier.padding(start = 6.dp)

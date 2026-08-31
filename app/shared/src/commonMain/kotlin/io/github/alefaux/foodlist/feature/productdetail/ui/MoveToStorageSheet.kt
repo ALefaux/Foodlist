@@ -16,7 +16,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.move_sheet_empty
+import foodlist.app.shared.generated.resources.move_sheet_title
 import io.github.alefaux.foodlist.feature.storage.domain.StorageUnit
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun MoveToStorageSheet(
@@ -27,14 +31,14 @@ fun MoveToStorageSheet(
 ) {
     Column(modifier = modifier.padding(bottom = 24.dp)) {
         Text(
-            text = "Move to...",
+            text = stringResource(Res.string.move_sheet_title),
             style = MaterialTheme.typography.headlineSmall,
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
         )
 
         if (storages.isEmpty()) {
             Text(
-                text = "No storage units yet.",
+                text = stringResource(Res.string.move_sheet_empty),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(16.dp)
