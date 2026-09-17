@@ -5,6 +5,7 @@ import io.github.alefaux.foodlist.auth.InvalidCredentialsException
 import io.github.alefaux.foodlist.auth.InvalidGoogleTokenException
 import io.github.alefaux.foodlist.auth.ValidationException
 import io.github.alefaux.foodlist.auth.dto.ErrorResponse
+import io.github.alefaux.foodlist.search.InvalidQueryException
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
@@ -27,6 +28,9 @@ fun Application.configureStatusPages() {
         }
         exception<Throwable> { call, _ ->
             call.respond(HttpStatusCode.InternalServerError, ErrorResponse("Something went wrong."))
+        }
+        exception<InvalidQueryException> { call, cause ->
+            call.respond(HttpStatusCode.BadRequest, ErrorResponse(cause.message ?: "Invalid query."))
         }
     }
 }

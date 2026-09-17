@@ -22,6 +22,10 @@ dependencies {
     implementation(libs.ktor.serialization.json)
     implementation(libs.kotlinx.serialization.json)
 
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.client.content.negociation)
+
     implementation(libs.auth0.java.jwt)
     implementation(libs.jbcrypt)
     implementation(libs.google.api.client)
@@ -33,6 +37,7 @@ dependencies {
     implementation(libs.postgresql)
 
     testImplementation(libs.ktor.serverTestHost)
+    testImplementation(libs.ktor.client.mock)
     testImplementation(libs.kotlinx.coroutines.core)
     testImplementation(kotlin("test"))
 }
