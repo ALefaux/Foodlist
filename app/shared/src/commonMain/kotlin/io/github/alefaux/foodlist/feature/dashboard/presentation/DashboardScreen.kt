@@ -1,5 +1,6 @@
 package io.github.alefaux.foodlist.feature.dashboard.presentation
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MediumTopAppBar
@@ -7,6 +8,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -33,16 +35,7 @@ fun DashboardScreen(
     val state = viewModel.uiState.collectAsStateWithLifecycle().value
 
     Scaffold(
-        modifier = modifier,
-        topBar = {
-            MediumTopAppBar(
-                title = {
-                    Text(
-                        text = stringResource(Res.string.dashboard_greeting)
-                    )
-                }
-            )
-        }
+        modifier = modifier
     ) { padding ->
         DashboardPane(
             modifier = Modifier.padding(padding),

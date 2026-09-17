@@ -28,18 +28,7 @@ fun ProfileScreen(
     val state = viewModel.uiState.collectAsStateWithLifecycle().value
 
     Scaffold(
-        modifier = modifier,
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = stringResource(Res.string.profile_top_bar_title),
-                        color = MaterialTheme.colorScheme.primary,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-            )
-        }
+        modifier = modifier
     ) { padding ->
         val user = state.user
         if (user != null) {

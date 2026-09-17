@@ -23,6 +23,8 @@ import foodlist.app.shared.generated.resources.profile_guest_create_account_butt
 import foodlist.app.shared.generated.resources.profile_guest_message
 import foodlist.app.shared.generated.resources.profile_guest_sign_in_button
 import foodlist.app.shared.generated.resources.profile_guest_title
+import foodlist.app.shared.generated.resources.profile_top_bar_title
+import io.github.alefaux.foodlist.core.component.HomeHeader
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -32,52 +34,60 @@ fun GuestProfilePane(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        modifier = modifier.fillMaxSize()
+            .padding(16.dp)
     ) {
-        Icon(
-            imageVector = Icons.Filled.AccountCircle,
-            contentDescription = null,
-            modifier = Modifier.size(80.dp),
-            tint = MaterialTheme.colorScheme.onSurfaceVariant
+        HomeHeader(
+            title = stringResource(Res.string.profile_top_bar_title)
         )
-
-        Text(
-            text = stringResource(Res.string.profile_guest_title),
-            style = MaterialTheme.typography.headlineSmall,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(top = 16.dp)
-        )
-
-        Text(
-            text = stringResource(Res.string.profile_guest_message),
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(top = 8.dp)
-        )
-
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 24.dp),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
+                .fillMaxSize()
+                .padding(8.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Button(
-                modifier = Modifier.fillMaxWidth(),
-                onClick = onSignInClick
-            ) {
-                Text(stringResource(Res.string.profile_guest_sign_in_button))
-            }
+            Icon(
+                imageVector = Icons.Filled.AccountCircle,
+                contentDescription = null,
+                modifier = Modifier.size(80.dp),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant
+            )
 
-            OutlinedButton(
-                modifier = Modifier.fillMaxWidth(),
-                onClick = onSignUpClick
+            Text(
+                text = stringResource(Res.string.profile_guest_title),
+                style = MaterialTheme.typography.headlineSmall,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(top = 16.dp)
+            )
+
+            Text(
+                text = stringResource(Res.string.profile_guest_message),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(top = 8.dp)
+            )
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 24.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                Text(stringResource(Res.string.profile_guest_create_account_button))
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = onSignInClick
+                ) {
+                    Text(stringResource(Res.string.profile_guest_sign_in_button))
+                }
+
+                OutlinedButton(
+                    modifier = Modifier.fillMaxWidth(),
+                    onClick = onSignUpClick
+                ) {
+                    Text(stringResource(Res.string.profile_guest_create_account_button))
+                }
             }
         }
     }
