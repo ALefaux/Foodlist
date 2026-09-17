@@ -35,9 +35,11 @@ fun ProfileScreen(
             ProfilePane(
                 modifier = Modifier.padding(padding),
                 userName = user.name,
+                isDarkThemeEnabled = state.isDarkThemeEnabled,
                 onInviteMemberClick = {},
                 onAccountClick = {},
-                onSignOutClick = viewModel::signOut
+                onSignOutClick = viewModel::signOut,
+                onDarkThemeChange = viewModel::setDarkThemeEnabled
             )
         } else {
             GuestProfilePane(

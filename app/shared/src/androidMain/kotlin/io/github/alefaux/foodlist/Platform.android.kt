@@ -5,6 +5,8 @@ import io.github.alefaux.foodlist.core.auth.AndroidGoogleAuthProvider
 import io.github.alefaux.foodlist.core.auth.GoogleAuthProvider
 import io.github.alefaux.foodlist.core.network.AndroidNetworkConnectivityChecker
 import io.github.alefaux.foodlist.core.network.NetworkConnectivityChecker
+import io.github.alefaux.foodlist.core.theme.AndroidThemePreferencesStorage
+import io.github.alefaux.foodlist.core.theme.ThemePreferencesStorage
 import io.github.alefaux.foodlist.database.getDatabaseBuilder
 import io.github.alefaux.foodlist.database.getRoomDatabase
 import org.koin.core.module.Module
@@ -28,5 +30,9 @@ actual fun platformModule(): Module = module {
 
     single<GoogleAuthProvider> {
         AndroidGoogleAuthProvider()
+    }
+
+    single<ThemePreferencesStorage> {
+        AndroidThemePreferencesStorage(context = get())
     }
 }

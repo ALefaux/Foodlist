@@ -8,7 +8,8 @@ val profileModule = module {
     viewModel {
         ProfileViewModel(
             observeCurrentUserUseCase = get(),
-            signOutUseCase = get()
+            signOutUseCase = get(),
+            themeRepository = get()
         )
     }
 }

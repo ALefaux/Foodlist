@@ -1,5 +1,6 @@
 package io.github.alefaux.foodlist.di
 
+import io.github.alefaux.foodlist.core.theme.di.themeModule
 import io.github.alefaux.foodlist.feature.auth.di.authModule
 import io.github.alefaux.foodlist.feature.dashboard.di.dashboardModule
 import io.github.alefaux.foodlist.feature.productdetail.di.productDetailModule
@@ -26,6 +27,7 @@ fun initKoin(configuration: KoinAppDeclaration? = null) {
             splashModule,
             storageModule,
             syncModule,
+            themeModule,
             platformModule(),
             databaseModule,
             networkModule

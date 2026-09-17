@@ -1,6 +1,7 @@
 package io.github.alefaux.foodlist.feature.profile.panes
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -30,10 +31,6 @@ import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
@@ -61,12 +58,14 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun ProfilePane(
     userName: String,
+    isDarkThemeEnabled: Boolean?,
     onInviteMemberClick: () -> Unit,
     onAccountClick: () -> Unit,
     onSignOutClick: () -> Unit,
+    onDarkThemeChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var isDarkThemeEnabled by remember { mutableStateOf(false) }
+    val isDarkThemeChecked = isDarkThemeEnabled ?: isSystemInDarkTheme()
 
     Column(
         modifier = modifier
@@ -165,8 +164,8 @@ fun ProfilePane(
                         label = stringResource(Res.string.profile_settings_theme)
                     ) {
                         Switch(
-                            checked = isDarkThemeEnabled,
-                            onCheckedChange = { isDarkThemeEnabled = it },
+                            checked = isDarkThemeChecked,
+                            onCheckedChange = onDarkThemeChange,
                             colors = SwitchDefaults.colors(
                                 checkedTrackColor = MaterialTheme.colorScheme.primary
                             )

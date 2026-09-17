@@ -4,6 +4,8 @@ import io.github.alefaux.foodlist.core.auth.GoogleAuthProvider
 import io.github.alefaux.foodlist.core.auth.IosGoogleAuthProvider
 import io.github.alefaux.foodlist.core.network.IosNetworkConnectivityChecker
 import io.github.alefaux.foodlist.core.network.NetworkConnectivityChecker
+import io.github.alefaux.foodlist.core.theme.IosThemePreferencesStorage
+import io.github.alefaux.foodlist.core.theme.ThemePreferencesStorage
 import io.github.alefaux.foodlist.database.AppDatabase
 import io.github.alefaux.foodlist.database.getDatabaseBuilder
 import io.github.alefaux.foodlist.database.getRoomDatabase
@@ -29,5 +31,9 @@ actual fun platformModule(): Module = module {
 
     single<GoogleAuthProvider> {
         IosGoogleAuthProvider()
+    }
+
+    single<ThemePreferencesStorage> {
+        IosThemePreferencesStorage()
     }
 }
