@@ -136,6 +136,7 @@ fun ProfilePane(
                 )
             ) {
                 Column {
+                    /*
                     SettingsRow(
                         icon = Icons.Filled.ManageAccounts,
                         label = stringResource(Res.string.profile_settings_account),
@@ -159,6 +160,7 @@ fun ProfilePane(
                         )
                     }
                     HorizontalDivider()
+                    */
                     SettingsRow(
                         icon = Icons.Filled.DarkMode,
                         label = stringResource(Res.string.profile_settings_theme)
@@ -171,6 +173,7 @@ fun ProfilePane(
                             )
                         )
                     }
+                    /*
                     HorizontalDivider()
                     SettingsRow(
                         icon = Icons.Filled.Straighten,
@@ -182,6 +185,7 @@ fun ProfilePane(
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
+                    */
                 }
             }
         }
