@@ -1,6 +1,7 @@
 package io.github.alefaux.foodlist
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -85,7 +86,9 @@ fun App() {
         ) { padding ->
             FoodlistNavHost(
                 navController = navController,
-                modifier = Modifier.padding(padding)
+                modifier = Modifier
+                    .padding(padding)
+                    .consumeWindowInsets(padding)
             )
         }
     }
