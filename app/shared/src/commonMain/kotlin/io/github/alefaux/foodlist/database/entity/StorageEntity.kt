@@ -6,5 +6,6 @@ import androidx.room.PrimaryKey
 @Entity
 data class StorageEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val name: String
+    val name: String,
+    val isTestData: Boolean = false
 )

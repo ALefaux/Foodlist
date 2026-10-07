@@ -15,5 +15,6 @@ data class ProductEntity(
     val quantity: String = "",
     val category: String = "Other",
     val stock: Int = 1,
-    val createdAt: Instant? = null
+    val createdAt: Instant? = null,
+    val isTestData: Boolean = false
 )

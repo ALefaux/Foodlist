@@ -1,6 +1,9 @@
 package io.github.alefaux.foodlist
 
+import android.content.Context
+import android.content.pm.ApplicationInfo
 import android.os.Build
+import io.github.alefaux.foodlist.core.build.AppBuildInfo
 import io.github.alefaux.foodlist.core.auth.AndroidGoogleAuthProvider
 import io.github.alefaux.foodlist.core.auth.GoogleAuthProvider
 import io.github.alefaux.foodlist.core.network.AndroidNetworkConnectivityChecker
@@ -19,6 +22,11 @@ class AndroidPlatform : Platform {
 actual fun getPlatform(): Platform = AndroidPlatform()
 
 actual fun platformModule(): Module = module {
+    single {
+        val flags = get<Context>().applicationInfo.flags
+        AppBuildInfo(isDebug = flags and ApplicationInfo.FLAG_DEBUGGABLE != 0)
+    }
+
     single {
         val builder = getDatabaseBuilder(context = get())
         getRoomDatabase(builder)

@@ -162,5 +162,9 @@
     <string name="profile_settings_units">Units</string>
     <string name="profile_settings_units_metric">Metric</string>
     <string name="profile_sign_out_button">Sign Out</string>
+    <string name="profile_debug_create_test_data_button">Create test data</string>
+    <string name="profile_debug_test_data_created">Test data created</string>
+    <string name="profile_debug_delete_test_data_button">Delete test data</string>
+    <string name="profile_debug_test_data_deleted">Test data deleted</string>
     <string name="profile_footer">PantryPal v1.0.2 • Domestic Utility Engine</string>
 </resources>

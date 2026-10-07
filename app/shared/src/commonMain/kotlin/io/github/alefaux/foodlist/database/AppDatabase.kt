@@ -24,7 +24,7 @@ import kotlinx.coroutines.IO
         ProductEntity::class,
         SessionEntity::class
     ],
-    version = 5
+    version = 6
 )
 @ConstructedBy(AppDatabaseConstructor::class)
 @TypeConverters(Converters::class)
@@ -77,10 +77,17 @@ private val MIGRATION_4_5 = object : Migration(startVersion = 4, endVersion = 5)
     }
 }
 
+private val MIGRATION_5_6 = object : Migration(startVersion = 5, endVersion = 6) {
+    override fun migrate(connection: androidx.sqlite.SQLiteConnection) {
+        connection.execSQL("ALTER TABLE StorageEntity ADD COLUMN isTestData INTEGER NOT NULL DEFAULT 0")
+        connection.execSQL("ALTER TABLE ProductEntity ADD COLUMN isTestData INTEGER NOT NULL DEFAULT 0")
+    }
+}
+
 fun getRoomDatabase(
     builder: RoomDatabase.Builder<AppDatabase>
 ): AppDatabase = builder
     .setDriver(BundledSQLiteDriver())
     .setQueryCoroutineContext(Dispatchers.IO)
-    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
+    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6)
     .build()
