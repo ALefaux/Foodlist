@@ -122,6 +122,9 @@
     <string name="add_storage_dialog_title">Nouvel espace de stockage</string>
     <string name="storage_detail_empty_no_items">Aucun article dans cet espace de stockage. Appuyez sur Ajouter un article pour commencer.</string>
     <string name="storage_detail_empty_category">Aucun article dans cette catégorie.</string>
+    <string name="storage_detail_discarded_title">Jetés (%1$d)</string>
+    <string name="storage_detail_discarded_on">Jeté le %1$s</string>
+    <string name="storage_detail_restore_button">Restaurer</string>
     <string name="storage_pane_empty">Aucun espace de stockage pour le moment. Appuyez sur + pour ajouter le premier.</string>
     <string name="storage_detail_delete_menu_item">Supprimer l'espace de stockage</string>
     <string name="storage_detail_add_item_fab">AJOUTER UN ARTICLE</string>

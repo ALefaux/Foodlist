@@ -7,5 +7,6 @@ data class StorageProduct(
     val name: String,
     val quantity: String,
     val category: String,
-    val expirationDate: LocalDate?
+    val expirationDate: LocalDate?,
+    val discardedDate: LocalDate? = null
 )

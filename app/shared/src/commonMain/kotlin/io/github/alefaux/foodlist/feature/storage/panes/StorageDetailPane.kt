@@ -3,6 +3,7 @@ package io.github.alefaux.foodlist.feature.storage.panes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -12,10 +13,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.storage_detail_discarded_title
 import foodlist.app.shared.generated.resources.storage_detail_empty_category
 import foodlist.app.shared.generated.resources.storage_detail_empty_no_items
 import io.github.alefaux.foodlist.feature.storage.presentation.model.StorageDetailUiState
 import io.github.alefaux.foodlist.feature.storage.ui.CategoryFilterChip
+import io.github.alefaux.foodlist.feature.storage.ui.DiscardedProductRow
 import io.github.alefaux.foodlist.feature.storage.ui.StorageDetailHeader
 import io.github.alefaux.foodlist.feature.storage.ui.StorageProductRow
 import org.jetbrains.compose.resources.stringResource
@@ -25,6 +28,7 @@ fun StorageDetailPane(
     state: StorageDetailUiState,
     onCategorySelected: (String) -> Unit,
     onProductClick: (Int) -> Unit,
+    onRestoreDiscardedClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -67,6 +71,19 @@ fun StorageDetailPane(
         } else {
             items(state.products, key = { it.id }) { product ->
                 StorageProductRow(product = product, onClick = onProductClick)
+            }
+        }
+
+        if (state.discardedProducts.isNotEmpty()) {
+            item {
+                Text(
+                    text = stringResource(Res.string.storage_detail_discarded_title, state.discardedProducts.size),
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+            }
+            items(state.discardedProducts, key = { "discarded-${it.id}" }) { product ->
+                DiscardedProductRow(product = product, onRestoreClick = onRestoreDiscardedClick)
             }
         }
     }

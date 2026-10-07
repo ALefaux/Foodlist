@@ -6,10 +6,12 @@ import io.github.alefaux.foodlist.feature.storage.data.usecase.AddStorageUnitUse
 import io.github.alefaux.foodlist.feature.storage.data.usecase.DeleteStorageUnitUseCaseImpl
 import io.github.alefaux.foodlist.feature.storage.data.usecase.GetStorageDetailUseCaseImpl
 import io.github.alefaux.foodlist.feature.storage.data.usecase.GetStorageUnitsUseCaseImpl
+import io.github.alefaux.foodlist.feature.storage.data.usecase.RestoreDiscardedProductUseCaseImpl
 import io.github.alefaux.foodlist.feature.storage.domain.AddStorageUnitUseCase
 import io.github.alefaux.foodlist.feature.storage.domain.DeleteStorageUnitUseCase
 import io.github.alefaux.foodlist.feature.storage.domain.GetStorageDetailUseCase
 import io.github.alefaux.foodlist.feature.storage.domain.GetStorageUnitsUseCase
+import io.github.alefaux.foodlist.feature.storage.domain.RestoreDiscardedProductUseCase
 import io.github.alefaux.foodlist.feature.storage.presentation.StorageDetailViewModel
 import io.github.alefaux.foodlist.feature.storage.presentation.StorageViewModel
 import org.koin.core.module.dsl.viewModel
@@ -39,6 +41,10 @@ val storageModule = module {
         DeleteStorageUnitUseCaseImpl(repository = get())
     }
 
+    factory<RestoreDiscardedProductUseCase> {
+        RestoreDiscardedProductUseCaseImpl(repository = get())
+    }
+
     viewModel {
         StorageViewModel(
             getStorageUnitsUseCase = get(),
@@ -50,7 +56,8 @@ val storageModule = module {
         StorageDetailViewModel(
             storageId = storageId,
             getStorageDetailUseCase = get(),
-            deleteStorageUnitUseCase = get()
+            deleteStorageUnitUseCase = get(),
+            restoreDiscardedProductUseCase = get()
         )
     }
 }

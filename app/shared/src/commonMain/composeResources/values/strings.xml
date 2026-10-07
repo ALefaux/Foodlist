@@ -122,6 +122,9 @@
     <string name="add_storage_dialog_title">New Storage Unit</string>
     <string name="storage_detail_empty_no_items">No items in this storage yet. Tap Add Item to get started.</string>
     <string name="storage_detail_empty_category">No items in this category.</string>
+    <string name="storage_detail_discarded_title">Discarded (%1$d)</string>
+    <string name="storage_detail_discarded_on">Discarded on %1$s</string>
+    <string name="storage_detail_restore_button">Restore</string>
     <string name="storage_pane_empty">No storage units yet. Tap + to add your first one.</string>
     <string name="storage_detail_delete_menu_item">Delete storage</string>
     <string name="storage_detail_add_item_fab">ADD ITEM</string>

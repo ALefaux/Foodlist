@@ -119,7 +119,8 @@ fun StorageDetailScreen(
             modifier = Modifier.padding(padding),
             state = state,
             onCategorySelected = viewModel::selectCategory,
-            onProductClick = onProductClick
+            onProductClick = onProductClick,
+            onRestoreDiscardedClick = viewModel::restoreDiscardedProduct
         )
     }
 
