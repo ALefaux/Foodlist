@@ -49,7 +49,9 @@ fun DashboardPane(
                         isServerUp = isServerUp
                     )
                 }
-                SearchTextField()
+                SearchTextField(
+                    modifier = Modifier.fillMaxWidth()
+                )
             }
         }
         item {
