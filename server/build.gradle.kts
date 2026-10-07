@@ -25,6 +25,7 @@ dependencies {
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.cio)
     implementation(libs.ktor.client.content.negociation)
+    implementation(libs.ktor.client.logging)
 
     implementation(libs.auth0.java.jwt)
     implementation(libs.jbcrypt)
