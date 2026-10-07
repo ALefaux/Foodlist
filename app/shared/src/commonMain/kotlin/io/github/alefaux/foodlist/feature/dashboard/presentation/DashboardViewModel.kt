@@ -41,7 +41,7 @@ class DashboardViewModel(
 
                 _uiState.update { state ->
                     state.copy(
-                        expiredProducts = products.take(MAX_EXPIRED_PRODUCTS_DISPLAYED)
+                        expiredProducts = products
                             .map { product ->
                                 ExpiredProductUi(
                                     id = product.id,
@@ -55,9 +55,5 @@ class DashboardViewModel(
                 }
             }
         }
-    }
-
-    companion object {
-        private const val MAX_EXPIRED_PRODUCTS_DISPLAYED = 2
     }
 }
