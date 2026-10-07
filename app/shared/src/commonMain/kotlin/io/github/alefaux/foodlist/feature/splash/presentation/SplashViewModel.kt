@@ -41,6 +41,6 @@ class SplashViewModel(
     }
 
     private companion object {
-        const val WAKE_UP_TIMEOUT_MILLIS = 45_000L
+        const val WAKE_UP_TIMEOUT_MILLIS = 20_000L
     }
 }
