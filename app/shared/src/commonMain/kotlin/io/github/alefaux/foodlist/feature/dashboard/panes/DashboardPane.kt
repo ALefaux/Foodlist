@@ -25,6 +25,7 @@ import org.jetbrains.compose.resources.stringResource
 fun DashboardPane(
     expiredProducts: ImmutableList<ExpiredProductUi>,
     expiredProductsCount: Int,
+    discardedProducts: DiscardedProducts,
     onAddClick: () -> Unit,
     onScanClick: () -> Unit,
     onExpiredProductClick: (Int) -> Unit,
@@ -62,10 +63,7 @@ fun DashboardPane(
         }
         item {
             ExpiredProductsPane(
-                discardedProducts = DiscardedProducts.Positive(
-                    discardedProductsCount = 10,
-                    trendPercent = 10
-                ),
+                discardedProducts = discardedProducts,
                 expiredProducts = expiredProducts,
                 expiredProductsCount = expiredProductsCount,
                 onProductClick = onExpiredProductClick

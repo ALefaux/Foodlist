@@ -14,7 +14,8 @@ class DashboardRepositoryImpl(
             Product(
                 id = it.id,
                 expirationDate = it.expirationDate?.toLocalDate(),
-                name = it.name
+                name = it.name,
+                discardedDate = it.discardedDate?.toLocalDate()
             )
         }
 }

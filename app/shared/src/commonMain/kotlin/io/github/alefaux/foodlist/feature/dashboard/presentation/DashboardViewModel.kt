@@ -5,7 +5,10 @@ import androidx.lifecycle.viewModelScope
 import io.github.alefaux.foodlist.core.build.AppBuildInfo
 import io.github.alefaux.foodlist.core.logging.AppLogging
 import io.github.alefaux.foodlist.core.network.NetworkConfig
+import io.github.alefaux.foodlist.feature.dashboard.domain.DiscardedProductsStats
+import io.github.alefaux.foodlist.feature.dashboard.domain.GetDiscardedProductsStatsUseCase
 import io.github.alefaux.foodlist.feature.dashboard.domain.GetExpiredProductsUseCase
+import io.github.alefaux.foodlist.feature.dashboard.modelui.DiscardedProducts
 import io.github.alefaux.foodlist.feature.dashboard.modelui.ExpiredProductUi
 import io.github.alefaux.foodlist.feature.dashboard.presentation.model.DashboardUiState
 import io.ktor.client.HttpClient
@@ -19,9 +22,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlin.math.abs
 
 class DashboardViewModel(
     private val getExpiredProductsUseCase: GetExpiredProductsUseCase,
+    private val getDiscardedProductsStatsUseCase: GetDiscardedProductsStatsUseCase,
     private val httpClient: HttpClient,
     private val appBuildInfo: AppBuildInfo,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
@@ -34,7 +39,22 @@ class DashboardViewModel(
         viewModelScope.launch(dispatcher) {
             // Todo fetch data for dashboard
             loadExpiredProducts()
+            loadDiscardedProductsStats()
             checkServerStatus()
+        }
+    }
+
+    private fun loadDiscardedProductsStats() {
+        viewModelScope.launch(dispatcher) {
+            runCatching {
+                getDiscardedProductsStatsUseCase()
+            }.onFailure { error ->
+                AppLogging.e(error, "Couldn't load discarded products stats")
+            }.onSuccess { stats ->
+                _uiState.update { state ->
+                    state.copy(discardedProducts = stats.toDiscardedProducts())
+                }
+            }
         }
     }
 
@@ -77,5 +97,25 @@ class DashboardViewModel(
                 }
             }
         }
+    }
+}
+
+private fun DiscardedProductsStats.toDiscardedProducts(): DiscardedProducts {
+    val trendPercent = when {
+        previousMonthCount > 0 -> abs(currentMonthCount - previousMonthCount) * 100 / previousMonthCount
+        currentMonthCount > 0 -> 100
+        else -> 0
+    }
+
+    return if (currentMonthCount <= previousMonthCount) {
+        DiscardedProducts.Positive(
+            discardedProductsCount = currentMonthCount,
+            trendPercent = trendPercent
+        )
+    } else {
+        DiscardedProducts.Negative(
+            discardedProductsCount = currentMonthCount,
+            trendPercent = trendPercent
+        )
     }
 }
