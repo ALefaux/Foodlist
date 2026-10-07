@@ -16,6 +16,7 @@ import io.github.alefaux.foodlist.feature.dashboard.modelui.DiscardedProducts
 import io.github.alefaux.foodlist.feature.dashboard.modelui.ExpiredProductUi
 import io.github.alefaux.foodlist.feature.dashboard.panes.expired.ExpiredProductsPane
 import io.github.alefaux.foodlist.feature.dashboard.ui.menu.DashboardMenu
+import io.github.alefaux.foodlist.feature.dashboard.ui.server.ServerStatusChip
 import io.github.alefaux.foodlist.core.component.SearchTextField
 import kotlinx.collections.immutable.ImmutableList
 import org.jetbrains.compose.resources.stringResource
@@ -27,7 +28,9 @@ fun DashboardPane(
     onAddClick: () -> Unit,
     onScanClick: () -> Unit,
     onExpiredProductClick: (Int) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isDebug: Boolean = false,
+    isServerUp: Boolean = false
 ) {
     LazyColumn(
         modifier = modifier.fillMaxSize(),
@@ -41,6 +44,11 @@ fun DashboardPane(
                 HomeHeader(
                     title = stringResource(Res.string.dashboard_greeting)
                 )
+                if (isDebug) {
+                    ServerStatusChip(
+                        isServerUp = isServerUp
+                    )
+                }
                 SearchTextField()
             }
         }

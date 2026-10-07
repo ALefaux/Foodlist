@@ -6,5 +6,7 @@ import kotlinx.collections.immutable.persistentListOf
 
 data class DashboardUiState(
     val expiredProducts: ImmutableList<ExpiredProductUi> = persistentListOf(),
-    val expiredProductsCount: Int = 0
+    val expiredProductsCount: Int = 0,
+    val isDebug: Boolean = false,
+    val isServerUp: Boolean = false
 )

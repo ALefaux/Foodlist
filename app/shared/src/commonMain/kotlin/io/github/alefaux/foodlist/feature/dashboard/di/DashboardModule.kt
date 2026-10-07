@@ -23,7 +23,9 @@ val dashboardModule = module {
 
     viewModel {
         DashboardViewModel(
-            getExpiredProductsUseCase = get()
+            getExpiredProductsUseCase = get(),
+            httpClient = get(),
+            appBuildInfo = get()
         )
     }
 }

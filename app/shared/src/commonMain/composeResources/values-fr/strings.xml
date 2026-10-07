@@ -16,10 +16,6 @@
     <string name="menu_recipes">Recettes</string>
     <string name="menu_profile">Profil</string>
 
-    <!-- Splash -->
-    <string name="splash_app_name">Foodlist</string>
-    <string name="splash_getting_ready">Préparation en cours…</string>
-
     <!-- Auth: social sign-in -->
     <string name="auth_apple_button">Apple</string>
     <string name="auth_google_button">Google</string>
@@ -138,6 +134,8 @@
     <string name="dashboard_greeting">Bonjour, chef de cuisine</string>
     <string name="dashboard_menu_scan">Scanner</string>
     <string name="dashboard_menu_add">Ajouter</string>
+    <string name="dashboard_server_up">serveur à l'écoute</string>
+    <string name="dashboard_server_down">serveur éteint</string>
 
     <!-- Add -->
     <string name="add_top_bar_title">Ajouter</string>
