@@ -27,6 +27,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import foodlist.app.shared.generated.resources.Res
 import foodlist.app.shared.generated.resources.storage_detail_add_item_fab
 import foodlist.app.shared.generated.resources.storage_detail_delete_menu_item
+import io.github.alefaux.foodlist.feature.productdetail.ui.DiscardProductDialog
 import io.github.alefaux.foodlist.feature.storage.panes.StorageDetailPane
 import io.github.alefaux.foodlist.feature.storage.ui.DeleteStorageDialog
 import org.jetbrains.compose.resources.stringResource
@@ -120,6 +121,7 @@ fun StorageDetailScreen(
             state = state,
             onCategorySelected = viewModel::selectCategory,
             onProductClick = onProductClick,
+            onDiscardClick = viewModel::requestDiscard,
             onRestoreDiscardedClick = viewModel::restoreDiscardedProduct
         )
     }
@@ -129,6 +131,14 @@ fun StorageDetailScreen(
             storageName = state.storageName,
             onDismiss = viewModel::dismissDeleteDialog,
             onConfirm = viewModel::deleteStorageUnit
+        )
+    }
+
+    state.productPendingDiscard?.let { product ->
+        DiscardProductDialog(
+            productName = product.name,
+            onDismiss = viewModel::dismissDiscardDialog,
+            onConfirm = viewModel::confirmDiscard
         )
     }
 }

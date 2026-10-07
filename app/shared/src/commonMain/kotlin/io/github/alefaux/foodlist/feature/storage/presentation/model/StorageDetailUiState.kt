@@ -15,5 +15,6 @@ data class StorageDetailUiState(
     val expiringCount: Int = 0,
     val isLoading: Boolean = true,
     val isDeleteDialogVisible: Boolean = false,
+    val productPendingDiscard: StorageProductUi? = null,
     val isDeleted: Boolean = false
 )

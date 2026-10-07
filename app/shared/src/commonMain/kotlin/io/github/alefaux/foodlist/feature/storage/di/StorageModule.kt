@@ -57,6 +57,7 @@ val storageModule = module {
             storageId = storageId,
             getStorageDetailUseCase = get(),
             deleteStorageUnitUseCase = get(),
+            discardProductUseCase = get(),
             restoreDiscardedProductUseCase = get()
         )
     }

@@ -28,6 +28,7 @@ fun StorageDetailPane(
     state: StorageDetailUiState,
     onCategorySelected: (String) -> Unit,
     onProductClick: (Int) -> Unit,
+    onDiscardClick: (Int) -> Unit,
     onRestoreDiscardedClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -70,7 +71,11 @@ fun StorageDetailPane(
             }
         } else {
             items(state.products, key = { it.id }) { product ->
-                StorageProductRow(product = product, onClick = onProductClick)
+                StorageProductRow(
+                    product = product,
+                    onClick = onProductClick,
+                    onDiscardClick = onDiscardClick
+                )
             }
         }
 

@@ -10,23 +10,28 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.DeleteSweep
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import foodlist.app.shared.generated.resources.Res
+import foodlist.app.shared.generated.resources.storage_detail_discard_button
 import io.github.alefaux.foodlist.feature.storage.modelui.StorageProductUi
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun StorageProductRow(
     product: StorageProductUi,
     onClick: (Int) -> Unit,
+    onDiscardClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -75,11 +80,17 @@ fun StorageProductRow(
                 )
             }
 
-            Icon(
-                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+            TextButton(onClick = { onDiscardClick(product.id) }) {
+                Icon(
+                    imageVector = Icons.Filled.DeleteSweep,
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp)
+                )
+                Text(
+                    text = stringResource(Res.string.storage_detail_discard_button),
+                    modifier = Modifier.padding(start = 4.dp)
+                )
+            }
         }
     }
 }
