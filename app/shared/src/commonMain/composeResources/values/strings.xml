@@ -55,6 +55,9 @@
     <!-- Product detail: delete dialog -->
     <string name="delete_product_dialog_title">Delete %1$s?</string>
     <string name="delete_product_dialog_message">This item will be permanently removed from your pantry.</string>
+    <string name="discard_product_dialog_title">Discard %1$s?</string>
+    <string name="discard_product_dialog_message">This item will be removed from your pantry and counted as discarded in your monthly stats.</string>
+    <string name="discard_product_dialog_confirm">Discard</string>
 
     <!-- Product detail: pane -->
     <string name="product_detail_storage_label">STORAGE</string>
@@ -65,6 +68,7 @@
     <string name="product_detail_edit_button">Edit Product</string>
     <string name="product_detail_move_button">Move to…</string>
     <string name="product_detail_delete_button">Delete Item</string>
+    <string name="product_detail_discard_button">Discard Item</string>
     <string name="product_detail_top_bar_title">Item Details</string>
 
     <!-- Product detail: move to storage sheet -->

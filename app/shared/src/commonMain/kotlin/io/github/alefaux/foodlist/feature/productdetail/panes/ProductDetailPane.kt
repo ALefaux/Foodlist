@@ -13,6 +13,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.Category
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.DeleteSweep
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Kitchen
 import androidx.compose.material3.Button
@@ -30,6 +31,7 @@ import foodlist.app.shared.generated.resources.product_detail_added_on
 import foodlist.app.shared.generated.resources.product_detail_category_label
 import foodlist.app.shared.generated.resources.product_detail_category_other
 import foodlist.app.shared.generated.resources.product_detail_delete_button
+import foodlist.app.shared.generated.resources.product_detail_discard_button
 import foodlist.app.shared.generated.resources.product_detail_edit_button
 import foodlist.app.shared.generated.resources.product_detail_move_button
 import foodlist.app.shared.generated.resources.product_detail_storage_label
@@ -49,6 +51,7 @@ fun ProductDetailPane(
     onDecreaseStock: () -> Unit,
     onEditClick: () -> Unit,
     onMoveClick: () -> Unit,
+    onDiscardClick: () -> Unit,
     onDeleteClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -137,6 +140,17 @@ fun ProductDetailPane(
             Icon(imageVector = Icons.Filled.Edit, contentDescription = null)
             Text(
                 text = stringResource(Res.string.product_detail_edit_button),
+                modifier = Modifier.padding(start = 8.dp)
+            )
+        }
+
+        OutlinedButton(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = onDiscardClick
+        ) {
+            Icon(imageVector = Icons.Filled.DeleteSweep, contentDescription = null)
+            Text(
+                text = stringResource(Res.string.product_detail_discard_button),
                 modifier = Modifier.padding(start = 8.dp)
             )
         }

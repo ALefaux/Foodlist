@@ -55,6 +55,9 @@
     <!-- Product detail: delete dialog -->
     <string name="delete_product_dialog_title">Supprimer %1$s ?</string>
     <string name="delete_product_dialog_message">Cet article sera définitivement retiré de votre garde-manger.</string>
+    <string name="discard_product_dialog_title">Jeter %1$s ?</string>
+    <string name="discard_product_dialog_message">Cet article sera retiré de votre garde-manger et comptabilisé comme jeté dans vos statistiques du mois.</string>
+    <string name="discard_product_dialog_confirm">Jeter</string>
 
     <!-- Product detail: pane -->
     <string name="product_detail_storage_label">STOCKAGE</string>
@@ -65,6 +68,7 @@
     <string name="product_detail_edit_button">Modifier le produit</string>
     <string name="product_detail_move_button">Déplacer vers…</string>
     <string name="product_detail_delete_button">Supprimer l'article</string>
+    <string name="product_detail_discard_button">Jeter l'article</string>
     <string name="product_detail_top_bar_title">Détails de l'article</string>
 
     <!-- Product detail: move to storage sheet -->

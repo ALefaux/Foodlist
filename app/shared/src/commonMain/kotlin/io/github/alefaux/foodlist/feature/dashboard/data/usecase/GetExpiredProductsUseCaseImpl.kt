@@ -12,7 +12,8 @@ class GetExpiredProductsUseCaseImpl(
     override suspend fun invoke(): List<Product> =
         repository.getProducts()
             .filter {
-                it.expirationDate != null
+                it.discardedDate == null
+                        && it.expirationDate != null
                         && Clock.System.now().toLocalDate() >= it.expirationDate
             }
 }

@@ -11,7 +11,7 @@ interface ProductDao {
     @Query("SELECT * FROM ProductEntity")
     suspend fun getAll(): List<ProductEntity>
 
-    @Query("SELECT * FROM ProductEntity WHERE storageId = :storageId")
+    @Query("SELECT * FROM ProductEntity WHERE storageId = :storageId AND discardedDate IS NULL")
     suspend fun getByStorageId(storageId: Long): List<ProductEntity>
 
     @Query("SELECT * FROM ProductEntity WHERE id = :id")

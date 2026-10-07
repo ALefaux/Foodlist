@@ -71,6 +71,11 @@ class ProductDetailRepositoryImpl(
         productDao.deleteById(productId)
     }
 
+    override suspend fun discardProduct(productId: Int) {
+        val product = productDao.getById(productId) ?: return
+        productDao.update(product.copy(discardedDate = Clock.System.now()))
+    }
+
     private fun statusLabel(freshness: ProductFreshness, today: LocalDate, expirationDate: LocalDate?): String =
         when (freshness) {
             ProductFreshness.EXPIRED -> {
