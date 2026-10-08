@@ -3,11 +3,13 @@ package io.github.alefaux.foodlist.feature.productdetail.di
 import io.github.alefaux.foodlist.feature.productdetail.data.repository.ProductDetailRepository
 import io.github.alefaux.foodlist.feature.productdetail.data.repository.ProductDetailRepositoryImpl
 import io.github.alefaux.foodlist.feature.productdetail.data.usecase.DeleteProductUseCaseImpl
+import io.github.alefaux.foodlist.feature.productdetail.data.usecase.DiscardProductUseCaseImpl
 import io.github.alefaux.foodlist.feature.productdetail.data.usecase.GetProductDetailUseCaseImpl
 import io.github.alefaux.foodlist.feature.productdetail.data.usecase.MoveProductUseCaseImpl
 import io.github.alefaux.foodlist.feature.productdetail.data.usecase.UpdateProductStockUseCaseImpl
 import io.github.alefaux.foodlist.feature.productdetail.data.usecase.UpdateProductUseCaseImpl
 import io.github.alefaux.foodlist.feature.productdetail.domain.DeleteProductUseCase
+import io.github.alefaux.foodlist.feature.productdetail.domain.DiscardProductUseCase
 import io.github.alefaux.foodlist.feature.productdetail.domain.GetProductDetailUseCase
 import io.github.alefaux.foodlist.feature.productdetail.domain.MoveProductUseCase
 import io.github.alefaux.foodlist.feature.productdetail.domain.UpdateProductStockUseCase
@@ -44,6 +46,10 @@ val productDetailModule = module {
         DeleteProductUseCaseImpl(repository = get())
     }
 
+    factory<DiscardProductUseCase> {
+        DiscardProductUseCaseImpl(repository = get())
+    }
+
     viewModel { (productId: Int) ->
         ProductDetailViewModel(
             productId = productId,
@@ -52,6 +58,7 @@ val productDetailModule = module {
             updateProductUseCase = get(),
             moveProductUseCase = get(),
             deleteProductUseCase = get(),
+            discardProductUseCase = get(),
             getStorageUnitsUseCase = get()
         )
     }

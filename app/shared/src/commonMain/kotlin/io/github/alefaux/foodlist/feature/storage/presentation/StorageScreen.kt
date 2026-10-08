@@ -30,6 +30,7 @@ fun StorageScreen(
         StoragePane(
             modifier = Modifier.padding(padding),
             storageUnits = state.storageUnits,
+            isLoading = state.isLoading,
             onAddClick = viewModel::showAddDialog,
             onStorageClick = onStorageClick
         )

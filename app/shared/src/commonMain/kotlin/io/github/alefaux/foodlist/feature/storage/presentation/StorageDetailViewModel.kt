@@ -4,11 +4,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.github.alefaux.foodlist.core.logging.AppLogging
 import io.github.alefaux.foodlist.core.model.ProductFreshness
+import io.github.alefaux.foodlist.core.model.extension.toDisplayString
 import io.github.alefaux.foodlist.core.model.extension.toFreshness
 import io.github.alefaux.foodlist.core.model.extension.toLocalDate
+import io.github.alefaux.foodlist.feature.productdetail.domain.DiscardProductUseCase
 import io.github.alefaux.foodlist.feature.storage.domain.DeleteStorageUnitUseCase
 import io.github.alefaux.foodlist.feature.storage.domain.GetStorageDetailUseCase
+import io.github.alefaux.foodlist.feature.storage.domain.RestoreDiscardedProductUseCase
 import io.github.alefaux.foodlist.feature.storage.domain.StorageProduct
+import io.github.alefaux.foodlist.feature.storage.modelui.DiscardedStorageProductUi
 import io.github.alefaux.foodlist.feature.storage.modelui.StorageProductUi
 import io.github.alefaux.foodlist.feature.storage.presentation.model.StorageDetailUiState
 import kotlinx.collections.immutable.toImmutableList
@@ -27,6 +31,8 @@ class StorageDetailViewModel(
     private val storageId: Long,
     private val getStorageDetailUseCase: GetStorageDetailUseCase,
     private val deleteStorageUnitUseCase: DeleteStorageUnitUseCase,
+    private val discardProductUseCase: DiscardProductUseCase,
+    private val restoreDiscardedProductUseCase: RestoreDiscardedProductUseCase,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
 
@@ -41,8 +47,12 @@ class StorageDetailViewModel(
                 getStorageDetailUseCase(storageId)
             }.onFailure { error ->
                 AppLogging.e(error, "Couldn't load storage detail for $storageId")
+                _uiState.update { it.copy(isLoading = false) }
             }.onSuccess { detail ->
-                if (detail == null) return@onSuccess
+                if (detail == null) {
+                    _uiState.update { it.copy(isLoading = false) }
+                    return@onSuccess
+                }
 
                 allProducts = detail.products
                 val categories = listOf("All") + detail.products.map { it.category }.distinct().sorted()
@@ -50,6 +60,16 @@ class StorageDetailViewModel(
                 _uiState.update { state ->
                     state.copy(
                         storageName = detail.name,
+                        discardedProducts = detail.discardedProducts
+                            .map { product ->
+                                DiscardedStorageProductUi(
+                                    id = product.id,
+                                    name = product.name,
+                                    quantity = product.quantity,
+                                    category = product.category,
+                                    discardedOn = product.discardedDate?.toDisplayString().orEmpty()
+                                )
+                            }.toImmutableList(),
                         categories = categories.toImmutableList(),
                         selectedCategory = if (state.selectedCategory in categories) {
                             state.selectedCategory
@@ -67,6 +87,50 @@ class StorageDetailViewModel(
     fun selectCategory(category: String) {
         _uiState.update { it.copy(selectedCategory = category) }
         applyFilter()
+    }
+
+    fun requestDiscard(productId: Int) {
+        val product = _uiState.value.products.firstOrNull { it.id == productId } ?: return
+
+        if (product.freshness != ProductFreshness.EXPIRED) {
+            _uiState.update { it.copy(productPendingDiscard = product) }
+        } else {
+            discardProduct(productId)
+        }
+    }
+
+    fun confirmDiscard() {
+        val product = _uiState.value.productPendingDiscard ?: return
+        _uiState.update { it.copy(productPendingDiscard = null) }
+        discardProduct(product.id)
+    }
+
+    fun dismissDiscardDialog() {
+        _uiState.update { it.copy(productPendingDiscard = null) }
+    }
+
+    private fun discardProduct(productId: Int) {
+        viewModelScope.launch(dispatcher) {
+            runCatching {
+                discardProductUseCase(productId)
+            }.onFailure { error ->
+                AppLogging.e(error, "Couldn't discard product $productId")
+            }.onSuccess {
+                loadData()
+            }
+        }
+    }
+
+    fun restoreDiscardedProduct(productId: Int) {
+        viewModelScope.launch(dispatcher) {
+            runCatching {
+                restoreDiscardedProductUseCase(productId)
+            }.onFailure { error ->
+                AppLogging.e(error, "Couldn't restore discarded product $productId")
+            }.onSuccess {
+                loadData()
+            }
+        }
     }
 
     fun showDeleteDialog() {

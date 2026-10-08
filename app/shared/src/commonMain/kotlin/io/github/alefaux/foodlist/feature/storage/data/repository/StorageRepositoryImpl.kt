@@ -5,6 +5,7 @@ import io.github.alefaux.foodlist.core.model.extension.toFreshness
 import io.github.alefaux.foodlist.core.model.extension.toLocalDate
 import io.github.alefaux.foodlist.database.dao.ProductDao
 import io.github.alefaux.foodlist.database.dao.StorageDao
+import io.github.alefaux.foodlist.database.entity.ProductEntity
 import io.github.alefaux.foodlist.database.entity.StorageEntity
 import io.github.alefaux.foodlist.feature.storage.domain.StorageDetail
 import io.github.alefaux.foodlist.feature.storage.domain.StorageProduct
@@ -39,20 +40,11 @@ class StorageRepositoryImpl(
 
     override suspend fun getStorageDetail(storageId: Long): StorageDetail? {
         val storage = storageDao.getById(storageId) ?: return null
-        val products = productDao.getByStorageId(storageId)
-
         return StorageDetail(
             id = storage.id,
             name = storage.name,
-            products = products.map {
-                StorageProduct(
-                    id = it.id,
-                    name = it.name,
-                    quantity = it.quantity,
-                    category = it.category,
-                    expirationDate = it.expirationDate?.toLocalDate()
-                )
-            }
+            products = productDao.getByStorageId(storageId).map { it.toStorageProduct() },
+            discardedProducts = productDao.getDiscardedByStorageId(storageId).map { it.toStorageProduct() }
         )
     }
 
@@ -60,4 +52,17 @@ class StorageRepositoryImpl(
         productDao.clearStorageReference(storageId)
         storageDao.deleteById(storageId)
     }
+
+    override suspend fun restoreDiscardedProduct(productId: Int) {
+        productDao.restoreDiscarded(productId)
+    }
+
+    private fun ProductEntity.toStorageProduct() = StorageProduct(
+        id = id,
+        name = name,
+        quantity = quantity,
+        category = category,
+        expirationDate = expirationDate?.toLocalDate(),
+        discardedDate = discardedDate?.toLocalDate()
+    )
 }

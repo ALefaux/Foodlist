@@ -41,6 +41,10 @@ fun DashboardScreen(
             modifier = Modifier.padding(padding),
             expiredProducts = state.expiredProducts,
             expiredProductsCount = state.expiredProductsCount,
+            discardedProducts = state.discardedProducts,
+            isLoading = state.isLoading,
+            isDebug = state.isDebug,
+            isServerUp = state.isServerUp,
             onAddClick = onAddClick,
             onScanClick = onScanClick,
             onExpiredProductClick = onExpiredProductClick

@@ -16,10 +16,6 @@
     <string name="menu_recipes">Recipes</string>
     <string name="menu_profile">Profile</string>
 
-    <!-- Splash -->
-    <string name="splash_app_name">Foodlist</string>
-    <string name="splash_getting_ready">Getting things ready…</string>
-
     <!-- Auth: social sign-in -->
     <string name="auth_apple_button">Apple</string>
     <string name="auth_google_button">Google</string>
@@ -59,6 +55,9 @@
     <!-- Product detail: delete dialog -->
     <string name="delete_product_dialog_title">Delete %1$s?</string>
     <string name="delete_product_dialog_message">This item will be permanently removed from your pantry.</string>
+    <string name="discard_product_dialog_title">Discard %1$s?</string>
+    <string name="discard_product_dialog_message">This item will be removed from your pantry and counted as discarded in your monthly stats.</string>
+    <string name="discard_product_dialog_confirm">Discard</string>
 
     <!-- Product detail: pane -->
     <string name="product_detail_storage_label">STORAGE</string>
@@ -69,6 +68,7 @@
     <string name="product_detail_edit_button">Edit Product</string>
     <string name="product_detail_move_button">Move to…</string>
     <string name="product_detail_delete_button">Delete Item</string>
+    <string name="product_detail_discard_button">Discard Item</string>
     <string name="product_detail_top_bar_title">Item Details</string>
 
     <!-- Product detail: move to storage sheet -->
@@ -122,6 +122,10 @@
     <string name="add_storage_dialog_title">New Storage Unit</string>
     <string name="storage_detail_empty_no_items">No items in this storage yet. Tap Add Item to get started.</string>
     <string name="storage_detail_empty_category">No items in this category.</string>
+    <string name="storage_detail_discarded_title">Discarded (%1$d)</string>
+    <string name="storage_detail_discarded_on">Discarded on %1$s</string>
+    <string name="storage_detail_restore_button">Restore</string>
+    <string name="storage_detail_discard_button">Discard</string>
     <string name="storage_pane_empty">No storage units yet. Tap + to add your first one.</string>
     <string name="storage_detail_delete_menu_item">Delete storage</string>
     <string name="storage_detail_add_item_fab">ADD ITEM</string>
@@ -138,6 +142,8 @@
     <string name="dashboard_greeting">Good morning, Kitchen manager</string>
     <string name="dashboard_menu_scan">Scan</string>
     <string name="dashboard_menu_add">Add</string>
+    <string name="dashboard_server_up">server listening</string>
+    <string name="dashboard_server_down">server down</string>
 
     <!-- Add -->
     <string name="add_top_bar_title">Add</string>
@@ -162,5 +168,9 @@
     <string name="profile_settings_units">Units</string>
     <string name="profile_settings_units_metric">Metric</string>
     <string name="profile_sign_out_button">Sign Out</string>
+    <string name="profile_debug_create_test_data_button">Create test data</string>
+    <string name="profile_debug_test_data_created">Test data created</string>
+    <string name="profile_debug_delete_test_data_button">Delete test data</string>
+    <string name="profile_debug_test_data_deleted">Test data deleted</string>
     <string name="profile_footer">PantryPal v1.0.2 • Domestic Utility Engine</string>
 </resources>

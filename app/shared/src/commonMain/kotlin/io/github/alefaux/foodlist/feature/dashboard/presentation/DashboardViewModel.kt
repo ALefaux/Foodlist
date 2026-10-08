@@ -2,62 +2,121 @@ package io.github.alefaux.foodlist.feature.dashboard.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import io.github.alefaux.foodlist.core.build.AppBuildInfo
 import io.github.alefaux.foodlist.core.logging.AppLogging
+import io.github.alefaux.foodlist.core.network.NetworkConfig
+import io.github.alefaux.foodlist.feature.dashboard.domain.DiscardedProductsStats
+import io.github.alefaux.foodlist.feature.dashboard.domain.GetDiscardedProductsStatsUseCase
 import io.github.alefaux.foodlist.feature.dashboard.domain.GetExpiredProductsUseCase
+import io.github.alefaux.foodlist.feature.dashboard.modelui.DiscardedProducts
 import io.github.alefaux.foodlist.feature.dashboard.modelui.ExpiredProductUi
 import io.github.alefaux.foodlist.feature.dashboard.presentation.model.DashboardUiState
+import io.ktor.client.HttpClient
+import io.ktor.client.request.get
+import io.ktor.http.isSuccess
 import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlin.math.abs
 
 class DashboardViewModel(
     private val getExpiredProductsUseCase: GetExpiredProductsUseCase,
+    private val getDiscardedProductsStatsUseCase: GetDiscardedProductsStatsUseCase,
+    private val httpClient: HttpClient,
+    private val appBuildInfo: AppBuildInfo,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(DashboardUiState())
+    private val _uiState = MutableStateFlow(DashboardUiState(isDebug = appBuildInfo.isDebug))
     val uiState: StateFlow<DashboardUiState> = _uiState
 
     fun loadData() {
+        checkServerStatus()
+
         viewModelScope.launch(dispatcher) {
             // Todo fetch data for dashboard
-            loadExpiredProducts()
+            coroutineScope {
+                launch { loadExpiredProducts() }
+                launch { loadDiscardedProductsStats() }
+            }
+            _uiState.update { it.copy(isLoading = false) }
         }
     }
 
-    private fun loadExpiredProducts() {
-        viewModelScope.launch(dispatcher) {
-            runCatching {
-                getExpiredProductsUseCase()
-            }.onFailure { error ->
-                AppLogging.e(error, "Couldn't load expired products")
-            }.onSuccess { products ->
-                AppLogging.d("Successfully loaded expired products ${products.size}")
-
-                _uiState.update { state ->
-                    state.copy(
-                        expiredProducts = products.take(MAX_EXPIRED_PRODUCTS_DISPLAYED)
-                            .map { product ->
-                                ExpiredProductUi(
-                                    id = product.id,
-                                    name = product.name,
-                                    stockageName = "",
-                                    expiredSince = ""
-                                )
-                            }.toImmutableList(),
-                        expiredProductsCount = products.size
-                    )
-                }
+    private suspend fun loadDiscardedProductsStats() {
+        runCatching {
+            getDiscardedProductsStatsUseCase()
+        }.onFailure { error ->
+            AppLogging.e(error, "Couldn't load discarded products stats")
+        }.onSuccess { stats ->
+            _uiState.update { state ->
+                state.copy(discardedProducts = stats.toDiscardedProducts())
             }
         }
     }
 
-    companion object {
-        private const val MAX_EXPIRED_PRODUCTS_DISPLAYED = 2
+    private fun checkServerStatus() {
+        if (!appBuildInfo.isDebug) return
+
+        viewModelScope.launch(dispatcher) {
+            val isServerUp = runCatching {
+                httpClient.get(NetworkConfig.baseUrl).status.isSuccess()
+            }.onFailure { error ->
+                AppLogging.e(error, "Couldn't reach the server")
+            }.getOrDefault(false)
+
+            _uiState.update { state -> state.copy(isServerUp = isServerUp) }
+        }
+    }
+
+    private suspend fun loadExpiredProducts() {
+        runCatching {
+            getExpiredProductsUseCase()
+        }.onFailure { error ->
+            AppLogging.e(error, "Couldn't load expired products")
+        }.onSuccess { products ->
+            AppLogging.d("Successfully loaded expired products ${products.size}")
+
+            _uiState.update { state ->
+                state.copy(
+                    expiredProducts = products
+                        .map { product ->
+                            ExpiredProductUi(
+                                id = product.id,
+                                name = product.name,
+                                stockageName = "",
+                                expiredSince = ""
+                            )
+                        }.toImmutableList(),
+                    expiredProductsCount = products.size
+                )
+            }
+        }
+    }
+}
+
+private fun DiscardedProductsStats.toDiscardedProducts(): DiscardedProducts {
+    val trendPercent = when {
+        previousMonthCount > 0 -> abs(currentMonthCount - previousMonthCount) * 100 / previousMonthCount
+        currentMonthCount > 0 -> 100
+        else -> 0
+    }
+
+    return if (currentMonthCount <= previousMonthCount) {
+        DiscardedProducts.Positive(
+            discardedProductsCount = currentMonthCount,
+            trendPercent = trendPercent
+        )
+    } else {
+        DiscardedProducts.Negative(
+            discardedProductsCount = currentMonthCount,
+            trendPercent = trendPercent
+        )
     }
 }

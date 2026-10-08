@@ -7,14 +7,13 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import io.github.alefaux.foodlist.feature.add.presentation.AddScreen
 import io.github.alefaux.foodlist.feature.auth.presentation.CreateAccountScreen
 import io.github.alefaux.foodlist.feature.auth.presentation.LoginScreen
+import io.github.alefaux.foodlist.feature.search.presentation.SearchScreen
 import io.github.alefaux.foodlist.feature.dashboard.presentation.DashboardScreen
 import io.github.alefaux.foodlist.feature.productdetail.presentation.ProductDetailScreen
 import io.github.alefaux.foodlist.feature.profile.presentation.ProfileScreen
 import io.github.alefaux.foodlist.feature.scan.presentation.ScanProductScreen
-import io.github.alefaux.foodlist.feature.splash.presentation.SplashScreen
 import io.github.alefaux.foodlist.feature.storage.presentation.StorageDetailScreen
 import io.github.alefaux.foodlist.feature.storage.presentation.StorageScreen
 
@@ -22,22 +21,13 @@ import io.github.alefaux.foodlist.feature.storage.presentation.StorageScreen
 fun FoodlistNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: FoodlistDestinations = FoodlistDestinations.Splash
+    startDestination: FoodlistDestinations = FoodlistDestinations.Dashboard
 ) {
     NavHost(
         modifier = modifier,
         navController = navController,
         startDestination = startDestination
     ) {
-        composable<FoodlistDestinations.Splash> {
-            SplashScreen(
-                onReady = {
-                    navController.navigate(FoodlistDestinations.Dashboard) {
-                        popUpTo(FoodlistDestinations.Splash) { inclusive = true }
-                    }
-                }
-            )
-        }
         composable<FoodlistDestinations.Login> {
             LoginScreen(
                 onBackPress = {
@@ -83,7 +73,7 @@ fun FoodlistNavHost(
             )
         }
         composable<FoodlistDestinations.Add> {
-            AddScreen(
+            SearchScreen(
                 onBackPress = {
                     navController.navigateUp()
                 }

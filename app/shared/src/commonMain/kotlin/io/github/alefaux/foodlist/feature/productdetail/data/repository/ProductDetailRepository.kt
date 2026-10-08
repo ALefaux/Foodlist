@@ -15,4 +15,5 @@ interface ProductDetailRepository {
     )
     suspend fun moveProduct(productId: Int, storageId: Long)
     suspend fun deleteProduct(productId: Int)
+    suspend fun discardProduct(productId: Int)
 }

@@ -13,6 +13,9 @@ interface StorageDao {
     @Query("SELECT * FROM StorageEntity WHERE id = :id")
     suspend fun getById(id: Long): StorageEntity?
 
+    @Query("SELECT * FROM StorageEntity WHERE isTestData = 1")
+    suspend fun getTestData(): List<StorageEntity>
+
     @Query("SELECT * FROM StorageEntity ORDER BY id DESC LIMIT 1")
     suspend fun getLatest(): StorageEntity?
 

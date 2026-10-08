@@ -23,5 +23,6 @@ data class ProductDetailUiState(
     val isEditSheetVisible: Boolean = false,
     val isMoveSheetVisible: Boolean = false,
     val isDeleteDialogVisible: Boolean = false,
+    val isDiscardDialogVisible: Boolean = false,
     val isDeleted: Boolean = false
 )

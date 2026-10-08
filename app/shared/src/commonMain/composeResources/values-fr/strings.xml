@@ -16,10 +16,6 @@
     <string name="menu_recipes">Recettes</string>
     <string name="menu_profile">Profil</string>
 
-    <!-- Splash -->
-    <string name="splash_app_name">Foodlist</string>
-    <string name="splash_getting_ready">Préparation en cours…</string>
-
     <!-- Auth: social sign-in -->
     <string name="auth_apple_button">Apple</string>
     <string name="auth_google_button">Google</string>
@@ -59,6 +55,9 @@
     <!-- Product detail: delete dialog -->
     <string name="delete_product_dialog_title">Supprimer %1$s ?</string>
     <string name="delete_product_dialog_message">Cet article sera définitivement retiré de votre garde-manger.</string>
+    <string name="discard_product_dialog_title">Jeter %1$s ?</string>
+    <string name="discard_product_dialog_message">Cet article sera retiré de votre garde-manger et comptabilisé comme jeté dans vos statistiques du mois.</string>
+    <string name="discard_product_dialog_confirm">Jeter</string>
 
     <!-- Product detail: pane -->
     <string name="product_detail_storage_label">STOCKAGE</string>
@@ -69,6 +68,7 @@
     <string name="product_detail_edit_button">Modifier le produit</string>
     <string name="product_detail_move_button">Déplacer vers…</string>
     <string name="product_detail_delete_button">Supprimer l'article</string>
+    <string name="product_detail_discard_button">Jeter l'article</string>
     <string name="product_detail_top_bar_title">Détails de l'article</string>
 
     <!-- Product detail: move to storage sheet -->
@@ -122,6 +122,10 @@
     <string name="add_storage_dialog_title">Nouvel espace de stockage</string>
     <string name="storage_detail_empty_no_items">Aucun article dans cet espace de stockage. Appuyez sur Ajouter un article pour commencer.</string>
     <string name="storage_detail_empty_category">Aucun article dans cette catégorie.</string>
+    <string name="storage_detail_discarded_title">Jetés (%1$d)</string>
+    <string name="storage_detail_discarded_on">Jeté le %1$s</string>
+    <string name="storage_detail_restore_button">Restaurer</string>
+    <string name="storage_detail_discard_button">Jeter</string>
     <string name="storage_pane_empty">Aucun espace de stockage pour le moment. Appuyez sur + pour ajouter le premier.</string>
     <string name="storage_detail_delete_menu_item">Supprimer l'espace de stockage</string>
     <string name="storage_detail_add_item_fab">AJOUTER UN ARTICLE</string>
@@ -138,6 +142,8 @@
     <string name="dashboard_greeting">Bonjour, chef de cuisine</string>
     <string name="dashboard_menu_scan">Scanner</string>
     <string name="dashboard_menu_add">Ajouter</string>
+    <string name="dashboard_server_up">serveur à l'écoute</string>
+    <string name="dashboard_server_down">serveur éteint</string>
 
     <!-- Add -->
     <string name="add_top_bar_title">Ajouter</string>
@@ -162,5 +168,9 @@
     <string name="profile_settings_units">Unités</string>
     <string name="profile_settings_units_metric">Métrique</string>
     <string name="profile_sign_out_button">Se déconnecter</string>
+    <string name="profile_debug_create_test_data_button">Créer des données de test</string>
+    <string name="profile_debug_test_data_created">Données de test créées</string>
+    <string name="profile_debug_delete_test_data_button">Supprimer les données de test</string>
+    <string name="profile_debug_test_data_deleted">Données de test supprimées</string>
     <string name="profile_footer">PantryPal v1.0.2 • Domestic Utility Engine</string>
 </resources>

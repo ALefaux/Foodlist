@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.github.alefaux.foodlist.core.logging.AppLogging
 import io.github.alefaux.foodlist.feature.productdetail.domain.DeleteProductUseCase
+import io.github.alefaux.foodlist.feature.productdetail.domain.DiscardProductUseCase
 import io.github.alefaux.foodlist.feature.productdetail.domain.GetProductDetailUseCase
 import io.github.alefaux.foodlist.feature.productdetail.domain.MoveProductUseCase
 import io.github.alefaux.foodlist.feature.productdetail.domain.UpdateProductStockUseCase
@@ -27,6 +28,7 @@ class ProductDetailViewModel(
     private val updateProductUseCase: UpdateProductUseCase,
     private val moveProductUseCase: MoveProductUseCase,
     private val deleteProductUseCase: DeleteProductUseCase,
+    private val discardProductUseCase: DiscardProductUseCase,
     private val getStorageUnitsUseCase: GetStorageUnitsUseCase,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
@@ -40,8 +42,12 @@ class ProductDetailViewModel(
                 getProductDetailUseCase(productId)
             }.onFailure { error ->
                 AppLogging.e(error, "Couldn't load product detail for $productId")
+                _uiState.update { it.copy(isLoading = false) }
             }.onSuccess { product ->
-                if (product == null) return@onSuccess
+                if (product == null) {
+                    _uiState.update { it.copy(isLoading = false) }
+                    return@onSuccess
+                }
 
                 _uiState.update { state ->
                     state.copy(
@@ -138,6 +144,21 @@ class ProductDetailViewModel(
                 AppLogging.e(error, "Couldn't delete product $productId")
             }.onSuccess {
                 _uiState.update { it.copy(isDeleteDialogVisible = false, isDeleted = true) }
+            }
+        }
+    }
+
+    fun showDiscardDialog() = _uiState.update { it.copy(isDiscardDialogVisible = true) }
+    fun dismissDiscardDialog() = _uiState.update { it.copy(isDiscardDialogVisible = false) }
+
+    fun discardProduct() {
+        viewModelScope.launch(dispatcher) {
+            runCatching {
+                discardProductUseCase(productId)
+            }.onFailure { error ->
+                AppLogging.e(error, "Couldn't discard product $productId")
+            }.onSuccess {
+                _uiState.update { it.copy(isDiscardDialogVisible = false, isDeleted = true) }
             }
         }
     }

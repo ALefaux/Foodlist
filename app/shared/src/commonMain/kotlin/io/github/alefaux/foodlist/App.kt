@@ -1,6 +1,7 @@
 package io.github.alefaux.foodlist
 
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -38,13 +39,10 @@ fun App() {
         val isOnAuthRoute = currentDestination?.hierarchy?.any {
             it.hasRoute(FoodlistDestinations.Login::class) || it.hasRoute(FoodlistDestinations.CreateAccount::class)
         } == true
-        val isOnSplashRoute = currentDestination?.hierarchy?.any {
-            it.hasRoute(FoodlistDestinations.Splash::class)
-        } == true
 
         Scaffold(
             bottomBar = {
-                if (!isOnAuthRoute && !isOnSplashRoute) {
+                if (!isOnAuthRoute) {
                     NavigationBar {
                         listOf(
                             BottomMenu.Dashboard,
@@ -88,7 +86,9 @@ fun App() {
         ) { padding ->
             FoodlistNavHost(
                 navController = navController,
-                modifier = Modifier.padding(padding)
+                modifier = Modifier
+                    .padding(padding)
+                    .consumeWindowInsets(padding)
             )
         }
     }

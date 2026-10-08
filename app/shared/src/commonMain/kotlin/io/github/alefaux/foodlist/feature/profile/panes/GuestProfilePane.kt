@@ -25,13 +25,17 @@ import foodlist.app.shared.generated.resources.profile_guest_sign_in_button
 import foodlist.app.shared.generated.resources.profile_guest_title
 import foodlist.app.shared.generated.resources.profile_top_bar_title
 import io.github.alefaux.foodlist.core.component.HomeHeader
+import io.github.alefaux.foodlist.feature.profile.ui.DebugActions
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun GuestProfilePane(
     onSignInClick: () -> Unit,
     onSignUpClick: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isDebug: Boolean = false,
+    onCreateTestDataClick: () -> Unit = {},
+    onDeleteTestDataClick: () -> Unit = {}
 ) {
     Column(
         modifier = modifier.fillMaxSize()
@@ -87,6 +91,13 @@ fun GuestProfilePane(
                     onClick = onSignUpClick
                 ) {
                     Text(stringResource(Res.string.profile_guest_create_account_button))
+                }
+
+                if (isDebug) {
+                    DebugActions(
+                        onCreateTestDataClick = onCreateTestDataClick,
+                        onDeleteTestDataClick = onDeleteTestDataClick
+                    )
                 }
             }
         }

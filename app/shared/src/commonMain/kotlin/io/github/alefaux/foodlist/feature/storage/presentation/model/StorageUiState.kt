@@ -6,5 +6,6 @@ import kotlinx.collections.immutable.persistentListOf
 
 data class StorageUiState(
     val storageUnits: ImmutableList<StorageUnitUi> = persistentListOf(),
+    val isLoading: Boolean = true,
     val isAddDialogVisible: Boolean = false
 )

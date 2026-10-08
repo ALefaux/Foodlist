@@ -21,8 +21,10 @@ import foodlist.app.shared.generated.resources.Res
 import foodlist.app.shared.generated.resources.product_detail_top_bar_title
 import io.github.alefaux.foodlist.feature.productdetail.panes.ProductDetailPane
 import io.github.alefaux.foodlist.feature.productdetail.ui.DeleteProductDialog
+import io.github.alefaux.foodlist.feature.productdetail.ui.DiscardProductDialog
 import io.github.alefaux.foodlist.feature.productdetail.ui.EditProductSheet
 import io.github.alefaux.foodlist.feature.productdetail.ui.MoveToStorageSheet
+import io.github.alefaux.foodlist.feature.productdetail.ui.ProductDetailSkeleton
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -70,6 +72,11 @@ fun ProductDetailScreen(
             )
         }
     ) { padding ->
+        if (state.isLoading) {
+            ProductDetailSkeleton(modifier = Modifier.padding(padding))
+            return@Scaffold
+        }
+
         ProductDetailPane(
             modifier = Modifier.padding(padding),
             state = state,
@@ -77,6 +84,7 @@ fun ProductDetailScreen(
             onDecreaseStock = viewModel::decreaseStock,
             onEditClick = viewModel::showEditSheet,
             onMoveClick = viewModel::showMoveSheet,
+            onDiscardClick = viewModel::showDiscardDialog,
             onDeleteClick = viewModel::showDeleteDialog
         )
     }
@@ -115,6 +123,14 @@ fun ProductDetailScreen(
             productName = state.name,
             onDismiss = viewModel::dismissDeleteDialog,
             onConfirm = viewModel::deleteProduct
+        )
+    }
+
+    if (state.isDiscardDialogVisible) {
+        DiscardProductDialog(
+            productName = state.name,
+            onDismiss = viewModel::dismissDiscardDialog,
+            onConfirm = viewModel::discardProduct
         )
     }
 }

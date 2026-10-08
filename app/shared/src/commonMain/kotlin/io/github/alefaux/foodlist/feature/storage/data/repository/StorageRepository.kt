@@ -8,4 +8,5 @@ interface StorageRepository {
     suspend fun addStorageUnit(name: String)
     suspend fun getStorageDetail(storageId: Long): StorageDetail?
     suspend fun deleteStorageUnit(storageId: Long)
+    suspend fun restoreDiscardedProduct(productId: Int)
 }

@@ -50,6 +50,7 @@ import foodlist.app.shared.generated.resources.profile_settings_title
 import foodlist.app.shared.generated.resources.profile_settings_units
 import foodlist.app.shared.generated.resources.profile_settings_units_metric
 import foodlist.app.shared.generated.resources.profile_sign_out_button
+import io.github.alefaux.foodlist.feature.profile.ui.DebugActions
 import io.github.alefaux.foodlist.feature.profile.ui.HouseholdMemberRow
 import io.github.alefaux.foodlist.feature.profile.ui.ProfileHeaderCard
 import io.github.alefaux.foodlist.feature.profile.ui.SettingsRow
@@ -63,7 +64,10 @@ fun ProfilePane(
     onAccountClick: () -> Unit,
     onSignOutClick: () -> Unit,
     onDarkThemeChange: (Boolean) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isDebug: Boolean = false,
+    onCreateTestDataClick: () -> Unit = {},
+    onDeleteTestDataClick: () -> Unit = {}
 ) {
     val isDarkThemeChecked = isDarkThemeEnabled ?: isSystemInDarkTheme()
 
@@ -188,6 +192,13 @@ fun ProfilePane(
                     */
                 }
             }
+        }
+
+        if (isDebug) {
+            DebugActions(
+                onCreateTestDataClick = onCreateTestDataClick,
+                onDeleteTestDataClick = onDeleteTestDataClick
+            )
         }
 
         Button(
