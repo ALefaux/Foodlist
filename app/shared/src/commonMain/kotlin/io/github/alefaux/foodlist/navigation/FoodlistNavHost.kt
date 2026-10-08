@@ -14,6 +14,7 @@ import io.github.alefaux.foodlist.feature.dashboard.presentation.DashboardScreen
 import io.github.alefaux.foodlist.feature.productdetail.presentation.ProductDetailScreen
 import io.github.alefaux.foodlist.feature.profile.presentation.ProfileScreen
 import io.github.alefaux.foodlist.feature.recipes.presentation.RecipeDetailScreen
+import io.github.alefaux.foodlist.feature.recipes.presentation.RecipeEditScreen
 import io.github.alefaux.foodlist.feature.recipes.presentation.RecipesScreen
 import io.github.alefaux.foodlist.feature.scan.presentation.ScanProductScreen
 import io.github.alefaux.foodlist.feature.storage.presentation.StorageDetailScreen
@@ -149,6 +150,25 @@ fun FoodlistNavHost(
                 recipeId = destination.recipeId,
                 onBackPress = {
                     navController.navigateUp()
+                },
+                onEditClick = {
+                    navController.navigate(FoodlistDestinations.RecipeEdit(destination.recipeId))
+                }
+            )
+        }
+        composable<FoodlistDestinations.RecipeEdit> { backStackEntry ->
+            val destination = backStackEntry.toRoute<FoodlistDestinations.RecipeEdit>()
+
+            RecipeEditScreen(
+                recipeId = destination.recipeId,
+                onBackPress = {
+                    navController.navigateUp()
+                },
+                onRecipeSaved = {
+                    navController.navigateUp()
+                },
+                onRecipeDeleted = {
+                    navController.popBackStack(FoodlistDestinations.Recipes, inclusive = false)
                 }
             )
         }

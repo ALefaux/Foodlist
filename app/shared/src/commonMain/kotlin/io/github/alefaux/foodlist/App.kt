@@ -40,9 +40,13 @@ fun App() {
             it.hasRoute(FoodlistDestinations.Login::class) || it.hasRoute(FoodlistDestinations.CreateAccount::class)
         } == true
 
+        val isOnRecipeEditRoute = currentDestination?.hierarchy?.any {
+            it.hasRoute(FoodlistDestinations.RecipeEdit::class)
+        } == true
+
         Scaffold(
             bottomBar = {
-                if (!isOnAuthRoute) {
+                if (!isOnAuthRoute && !isOnRecipeEditRoute) {
                     NavigationBar {
                         listOf(
                             BottomMenu.Dashboard,

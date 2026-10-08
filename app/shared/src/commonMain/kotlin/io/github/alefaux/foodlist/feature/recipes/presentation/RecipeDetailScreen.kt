@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -20,6 +21,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import foodlist.app.shared.generated.resources.Res
 import foodlist.app.shared.generated.resources.recipe_detail_not_found
 import foodlist.app.shared.generated.resources.recipe_detail_top_bar_title
+import foodlist.app.shared.generated.resources.recipe_edit_top_bar_title
 import io.github.alefaux.foodlist.feature.recipes.panes.RecipeDetailPane
 import io.github.alefaux.foodlist.feature.recipes.ui.detail.RecipeDetailSkeleton
 import org.jetbrains.compose.resources.stringResource
@@ -31,6 +33,7 @@ import org.koin.core.parameter.parametersOf
 fun RecipeDetailScreen(
     recipeId: Long,
     onBackPress: () -> Unit,
+    onEditClick: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RecipeDetailViewModel = koinViewModel(parameters = { parametersOf(recipeId) })
 ) {
@@ -60,6 +63,17 @@ fun RecipeDetailScreen(
                         text = stringResource(Res.string.recipe_detail_top_bar_title),
                         color = MaterialTheme.colorScheme.primary
                     )
+                },
+                actions = {
+                    if (state.recipe != null) {
+                        IconButton(onClick = onEditClick) {
+                            Icon(
+                                imageVector = Icons.Filled.Edit,
+                                contentDescription = stringResource(Res.string.recipe_edit_top_bar_title),
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                    }
                 }
             )
         }

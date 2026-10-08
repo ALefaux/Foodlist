@@ -212,4 +212,39 @@
         <item quantity="one">Only %1$d item needed to complete this recipe</item>
         <item quantity="other">%1$d items needed to complete this recipe</item>
     </plurals>
+
+    <!-- Recipe edit -->
+    <string name="recipe_edit_top_bar_title">Edit Recipe</string>
+    <string name="recipe_edit_general_title">General Info</string>
+    <string name="recipe_edit_name_label">Recipe title</string>
+    <string name="recipe_edit_name_error">Give the recipe a title</string>
+    <string name="recipe_edit_description_label">Description</string>
+    <string name="recipe_edit_time_title">Time &amp; Yield</string>
+    <string name="recipe_edit_prep_label">Prep time</string>
+    <string name="recipe_edit_cook_label">Cook time</string>
+    <string name="recipe_edit_unit_minutes">min</string>
+    <string name="recipe_edit_unit_kcal">kcal</string>
+    <string name="recipe_edit_ingredients_title">Ingredients</string>
+    <string name="recipe_edit_add_ingredient">Add ingredient</string>
+    <string name="recipe_edit_ingredient_name">Ingredient</string>
+    <string name="recipe_edit_ingredient_quantity">Quantity</string>
+    <string name="recipe_edit_add_step">Add step</string>
+    <string name="recipe_edit_step_title">Step title</string>
+    <string name="recipe_edit_step_instructions">Instructions</string>
+    <string name="recipe_edit_step_timer">Timer</string>
+    <string name="recipe_edit_tip_hint">Share storage advice or zero-waste notes for the leftovers.</string>
+    <string name="recipe_edit_remove">Remove</string>
+    <string name="recipe_edit_delete_button">Delete Recipe Permanently</string>
+    <string name="recipe_edit_delete_hint">This removes the recipe, its ingredients and its steps.</string>
+    <string name="recipe_edit_save">Save changes</string>
+    <string name="delete_recipe_dialog_title">Delete %1$s?</string>
+    <string name="delete_recipe_dialog_message">This recipe will be permanently deleted.</string>
+    <plurals name="recipe_edit_ingredients_count">
+        <item quantity="one">%1$d ingredient</item>
+        <item quantity="other">%1$d ingredients</item>
+    </plurals>
+    <plurals name="recipe_edit_steps_count">
+        <item quantity="one">%1$d step</item>
+        <item quantity="other">%1$d steps</item>
+    </plurals>
 </resources>

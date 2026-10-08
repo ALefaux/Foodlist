@@ -6,10 +6,13 @@ import io.github.alefaux.foodlist.core.model.extension.toLocalDate
 import io.github.alefaux.foodlist.database.dao.ProductDao
 import io.github.alefaux.foodlist.database.dao.RecipeDao
 import io.github.alefaux.foodlist.database.dao.StorageDao
+import io.github.alefaux.foodlist.database.entity.RecipeIngredientEntity
+import io.github.alefaux.foodlist.database.entity.RecipeStepEntity
 import io.github.alefaux.foodlist.feature.recipes.domain.IngredientStatus
 import io.github.alefaux.foodlist.feature.recipes.domain.Recipe
 import io.github.alefaux.foodlist.feature.recipes.domain.RecipeAvailability
 import io.github.alefaux.foodlist.feature.recipes.domain.RecipeDetail
+import io.github.alefaux.foodlist.feature.recipes.domain.RecipeDraft
 import io.github.alefaux.foodlist.feature.recipes.domain.RecipeIngredient
 import io.github.alefaux.foodlist.feature.recipes.domain.RecipeStep
 import kotlin.time.Clock
@@ -73,6 +76,39 @@ class RecipesRepositoryImpl(
                 )
             }
         )
+    }
+
+    override suspend fun updateRecipe(recipeId: Long, draft: RecipeDraft) {
+        val recipe = recipeDao.getById(recipeId) ?: return
+
+        recipeDao.replace(
+            recipe = recipe.copy(
+                name = draft.name,
+                description = draft.description,
+                prepMinutes = draft.prepMinutes,
+                cookMinutes = draft.cookMinutes,
+                servings = draft.servings,
+                calories = draft.calories,
+                isVegetarian = draft.isVegetarian,
+                tip = draft.tip
+            ),
+            ingredients = draft.ingredients.map {
+                RecipeIngredientEntity(recipeId = recipeId, name = it.name, quantity = it.quantity)
+            },
+            steps = draft.steps.mapIndexed { index, step ->
+                RecipeStepEntity(
+                    recipeId = recipeId,
+                    position = index + 1,
+                    title = step.title,
+                    instructions = step.instructions,
+                    timerMinutes = step.timerMinutes
+                )
+            }
+        )
+    }
+
+    override suspend fun deleteRecipe(recipeId: Long) {
+        recipeDao.deleteRecipe(recipeId)
     }
 
     /** Usable pantry products: not discarded and not expired yet. */
