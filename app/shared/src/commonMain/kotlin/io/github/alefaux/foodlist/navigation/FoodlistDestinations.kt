@@ -20,5 +20,7 @@ sealed interface FoodlistDestinations {
     @Serializable
     object CreateAccount: FoodlistDestinations
     @Serializable
+    object Recipes: FoodlistDestinations
+    @Serializable
     object Profile: FoodlistDestinations
 }

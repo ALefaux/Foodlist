@@ -173,4 +173,16 @@
     <string name="profile_debug_delete_test_data_button">Supprimer les données de test</string>
     <string name="profile_debug_test_data_deleted">Données de test supprimées</string>
     <string name="profile_footer">PantryPal v1.0.2 • Domestic Utility Engine</string>
+
+    <!-- Recipes -->
+    <string name="recipes_title">Recettes</string>
+    <string name="recipes_search_placeholder">Rechercher des recettes, des ingrédients…</string>
+    <string name="recipes_filter_all">Toutes</string>
+    <string name="recipes_filter_can_make">Réalisables</string>
+    <string name="recipes_filter_missing_ingredients">Ingrédients manquants</string>
+    <string name="recipes_badge_can_make">Réalisable</string>
+    <string name="recipes_badge_uses_expiring">Urgent - Utilise des produits bientôt périmés</string>
+    <string name="recipes_ingredients_count">%1$d ingrédients</string>
+    <string name="recipes_duration">%1$d min</string>
+    <string name="recipes_empty">Aucune recette pour le moment.</string>
 </resources>

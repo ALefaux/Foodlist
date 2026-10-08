@@ -47,12 +47,11 @@ fun App() {
                         listOf(
                             BottomMenu.Dashboard,
                             BottomMenu.Storage,
-                            // BottomMenu.Recipes, // Available in V2
+                            BottomMenu.Recipes,
                             BottomMenu.Profile,
                         ).forEach { menu ->
                             val destination = menu.toDestination()
-                            val selected = destination != null &&
-                                currentDestination?.hierarchy?.any { it.hasRoute(destination::class) } == true
+                            val selected = currentDestination?.hierarchy?.any { it.hasRoute(destination::class) } == true
 
                             NavigationBarItem(
                                 icon = {
@@ -67,14 +66,12 @@ fun App() {
                                     )
                                 },
                                 onClick = {
-                                    if (destination != null) {
-                                        navController.navigate(destination) {
-                                            popUpTo(navController.graph.findStartDestination().id) {
-                                                saveState = true
-                                            }
-                                            launchSingleTop = true
-                                            restoreState = true
+                                    navController.navigate(destination) {
+                                        popUpTo(navController.graph.findStartDestination().id) {
+                                            saveState = true
                                         }
+                                        launchSingleTop = true
+                                        restoreState = true
                                     }
                                 },
                                 selected = selected
@@ -94,9 +91,9 @@ fun App() {
     }
 }
 
-private fun BottomMenu.toDestination(): FoodlistDestinations? = when (this) {
+private fun BottomMenu.toDestination(): FoodlistDestinations = when (this) {
     BottomMenu.Dashboard -> FoodlistDestinations.Dashboard
     BottomMenu.Storage -> FoodlistDestinations.Storage
-    BottomMenu.Recipes -> null
+    BottomMenu.Recipes -> FoodlistDestinations.Recipes
     BottomMenu.Profile -> FoodlistDestinations.Profile
 }

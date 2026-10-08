@@ -6,6 +6,7 @@ import io.github.alefaux.foodlist.feature.search.di.searchModule
 import io.github.alefaux.foodlist.feature.dashboard.di.dashboardModule
 import io.github.alefaux.foodlist.feature.productdetail.di.productDetailModule
 import io.github.alefaux.foodlist.feature.profile.di.profileModule
+import io.github.alefaux.foodlist.feature.recipes.di.recipesModule
 import io.github.alefaux.foodlist.feature.scan.di.scanModule
 import io.github.alefaux.foodlist.feature.storage.di.storageModule
 import io.github.alefaux.foodlist.feature.sync.di.syncModule
@@ -23,6 +24,7 @@ fun initKoin(configuration: KoinAppDeclaration? = null) {
             dashboardModule,
             productDetailModule,
             profileModule,
+            recipesModule,
             scanModule,
             storageModule,
             syncModule,
