@@ -7,4 +7,5 @@ val databaseModule = module {
     factory { get<AppDatabase>().productDao() }
     factory { get<AppDatabase>().storageDao() }
     factory { get<AppDatabase>().sessionDao() }
+    factory { get<AppDatabase>().recipeDao() }
 }

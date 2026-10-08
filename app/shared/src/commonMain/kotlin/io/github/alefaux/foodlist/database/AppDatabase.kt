@@ -10,9 +10,12 @@ import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import androidx.sqlite.execSQL
 import io.github.alefaux.foodlist.database.converter.Converters
 import io.github.alefaux.foodlist.database.dao.ProductDao
+import io.github.alefaux.foodlist.database.dao.RecipeDao
 import io.github.alefaux.foodlist.database.dao.SessionDao
 import io.github.alefaux.foodlist.database.dao.StorageDao
 import io.github.alefaux.foodlist.database.entity.ProductEntity
+import io.github.alefaux.foodlist.database.entity.RecipeEntity
+import io.github.alefaux.foodlist.database.entity.RecipeIngredientEntity
 import io.github.alefaux.foodlist.database.entity.SessionEntity
 import io.github.alefaux.foodlist.database.entity.StorageEntity
 import kotlinx.coroutines.Dispatchers
@@ -22,9 +25,11 @@ import kotlinx.coroutines.IO
     entities = [
         StorageEntity::class,
         ProductEntity::class,
-        SessionEntity::class
+        SessionEntity::class,
+        RecipeEntity::class,
+        RecipeIngredientEntity::class
     ],
-    version = 6
+    version = 7
 )
 @ConstructedBy(AppDatabaseConstructor::class)
 @TypeConverters(Converters::class)
@@ -32,6 +37,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun productDao(): ProductDao
     abstract fun storageDao(): StorageDao
     abstract fun sessionDao(): SessionDao
+    abstract fun recipeDao(): RecipeDao
 }
 
 @Suppress("KotlinNoActualForExpect")
@@ -84,10 +90,26 @@ private val MIGRATION_5_6 = object : Migration(startVersion = 5, endVersion = 6)
     }
 }
 
+private val MIGRATION_6_7 = object : Migration(startVersion = 6, endVersion = 7) {
+    override fun migrate(connection: androidx.sqlite.SQLiteConnection) {
+        connection.execSQL(
+            "CREATE TABLE IF NOT EXISTS `RecipeEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "`name` TEXT NOT NULL, `durationMinutes` INTEGER NOT NULL, `isTestData` INTEGER NOT NULL)"
+        )
+        connection.execSQL(
+            "CREATE TABLE IF NOT EXISTS `RecipeIngredientEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "`recipeId` INTEGER NOT NULL, `name` TEXT NOT NULL)"
+        )
+        connection.execSQL(
+            "CREATE INDEX IF NOT EXISTS `index_RecipeIngredientEntity_recipeId` ON `RecipeIngredientEntity` (`recipeId`)"
+        )
+    }
+}
+
 fun getRoomDatabase(
     builder: RoomDatabase.Builder<AppDatabase>
 ): AppDatabase = builder
     .setDriver(BundledSQLiteDriver())
     .setQueryCoroutineContext(Dispatchers.IO)
-    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6)
+    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7)
     .build()
