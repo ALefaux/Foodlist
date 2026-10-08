@@ -185,4 +185,31 @@
     <string name="recipes_ingredients_count">%1$d ingrédients</string>
     <string name="recipes_duration">%1$d min</string>
     <string name="recipes_empty">Aucune recette pour le moment.</string>
+
+    <!-- Recipe detail -->
+    <string name="recipe_detail_top_bar_title">Détails de la recette</string>
+    <string name="recipe_detail_not_found">Cette recette n'existe plus.</string>
+    <string name="recipe_detail_badge_vegetarian">Végétarien</string>
+    <string name="recipe_detail_prep">Préparation</string>
+    <string name="recipe_detail_cook">Cuisson</string>
+    <string name="recipe_detail_servings">Portions</string>
+    <string name="recipe_detail_energy">Énergie</string>
+    <string name="recipe_detail_minutes">%1$d min</string>
+    <string name="recipe_detail_calories">%1$d kcal</string>
+    <string name="recipe_detail_pantry_match">Garde-manger : %1$d ingrédients sur %2$d</string>
+    <string name="recipe_detail_pantry_match_complete">Vous avez tout pour cette recette</string>
+    <string name="recipe_detail_ingredients_title">Ingrédients nécessaires</string>
+    <string name="recipe_detail_ingredients_total">%1$d au total</string>
+    <string name="recipe_detail_ingredient_in_pantry">En stock</string>
+    <string name="recipe_detail_ingredient_expiring">Bientôt périmé</string>
+    <string name="recipe_detail_ingredient_missing">Manquant</string>
+    <string name="recipe_detail_ingredient_required">%1$s nécessaire</string>
+    <string name="recipe_detail_steps_title">Étapes de préparation</string>
+    <string name="recipe_detail_steps_progress">%1$d sur %2$d terminées</string>
+    <string name="recipe_detail_step_timer">Minuteur %1$d min</string>
+    <string name="recipe_detail_tip_title">Astuce conservation</string>
+    <plurals name="recipe_detail_pantry_match_missing">
+        <item quantity="one">Il ne manque que %1$d article pour cette recette</item>
+        <item quantity="other">Il manque %1$d articles pour cette recette</item>
+    </plurals>
 </resources>

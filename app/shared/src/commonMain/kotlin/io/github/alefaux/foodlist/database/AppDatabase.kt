@@ -16,6 +16,7 @@ import io.github.alefaux.foodlist.database.dao.StorageDao
 import io.github.alefaux.foodlist.database.entity.ProductEntity
 import io.github.alefaux.foodlist.database.entity.RecipeEntity
 import io.github.alefaux.foodlist.database.entity.RecipeIngredientEntity
+import io.github.alefaux.foodlist.database.entity.RecipeStepEntity
 import io.github.alefaux.foodlist.database.entity.SessionEntity
 import io.github.alefaux.foodlist.database.entity.StorageEntity
 import kotlinx.coroutines.Dispatchers
@@ -27,9 +28,10 @@ import kotlinx.coroutines.IO
         ProductEntity::class,
         SessionEntity::class,
         RecipeEntity::class,
-        RecipeIngredientEntity::class
+        RecipeIngredientEntity::class,
+        RecipeStepEntity::class
     ],
-    version = 7
+    version = 8
 )
 @ConstructedBy(AppDatabaseConstructor::class)
 @TypeConverters(Converters::class)
@@ -106,10 +108,31 @@ private val MIGRATION_6_7 = object : Migration(startVersion = 6, endVersion = 7)
     }
 }
 
+private val MIGRATION_7_8 = object : Migration(startVersion = 7, endVersion = 8) {
+    override fun migrate(connection: androidx.sqlite.SQLiteConnection) {
+        connection.execSQL("ALTER TABLE RecipeEntity RENAME COLUMN durationMinutes TO cookMinutes")
+        connection.execSQL("ALTER TABLE RecipeEntity ADD COLUMN description TEXT NOT NULL DEFAULT ''")
+        connection.execSQL("ALTER TABLE RecipeEntity ADD COLUMN prepMinutes INTEGER NOT NULL DEFAULT 0")
+        connection.execSQL("ALTER TABLE RecipeEntity ADD COLUMN servings INTEGER")
+        connection.execSQL("ALTER TABLE RecipeEntity ADD COLUMN calories INTEGER")
+        connection.execSQL("ALTER TABLE RecipeEntity ADD COLUMN isVegetarian INTEGER NOT NULL DEFAULT 0")
+        connection.execSQL("ALTER TABLE RecipeEntity ADD COLUMN tip TEXT")
+        connection.execSQL("ALTER TABLE RecipeIngredientEntity ADD COLUMN quantity TEXT NOT NULL DEFAULT ''")
+        connection.execSQL(
+            "CREATE TABLE IF NOT EXISTS `RecipeStepEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "`recipeId` INTEGER NOT NULL, `position` INTEGER NOT NULL, `title` TEXT NOT NULL, " +
+                "`instructions` TEXT NOT NULL, `timerMinutes` INTEGER)"
+        )
+        connection.execSQL(
+            "CREATE INDEX IF NOT EXISTS `index_RecipeStepEntity_recipeId` ON `RecipeStepEntity` (`recipeId`)"
+        )
+    }
+}
+
 fun getRoomDatabase(
     builder: RoomDatabase.Builder<AppDatabase>
 ): AppDatabase = builder
     .setDriver(BundledSQLiteDriver())
     .setQueryCoroutineContext(Dispatchers.IO)
-    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7)
+    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8)
     .build()

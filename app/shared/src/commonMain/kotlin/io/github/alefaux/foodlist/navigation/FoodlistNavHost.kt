@@ -13,6 +13,7 @@ import io.github.alefaux.foodlist.feature.search.presentation.SearchScreen
 import io.github.alefaux.foodlist.feature.dashboard.presentation.DashboardScreen
 import io.github.alefaux.foodlist.feature.productdetail.presentation.ProductDetailScreen
 import io.github.alefaux.foodlist.feature.profile.presentation.ProfileScreen
+import io.github.alefaux.foodlist.feature.recipes.presentation.RecipeDetailScreen
 import io.github.alefaux.foodlist.feature.recipes.presentation.RecipesScreen
 import io.github.alefaux.foodlist.feature.scan.presentation.ScanProductScreen
 import io.github.alefaux.foodlist.feature.storage.presentation.StorageDetailScreen
@@ -135,7 +136,21 @@ fun FoodlistNavHost(
             )
         }
         composable<FoodlistDestinations.Recipes> {
-            RecipesScreen()
+            RecipesScreen(
+                onRecipeClick = { recipeId ->
+                    navController.navigate(FoodlistDestinations.RecipeDetail(recipeId))
+                }
+            )
+        }
+        composable<FoodlistDestinations.RecipeDetail> { backStackEntry ->
+            val destination = backStackEntry.toRoute<FoodlistDestinations.RecipeDetail>()
+
+            RecipeDetailScreen(
+                recipeId = destination.recipeId,
+                onBackPress = {
+                    navController.navigateUp()
+                }
+            )
         }
         composable<FoodlistDestinations.Profile> {
             ProfileScreen(

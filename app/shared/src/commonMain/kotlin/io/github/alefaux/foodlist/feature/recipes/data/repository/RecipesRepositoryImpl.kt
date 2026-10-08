@@ -5,44 +5,115 @@ import io.github.alefaux.foodlist.core.model.extension.toFreshness
 import io.github.alefaux.foodlist.core.model.extension.toLocalDate
 import io.github.alefaux.foodlist.database.dao.ProductDao
 import io.github.alefaux.foodlist.database.dao.RecipeDao
+import io.github.alefaux.foodlist.database.dao.StorageDao
+import io.github.alefaux.foodlist.feature.recipes.domain.IngredientStatus
 import io.github.alefaux.foodlist.feature.recipes.domain.Recipe
 import io.github.alefaux.foodlist.feature.recipes.domain.RecipeAvailability
+import io.github.alefaux.foodlist.feature.recipes.domain.RecipeDetail
+import io.github.alefaux.foodlist.feature.recipes.domain.RecipeIngredient
+import io.github.alefaux.foodlist.feature.recipes.domain.RecipeStep
 import kotlin.time.Clock
 
 class RecipesRepositoryImpl(
     private val recipeDao: RecipeDao,
-    private val productDao: ProductDao
+    private val productDao: ProductDao,
+    private val storageDao: StorageDao
 ) : RecipesRepository {
 
     override suspend fun getRecipes(): List<Recipe> {
-        val today = Clock.System.now().toLocalDate()
+        val pantry = loadPantry()
         val ingredientsByRecipe = recipeDao.getAllIngredients().groupBy({ it.recipeId }, { it.name })
-
-        // Usable pantry products: not discarded and not expired yet.
-        val pantry = productDao.getAll()
-            .filter { it.discardedDate == null }
-            .map { it.name.lowercase() to it.expirationDate?.toLocalDate().toFreshness(today) }
-            .filter { (_, freshness) -> freshness != ProductFreshness.EXPIRED }
 
         return recipeDao.getAll().map { recipe ->
             val ingredients = ingredientsByRecipe[recipe.id].orEmpty()
-            val matches = ingredients.map { ingredient ->
-                val name = ingredient.lowercase()
-                pantry.filter { (productName, _) -> productName.contains(name) || name.contains(productName) }
-            }
 
             Recipe(
                 id = recipe.id,
                 name = recipe.name,
-                durationMinutes = recipe.durationMinutes,
+                durationMinutes = recipe.prepMinutes + recipe.cookMinutes,
                 ingredients = ingredients,
-                availability = when {
-                    matches.any { it.isEmpty() } -> RecipeAvailability.MISSING_INGREDIENTS
-                    matches.any { products -> products.none { (_, freshness) -> freshness == ProductFreshness.FRESH } } ->
-                        RecipeAvailability.USES_EXPIRING_ITEMS
-                    else -> RecipeAvailability.CAN_MAKE
-                }
+                availability = ingredients.map { pantry.find(it).status }.toAvailability()
             )
         }
     }
+
+    override suspend fun getRecipeDetail(recipeId: Long): RecipeDetail? {
+        val recipe = recipeDao.getById(recipeId) ?: return null
+        val pantry = loadPantry()
+        val storageNames = storageDao.getAll().associate { it.id to it.name }
+
+        val ingredients = recipeDao.getIngredients(recipeId).map { ingredient ->
+            val product = pantry.find(ingredient.name)
+            RecipeIngredient(
+                name = ingredient.name,
+                quantity = ingredient.quantity,
+                status = product.status,
+                storageName = product?.storageId?.let { storageNames[it] }
+            )
+        }
+
+        return RecipeDetail(
+            id = recipe.id,
+            name = recipe.name,
+            description = recipe.description,
+            prepMinutes = recipe.prepMinutes,
+            cookMinutes = recipe.cookMinutes,
+            servings = recipe.servings,
+            calories = recipe.calories,
+            isVegetarian = recipe.isVegetarian,
+            tip = recipe.tip,
+            availability = ingredients.map { it.status }.toAvailability(),
+            ingredients = ingredients,
+            steps = recipeDao.getSteps(recipeId).map {
+                RecipeStep(
+                    position = it.position,
+                    title = it.title,
+                    instructions = it.instructions,
+                    timerMinutes = it.timerMinutes
+                )
+            }
+        )
+    }
+
+    /** Usable pantry products: not discarded and not expired yet. */
+    private suspend fun loadPantry(): List<PantryProduct> {
+        val today = Clock.System.now().toLocalDate()
+
+        return productDao.getAll()
+            .filter { it.discardedDate == null }
+            .map {
+                PantryProduct(
+                    name = it.name.lowercase(),
+                    freshness = it.expirationDate?.toLocalDate().toFreshness(today),
+                    storageId = it.storageId
+                )
+            }
+            .filter { it.freshness != ProductFreshness.EXPIRED }
+    }
+
+    /** Best pantry product for an ingredient: a fresh one when possible. */
+    private fun List<PantryProduct>.find(ingredient: String): PantryProduct? {
+        val name = ingredient.lowercase()
+        val matches = filter { it.name.contains(name) || name.contains(it.name) }
+        return matches.firstOrNull { it.freshness == ProductFreshness.FRESH } ?: matches.firstOrNull()
+    }
+
+    private val PantryProduct?.status: IngredientStatus
+        get() = when {
+            this == null -> IngredientStatus.MISSING
+            freshness == ProductFreshness.FRESH -> IngredientStatus.IN_PANTRY
+            else -> IngredientStatus.EXPIRING_SOON
+        }
+
+    private fun List<IngredientStatus>.toAvailability(): RecipeAvailability = when {
+        IngredientStatus.MISSING in this -> RecipeAvailability.MISSING_INGREDIENTS
+        IngredientStatus.EXPIRING_SOON in this -> RecipeAvailability.USES_EXPIRING_ITEMS
+        else -> RecipeAvailability.CAN_MAKE
+    }
+
+    private data class PantryProduct(
+        val name: String,
+        val freshness: ProductFreshness,
+        val storageId: Long?
+    )
 }

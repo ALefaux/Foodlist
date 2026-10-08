@@ -14,6 +14,7 @@ class DeleteTestDataUseCaseImpl(
 
     override suspend fun invoke() {
         recipeDao.deleteTestIngredients()
+        recipeDao.deleteTestSteps()
         recipeDao.deleteTestRecipes()
 
         productDao.deleteTestData()

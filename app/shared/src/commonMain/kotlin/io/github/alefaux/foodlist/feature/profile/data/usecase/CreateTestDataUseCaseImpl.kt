@@ -6,6 +6,7 @@ import io.github.alefaux.foodlist.database.dao.StorageDao
 import io.github.alefaux.foodlist.database.entity.ProductEntity
 import io.github.alefaux.foodlist.database.entity.RecipeEntity
 import io.github.alefaux.foodlist.database.entity.RecipeIngredientEntity
+import io.github.alefaux.foodlist.database.entity.RecipeStepEntity
 import io.github.alefaux.foodlist.database.entity.StorageEntity
 import io.github.alefaux.foodlist.feature.profile.domain.CreateTestDataUseCase
 import kotlin.time.Clock
@@ -122,35 +123,158 @@ class CreateTestDataUseCaseImpl(
     private suspend fun createTestRecipes() {
         listOf(
             // Every ingredient is fresh: can make
-            TestRecipe("Spaghetti with Peas", 15, listOf("Spaghetti", "Frozen Peas", "Olive Oil")),
-            TestRecipe("Chicken Stir Fry", 20, listOf("Chicken Breast", "Frozen Peas", "Olive Oil")),
+            TestRecipe(
+                name = "Spaghetti with Peas",
+                description = "A quick weeknight pasta made entirely from pantry staples.",
+                prepMinutes = 5,
+                cookMinutes = 12,
+                servings = 2,
+                calories = 520,
+                isVegetarian = true,
+                tip = "Frozen peas keep their sweetness for months: add them straight from the freezer.",
+                ingredients = listOf(
+                    "Spaghetti" to "200 g",
+                    "Frozen Peas" to "150 g",
+                    "Olive Oil" to "2 tbsp"
+                ),
+                steps = listOf(
+                    TestStep("Cook the spaghetti", "Bring a large pot of salted water to a boil and cook the spaghetti until al dente.", 10),
+                    TestStep("Add the peas", "Add the frozen peas to the pot for the last 2 minutes of cooking.", 2),
+                    TestStep("Finish with olive oil", "Drain, toss with the olive oil and season with salt and pepper. Serve immediately.", null)
+                )
+            ),
+            TestRecipe(
+                name = "Chicken Stir Fry",
+                description = "Golden chicken and sweet peas tossed in a hot pan in under half an hour.",
+                prepMinutes = 10,
+                cookMinutes = 12,
+                servings = 2,
+                calories = 430,
+                isVegetarian = false,
+                tip = null,
+                ingredients = listOf(
+                    "Chicken Breast" to "400 g",
+                    "Frozen Peas" to "200 g",
+                    "Olive Oil" to "1 tbsp"
+                ),
+                steps = listOf(
+                    TestStep("Slice the chicken", "Cut the chicken breast into thin strips and season with salt and pepper.", null),
+                    TestStep("Sear the chicken", "Heat the olive oil in a wide pan over high heat and cook the chicken until golden.", 6),
+                    TestStep("Add the peas", "Add the frozen peas and stir fry until hot. Serve right away.", 4)
+                )
+            ),
             // Greek Yogurt expires tomorrow: uses expiring items
-            TestRecipe("Creamy Chicken", 30, listOf("Chicken Breast", "Greek Yogurt", "Olive Oil")),
+            TestRecipe(
+                name = "Creamy Chicken",
+                description = "Tender chicken in a light yogurt sauce, a good way to use yogurt before it expires.",
+                prepMinutes = 10,
+                cookMinutes = 20,
+                servings = 3,
+                calories = 380,
+                isVegetarian = false,
+                tip = "Stir the yogurt in off the heat so the sauce stays smooth instead of splitting.",
+                ingredients = listOf(
+                    "Chicken Breast" to "400 g",
+                    "Greek Yogurt" to "250 g",
+                    "Olive Oil" to "1 tbsp"
+                ),
+                steps = listOf(
+                    TestStep("Brown the chicken", "Cut the chicken into pieces and brown them in the olive oil over medium heat.", 8),
+                    TestStep("Cook through", "Lower the heat, cover and cook until the chicken is cooked through.", 10),
+                    TestStep("Make the sauce", "Take the pan off the heat and stir in the Greek yogurt. Season and serve.", null)
+                )
+            ),
             // Lasagna sheets, beef and tomato sauce are not in the pantry: missing ingredients
             TestRecipe(
-                "Classic Lasagna",
-                45,
-                listOf("Lasagna Sheets", "Ground Beef", "Tomato Sauce", "Emmental", "Olive Oil")
+                name = "Classic Lasagna",
+                description = "Layers of pasta, rich meat sauce and melted cheese baked until bubbling.",
+                prepMinutes = 25,
+                cookMinutes = 45,
+                servings = 6,
+                calories = 610,
+                isVegetarian = false,
+                tip = "Leftover lasagna freezes well in portions for up to 3 months.",
+                ingredients = listOf(
+                    "Lasagna Sheets" to "12 sheets",
+                    "Ground Beef" to "500 g",
+                    "Tomato Sauce" to "700 g",
+                    "Emmental" to "150 g",
+                    "Olive Oil" to "1 tbsp"
+                ),
+                steps = listOf(
+                    TestStep("Make the meat sauce", "Brown the ground beef in the olive oil, add the tomato sauce and simmer.", 15),
+                    TestStep("Assemble", "Alternate layers of lasagna sheets and meat sauce in a baking dish, finishing with sauce.", null),
+                    TestStep("Bake", "Cover with grated Emmental and bake at 180 °C until golden and bubbling.", 30)
+                )
             ),
             // Sliced Bread was discarded: missing ingredients
-            TestRecipe("Cheese Toast", 10, listOf("Sliced Bread", "Emmental"))
+            TestRecipe(
+                name = "Cheese Toast",
+                description = "Crispy bread topped with melted Emmental, ready in minutes.",
+                prepMinutes = 3,
+                cookMinutes = 7,
+                servings = 1,
+                calories = 340,
+                isVegetarian = true,
+                tip = null,
+                ingredients = listOf(
+                    "Sliced Bread" to "2 slices",
+                    "Emmental" to "60 g"
+                ),
+                steps = listOf(
+                    TestStep("Top the bread", "Cover the bread slices with grated Emmental.", null),
+                    TestStep("Grill", "Grill until the cheese is melted and golden.", 5)
+                )
+            )
         ).forEach { recipe ->
             val recipeId = recipeDao.insert(
                 RecipeEntity(
                     name = recipe.name,
-                    durationMinutes = recipe.durationMinutes,
+                    description = recipe.description,
+                    prepMinutes = recipe.prepMinutes,
+                    cookMinutes = recipe.cookMinutes,
+                    servings = recipe.servings,
+                    calories = recipe.calories,
+                    isVegetarian = recipe.isVegetarian,
+                    tip = recipe.tip,
                     isTestData = true
                 )
             )
             recipeDao.insertIngredients(
-                recipe.ingredients.map { RecipeIngredientEntity(recipeId = recipeId, name = it) }
+                recipe.ingredients.map { (name, quantity) ->
+                    RecipeIngredientEntity(recipeId = recipeId, name = name, quantity = quantity)
+                }
+            )
+            recipeDao.insertSteps(
+                recipe.steps.mapIndexed { index, step ->
+                    RecipeStepEntity(
+                        recipeId = recipeId,
+                        position = index + 1,
+                        title = step.title,
+                        instructions = step.instructions,
+                        timerMinutes = step.timerMinutes
+                    )
+                }
             )
         }
     }
 
     private data class TestRecipe(
         val name: String,
-        val durationMinutes: Int,
-        val ingredients: List<String>
+        val description: String,
+        val prepMinutes: Int,
+        val cookMinutes: Int,
+        val servings: Int,
+        val calories: Int,
+        val isVegetarian: Boolean,
+        val tip: String?,
+        val ingredients: List<Pair<String, String>>,
+        val steps: List<TestStep>
+    )
+
+    private data class TestStep(
+        val title: String,
+        val instructions: String,
+        val timerMinutes: Int?
     )
 }

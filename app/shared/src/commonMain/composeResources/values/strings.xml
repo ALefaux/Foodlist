@@ -185,4 +185,31 @@
     <string name="recipes_ingredients_count">%1$d Ingredients</string>
     <string name="recipes_duration">%1$d mins</string>
     <string name="recipes_empty">No recipes yet.</string>
+
+    <!-- Recipe detail -->
+    <string name="recipe_detail_top_bar_title">Recipe Details</string>
+    <string name="recipe_detail_not_found">This recipe no longer exists.</string>
+    <string name="recipe_detail_badge_vegetarian">Vegetarian</string>
+    <string name="recipe_detail_prep">Prep</string>
+    <string name="recipe_detail_cook">Cook</string>
+    <string name="recipe_detail_servings">Servings</string>
+    <string name="recipe_detail_energy">Energy</string>
+    <string name="recipe_detail_minutes">%1$dm</string>
+    <string name="recipe_detail_calories">%1$d kcal</string>
+    <string name="recipe_detail_pantry_match">Pantry Match: %1$d of %2$d Ingredients</string>
+    <string name="recipe_detail_pantry_match_complete">You have everything for this recipe</string>
+    <string name="recipe_detail_ingredients_title">Ingredients Needed</string>
+    <string name="recipe_detail_ingredients_total">%1$d items total</string>
+    <string name="recipe_detail_ingredient_in_pantry">In Pantry</string>
+    <string name="recipe_detail_ingredient_expiring">Expiring Soon</string>
+    <string name="recipe_detail_ingredient_missing">Missing</string>
+    <string name="recipe_detail_ingredient_required">%1$s required</string>
+    <string name="recipe_detail_steps_title">Cooking Steps</string>
+    <string name="recipe_detail_steps_progress">%1$d of %2$d Completed</string>
+    <string name="recipe_detail_step_timer">%1$d min timer</string>
+    <string name="recipe_detail_tip_title">Pantry Preservation Tip</string>
+    <plurals name="recipe_detail_pantry_match_missing">
+        <item quantity="one">Only %1$d item needed to complete this recipe</item>
+        <item quantity="other">%1$d items needed to complete this recipe</item>
+    </plurals>
 </resources>

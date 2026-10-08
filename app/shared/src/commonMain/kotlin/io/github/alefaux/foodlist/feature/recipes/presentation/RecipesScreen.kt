@@ -11,6 +11,7 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun RecipesScreen(
+    onRecipeClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: RecipesViewModel = koinViewModel()
 ) {
@@ -30,8 +31,7 @@ fun RecipesScreen(
             state = state,
             onQueryChange = viewModel::updateQuery,
             onFilterSelected = viewModel::selectFilter,
-            // Todo open recipe detail once it exists
-            onRecipeClick = {}
+            onRecipeClick = onRecipeClick
         )
     }
 }

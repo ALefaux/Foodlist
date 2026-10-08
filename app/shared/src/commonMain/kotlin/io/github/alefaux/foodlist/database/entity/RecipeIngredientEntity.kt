@@ -8,5 +8,6 @@ import androidx.room.PrimaryKey
 data class RecipeIngredientEntity(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     val recipeId: Long,
-    val name: String
+    val name: String,
+    val quantity: String = ""
 )
