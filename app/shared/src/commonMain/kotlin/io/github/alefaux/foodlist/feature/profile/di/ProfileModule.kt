@@ -12,14 +12,16 @@ val profileModule = module {
     factory<CreateTestDataUseCase> {
         CreateTestDataUseCaseImpl(
             storageDao = get(),
-            productDao = get()
+            productDao = get(),
+            recipeDao = get()
         )
     }
 
     factory<DeleteTestDataUseCase> {
         DeleteTestDataUseCaseImpl(
             storageDao = get(),
-            productDao = get()
+            productDao = get(),
+            recipeDao = get()
         )
     }
 

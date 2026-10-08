@@ -1,16 +1,21 @@
 package io.github.alefaux.foodlist.feature.profile.data.usecase
 
 import io.github.alefaux.foodlist.database.dao.ProductDao
+import io.github.alefaux.foodlist.database.dao.RecipeDao
 import io.github.alefaux.foodlist.database.dao.StorageDao
 import io.github.alefaux.foodlist.feature.profile.domain.DeleteTestDataUseCase
 
 /** Debug only: removes what [CreateTestDataUseCaseImpl] created, leaving real data untouched. */
 class DeleteTestDataUseCaseImpl(
     private val storageDao: StorageDao,
-    private val productDao: ProductDao
+    private val productDao: ProductDao,
+    private val recipeDao: RecipeDao
 ) : DeleteTestDataUseCase {
 
     override suspend fun invoke() {
+        recipeDao.deleteTestIngredients()
+        recipeDao.deleteTestRecipes()
+
         productDao.deleteTestData()
 
         storageDao.getTestData().forEach { storage ->

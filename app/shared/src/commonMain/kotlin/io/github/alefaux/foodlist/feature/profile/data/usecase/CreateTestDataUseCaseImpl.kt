@@ -1,20 +1,25 @@
 package io.github.alefaux.foodlist.feature.profile.data.usecase
 
 import io.github.alefaux.foodlist.database.dao.ProductDao
+import io.github.alefaux.foodlist.database.dao.RecipeDao
 import io.github.alefaux.foodlist.database.dao.StorageDao
 import io.github.alefaux.foodlist.database.entity.ProductEntity
+import io.github.alefaux.foodlist.database.entity.RecipeEntity
+import io.github.alefaux.foodlist.database.entity.RecipeIngredientEntity
 import io.github.alefaux.foodlist.database.entity.StorageEntity
 import io.github.alefaux.foodlist.feature.profile.domain.CreateTestDataUseCase
 import kotlin.time.Clock
 import kotlin.time.Duration.Companion.days
 
 /**
- * Debug only: seeds storage units and products covering every freshness state.
+ * Debug only: seeds storage units and products covering every freshness state, and recipes
+ * built from those products covering every recipe availability.
  * Everything is flagged with `isTestData` so [DeleteTestDataUseCaseImpl] can remove it.
  */
 class CreateTestDataUseCaseImpl(
     private val storageDao: StorageDao,
-    private val productDao: ProductDao
+    private val productDao: ProductDao,
+    private val recipeDao: RecipeDao
 ) : CreateTestDataUseCase {
 
     override suspend fun invoke() {
@@ -110,5 +115,42 @@ class CreateTestDataUseCaseImpl(
         ).forEach { product ->
             productDao.insert(product.copy(createdAt = now, isTestData = true))
         }
+
+        createTestRecipes()
     }
+
+    private suspend fun createTestRecipes() {
+        listOf(
+            // Every ingredient is fresh: can make
+            TestRecipe("Spaghetti with Peas", 15, listOf("Spaghetti", "Frozen Peas", "Olive Oil")),
+            TestRecipe("Chicken Stir Fry", 20, listOf("Chicken Breast", "Frozen Peas", "Olive Oil")),
+            // Greek Yogurt expires tomorrow: uses expiring items
+            TestRecipe("Creamy Chicken", 30, listOf("Chicken Breast", "Greek Yogurt", "Olive Oil")),
+            // Lasagna sheets, beef and tomato sauce are not in the pantry: missing ingredients
+            TestRecipe(
+                "Classic Lasagna",
+                45,
+                listOf("Lasagna Sheets", "Ground Beef", "Tomato Sauce", "Emmental", "Olive Oil")
+            ),
+            // Sliced Bread was discarded: missing ingredients
+            TestRecipe("Cheese Toast", 10, listOf("Sliced Bread", "Emmental"))
+        ).forEach { recipe ->
+            val recipeId = recipeDao.insert(
+                RecipeEntity(
+                    name = recipe.name,
+                    durationMinutes = recipe.durationMinutes,
+                    isTestData = true
+                )
+            )
+            recipeDao.insertIngredients(
+                recipe.ingredients.map { RecipeIngredientEntity(recipeId = recipeId, name = it) }
+            )
+        }
+    }
+
+    private data class TestRecipe(
+        val name: String,
+        val durationMinutes: Int,
+        val ingredients: List<String>
+    )
 }
