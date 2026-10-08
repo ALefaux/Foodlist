@@ -20,13 +20,14 @@ import org.jetbrains.compose.resources.stringResource
 fun SearchTextField(
     modifier: Modifier = Modifier,
     onSearchChange: (query: String) -> Unit = {},
-    query: String = ""
+    query: String = "",
+    placeholder: String = stringResource(Res.string.search_pantry_placeholder)
 ) {
     OutlinedTextField(
         modifier = modifier,
         label = {
             Text(
-                text = stringResource(Res.string.search_pantry_placeholder)
+                text = placeholder
             )
         },
         leadingIcon = {
