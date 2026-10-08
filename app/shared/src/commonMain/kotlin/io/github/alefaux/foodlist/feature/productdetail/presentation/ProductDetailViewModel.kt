@@ -42,8 +42,12 @@ class ProductDetailViewModel(
                 getProductDetailUseCase(productId)
             }.onFailure { error ->
                 AppLogging.e(error, "Couldn't load product detail for $productId")
+                _uiState.update { it.copy(isLoading = false) }
             }.onSuccess { product ->
-                if (product == null) return@onSuccess
+                if (product == null) {
+                    _uiState.update { it.copy(isLoading = false) }
+                    return@onSuccess
+                }
 
                 _uiState.update { state ->
                     state.copy(

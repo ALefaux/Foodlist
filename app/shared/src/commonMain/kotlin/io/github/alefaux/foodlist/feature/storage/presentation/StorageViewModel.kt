@@ -31,6 +31,7 @@ class StorageViewModel(
                 getStorageUnitsUseCase()
             }.onFailure { error ->
                 AppLogging.e(error, "Couldn't load storage units")
+                _uiState.update { it.copy(isLoading = false) }
             }.onSuccess { units ->
                 _uiState.update { state ->
                     state.copy(
@@ -41,7 +42,8 @@ class StorageViewModel(
                                 productCount = it.productCount,
                                 expiringCount = it.expiringCount
                             )
-                        }.toImmutableList()
+                        }.toImmutableList(),
+                        isLoading = false
                     )
                 }
             }

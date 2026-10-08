@@ -15,12 +15,14 @@ import foodlist.app.shared.generated.resources.storage_pane_empty
 import io.github.alefaux.foodlist.feature.storage.modelui.StorageUnitUi
 import io.github.alefaux.foodlist.feature.storage.ui.StorageHeader
 import io.github.alefaux.foodlist.feature.storage.ui.StorageUnitCard
+import io.github.alefaux.foodlist.feature.storage.ui.StorageUnitsSkeleton
 import kotlinx.collections.immutable.ImmutableList
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun StoragePane(
     storageUnits: ImmutableList<StorageUnitUi>,
+    isLoading: Boolean,
     onAddClick: () -> Unit,
     onStorageClick: (Long) -> Unit,
     modifier: Modifier = Modifier
@@ -34,7 +36,11 @@ fun StoragePane(
             StorageHeader(onAddClick = onAddClick)
         }
 
-        if (storageUnits.isEmpty()) {
+        if (isLoading) {
+            item {
+                StorageUnitsSkeleton()
+            }
+        } else if (storageUnits.isEmpty()) {
             item {
                 Text(
                     text = stringResource(Res.string.storage_pane_empty),

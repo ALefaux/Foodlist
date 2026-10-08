@@ -12,6 +12,7 @@ data class DashboardUiState(
         discardedProductsCount = 0,
         trendPercent = 0
     ),
+    val isLoading: Boolean = true,
     val isDebug: Boolean = false,
     val isServerUp: Boolean = false
 )

@@ -15,6 +15,7 @@ import io.github.alefaux.foodlist.core.component.HomeHeader
 import io.github.alefaux.foodlist.feature.dashboard.modelui.DiscardedProducts
 import io.github.alefaux.foodlist.feature.dashboard.modelui.ExpiredProductUi
 import io.github.alefaux.foodlist.feature.dashboard.panes.expired.ExpiredProductsPane
+import io.github.alefaux.foodlist.feature.dashboard.ui.DashboardSkeleton
 import io.github.alefaux.foodlist.feature.dashboard.ui.menu.DashboardMenu
 import io.github.alefaux.foodlist.feature.dashboard.ui.server.ServerStatusChip
 import io.github.alefaux.foodlist.core.component.SearchTextField
@@ -26,6 +27,7 @@ fun DashboardPane(
     expiredProducts: ImmutableList<ExpiredProductUi>,
     expiredProductsCount: Int,
     discardedProducts: DiscardedProducts,
+    isLoading: Boolean,
     onAddClick: () -> Unit,
     onScanClick: () -> Unit,
     onExpiredProductClick: (Int) -> Unit,
@@ -62,12 +64,16 @@ fun DashboardPane(
             )
         }
         item {
-            ExpiredProductsPane(
-                discardedProducts = discardedProducts,
-                expiredProducts = expiredProducts,
-                expiredProductsCount = expiredProductsCount,
-                onProductClick = onExpiredProductClick
-            )
+            if (isLoading) {
+                DashboardSkeleton()
+            } else {
+                ExpiredProductsPane(
+                    discardedProducts = discardedProducts,
+                    expiredProducts = expiredProducts,
+                    expiredProductsCount = expiredProductsCount,
+                    onProductClick = onExpiredProductClick
+                )
+            }
         }
     }
 }

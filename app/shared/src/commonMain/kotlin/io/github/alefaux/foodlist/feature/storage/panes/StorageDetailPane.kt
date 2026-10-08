@@ -19,6 +19,7 @@ import foodlist.app.shared.generated.resources.storage_detail_empty_no_items
 import io.github.alefaux.foodlist.feature.storage.presentation.model.StorageDetailUiState
 import io.github.alefaux.foodlist.feature.storage.ui.CategoryFilterChip
 import io.github.alefaux.foodlist.feature.storage.ui.DiscardedProductRow
+import io.github.alefaux.foodlist.feature.storage.ui.StorageDetailSkeleton
 import io.github.alefaux.foodlist.feature.storage.ui.StorageDetailHeader
 import io.github.alefaux.foodlist.feature.storage.ui.StorageProductRow
 import org.jetbrains.compose.resources.stringResource
@@ -32,6 +33,15 @@ fun StorageDetailPane(
     onRestoreDiscardedClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    if (state.isLoading) {
+        StorageDetailSkeleton(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(16.dp)
+        )
+        return
+    }
+
     LazyColumn(
         modifier = modifier.fillMaxSize(),
         contentPadding = PaddingValues(16.dp),

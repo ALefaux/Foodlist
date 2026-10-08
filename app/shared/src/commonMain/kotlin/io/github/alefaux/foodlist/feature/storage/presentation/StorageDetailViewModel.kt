@@ -47,8 +47,12 @@ class StorageDetailViewModel(
                 getStorageDetailUseCase(storageId)
             }.onFailure { error ->
                 AppLogging.e(error, "Couldn't load storage detail for $storageId")
+                _uiState.update { it.copy(isLoading = false) }
             }.onSuccess { detail ->
-                if (detail == null) return@onSuccess
+                if (detail == null) {
+                    _uiState.update { it.copy(isLoading = false) }
+                    return@onSuccess
+                }
 
                 allProducts = detail.products
                 val categories = listOf("All") + detail.products.map { it.category }.distinct().sorted()

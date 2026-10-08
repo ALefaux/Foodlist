@@ -42,6 +42,7 @@ fun DashboardScreen(
             expiredProducts = state.expiredProducts,
             expiredProductsCount = state.expiredProductsCount,
             discardedProducts = state.discardedProducts,
+            isLoading = state.isLoading,
             isDebug = state.isDebug,
             isServerUp = state.isServerUp,
             onAddClick = onAddClick,

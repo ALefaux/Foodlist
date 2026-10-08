@@ -18,6 +18,7 @@ import kotlinx.collections.immutable.toImmutableList
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -36,24 +37,26 @@ class DashboardViewModel(
     val uiState: StateFlow<DashboardUiState> = _uiState
 
     fun loadData() {
+        checkServerStatus()
+
         viewModelScope.launch(dispatcher) {
             // Todo fetch data for dashboard
-            loadExpiredProducts()
-            loadDiscardedProductsStats()
-            checkServerStatus()
+            coroutineScope {
+                launch { loadExpiredProducts() }
+                launch { loadDiscardedProductsStats() }
+            }
+            _uiState.update { it.copy(isLoading = false) }
         }
     }
 
-    private fun loadDiscardedProductsStats() {
-        viewModelScope.launch(dispatcher) {
-            runCatching {
-                getDiscardedProductsStatsUseCase()
-            }.onFailure { error ->
-                AppLogging.e(error, "Couldn't load discarded products stats")
-            }.onSuccess { stats ->
-                _uiState.update { state ->
-                    state.copy(discardedProducts = stats.toDiscardedProducts())
-                }
+    private suspend fun loadDiscardedProductsStats() {
+        runCatching {
+            getDiscardedProductsStatsUseCase()
+        }.onFailure { error ->
+            AppLogging.e(error, "Couldn't load discarded products stats")
+        }.onSuccess { stats ->
+            _uiState.update { state ->
+                state.copy(discardedProducts = stats.toDiscardedProducts())
             }
         }
     }
@@ -72,29 +75,27 @@ class DashboardViewModel(
         }
     }
 
-    private fun loadExpiredProducts() {
-        viewModelScope.launch(dispatcher) {
-            runCatching {
-                getExpiredProductsUseCase()
-            }.onFailure { error ->
-                AppLogging.e(error, "Couldn't load expired products")
-            }.onSuccess { products ->
-                AppLogging.d("Successfully loaded expired products ${products.size}")
+    private suspend fun loadExpiredProducts() {
+        runCatching {
+            getExpiredProductsUseCase()
+        }.onFailure { error ->
+            AppLogging.e(error, "Couldn't load expired products")
+        }.onSuccess { products ->
+            AppLogging.d("Successfully loaded expired products ${products.size}")
 
-                _uiState.update { state ->
-                    state.copy(
-                        expiredProducts = products
-                            .map { product ->
-                                ExpiredProductUi(
-                                    id = product.id,
-                                    name = product.name,
-                                    stockageName = "",
-                                    expiredSince = ""
-                                )
-                            }.toImmutableList(),
-                        expiredProductsCount = products.size
-                    )
-                }
+            _uiState.update { state ->
+                state.copy(
+                    expiredProducts = products
+                        .map { product ->
+                            ExpiredProductUi(
+                                id = product.id,
+                                name = product.name,
+                                stockageName = "",
+                                expiredSince = ""
+                            )
+                        }.toImmutableList(),
+                    expiredProductsCount = products.size
+                )
             }
         }
     }
