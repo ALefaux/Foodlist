@@ -1,0 +1,421 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 10,
+    "identityHash": "7d771d31570159d34a706845d99fe4b1",
+    "entities": [
+      {
+        "tableName": "StorageEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `isTestData` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isTestData",
+            "columnName": "isTestData",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "ProductEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `expirationDate` INTEGER, `ean` TEXT NOT NULL, `discardedDate` INTEGER, `storageId` INTEGER, `quantity` TEXT NOT NULL, `category` TEXT NOT NULL, `stock` INTEGER NOT NULL, `createdAt` INTEGER, `isTestData` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "expirationDate",
+            "columnName": "expirationDate",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "ean",
+            "columnName": "ean",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "discardedDate",
+            "columnName": "discardedDate",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "storageId",
+            "columnName": "storageId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "quantity",
+            "columnName": "quantity",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "category",
+            "columnName": "category",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "stock",
+            "columnName": "stock",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isTestData",
+            "columnName": "isTestData",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "SessionEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `token` TEXT, `userId` INTEGER, `userName` TEXT, `userEmail` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "token",
+            "columnName": "token",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "userId",
+            "columnName": "userId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "userName",
+            "columnName": "userName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "userEmail",
+            "columnName": "userEmail",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "RecipeEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `prepMinutes` INTEGER NOT NULL, `cookMinutes` INTEGER NOT NULL, `servings` INTEGER, `calories` INTEGER, `isVegetarian` INTEGER NOT NULL, `tip` TEXT, `isTestData` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "prepMinutes",
+            "columnName": "prepMinutes",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cookMinutes",
+            "columnName": "cookMinutes",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "servings",
+            "columnName": "servings",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "calories",
+            "columnName": "calories",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "isVegetarian",
+            "columnName": "isVegetarian",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tip",
+            "columnName": "tip",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "isTestData",
+            "columnName": "isTestData",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "RecipeIngredientEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `recipeId` INTEGER NOT NULL, `name` TEXT NOT NULL, `quantity` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recipeId",
+            "columnName": "recipeId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "quantity",
+            "columnName": "quantity",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_RecipeIngredientEntity_recipeId",
+            "unique": false,
+            "columnNames": [
+              "recipeId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_RecipeIngredientEntity_recipeId` ON `${TABLE_NAME}` (`recipeId`)"
+          }
+        ]
+      },
+      {
+        "tableName": "RecipeStepEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `recipeId` INTEGER NOT NULL, `position` INTEGER NOT NULL, `title` TEXT NOT NULL, `instructions` TEXT NOT NULL, `timerMinutes` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recipeId",
+            "columnName": "recipeId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "position",
+            "columnName": "position",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "instructions",
+            "columnName": "instructions",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timerMinutes",
+            "columnName": "timerMinutes",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_RecipeStepEntity_recipeId",
+            "unique": false,
+            "columnNames": [
+              "recipeId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_RecipeStepEntity_recipeId` ON `${TABLE_NAME}` (`recipeId`)"
+          }
+        ]
+      },
+      {
+        "tableName": "ShoppingItemEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `quantity` TEXT NOT NULL, `count` INTEGER NOT NULL, `category` TEXT NOT NULL, `storageId` INTEGER, `priority` TEXT NOT NULL, `brands` TEXT NOT NULL, `note` TEXT NOT NULL, `recipeId` INTEGER, `productId` INTEGER, `purchasedAt` INTEGER, `createdAt` INTEGER NOT NULL, `isTestData` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "quantity",
+            "columnName": "quantity",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "count",
+            "columnName": "count",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "category",
+            "columnName": "category",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "storageId",
+            "columnName": "storageId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "priority",
+            "columnName": "priority",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "brands",
+            "columnName": "brands",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "note",
+            "columnName": "note",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recipeId",
+            "columnName": "recipeId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "productId",
+            "columnName": "productId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "purchasedAt",
+            "columnName": "purchasedAt",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isTestData",
+            "columnName": "isTestData",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7d771d31570159d34a706845d99fe4b1')"
+    ]
+  }
+}

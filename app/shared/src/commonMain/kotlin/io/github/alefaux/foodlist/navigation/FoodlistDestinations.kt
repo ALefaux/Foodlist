@@ -28,5 +28,7 @@ sealed interface FoodlistDestinations {
     @Serializable
     object ShoppingList: FoodlistDestinations
     @Serializable
+    data class ShoppingItemEdit(val itemId: Long): FoodlistDestinations
+    @Serializable
     object Profile: FoodlistDestinations
 }

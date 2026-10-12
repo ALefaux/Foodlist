@@ -4,6 +4,7 @@ import io.github.alefaux.foodlist.core.model.ProductFreshness
 import io.github.alefaux.foodlist.core.model.extension.toFreshness
 import io.github.alefaux.foodlist.core.model.extension.toLocalDate
 import io.github.alefaux.foodlist.database.dao.ProductDao
+import io.github.alefaux.foodlist.database.dao.ShoppingItemDao
 import io.github.alefaux.foodlist.database.dao.StorageDao
 import io.github.alefaux.foodlist.database.entity.ProductEntity
 import io.github.alefaux.foodlist.database.entity.StorageEntity
@@ -14,7 +15,8 @@ import kotlin.time.Clock
 
 class StorageRepositoryImpl(
     private val storageDao: StorageDao,
-    private val productDao: ProductDao
+    private val productDao: ProductDao,
+    private val shoppingItemDao: ShoppingItemDao
 ) : StorageRepository {
 
     override suspend fun getStorageUnits(): List<StorageUnit> {
@@ -50,6 +52,7 @@ class StorageRepositoryImpl(
 
     override suspend fun deleteStorageUnit(storageId: Long) {
         productDao.clearStorageReference(storageId)
+        shoppingItemDao.clearStorageReference(storageId)
         storageDao.deleteById(storageId)
     }
 

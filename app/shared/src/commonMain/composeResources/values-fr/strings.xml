@@ -266,4 +266,39 @@
         <item quantity="one">%1$d ingrédient de recette manquant</item>
         <item quantity="other">%1$d ingrédients de recette manquants</item>
     </plurals>
+
+    <!-- Shopping item edit -->
+    <string name="shopping_edit_top_bar_title">Modifier l'article</string>
+    <string name="shopping_edit_not_found">Cet article n'est plus dans la liste.</string>
+    <string name="shopping_edit_status_to_buy">Dans la liste de courses</string>
+    <string name="shopping_edit_status_purchased">Acheté</string>
+    <string name="shopping_edit_required_for">Nécessaire pour</string>
+    <string name="shopping_edit_open_recipe">Ouvrir la recette</string>
+    <string name="shopping_edit_item_title">Article</string>
+    <string name="shopping_edit_name_label">Nom de l'article</string>
+    <string name="shopping_edit_name_error">Donnez un nom à l'article</string>
+    <string name="shopping_edit_department">Rayon</string>
+    <string name="shopping_edit_quantity_title">Quantité</string>
+    <string name="shopping_edit_packages">Paquets</string>
+    <string name="shopping_edit_package_size">Contenance</string>
+    <string name="shopping_edit_package_size_hint">ex. 1 L</string>
+    <string name="shopping_edit_storage_title">Ranger après l'achat</string>
+    <string name="shopping_edit_storage_subtitle">Où il sera rangé dans votre garde-manger une fois coché comme acheté.</string>
+    <string name="shopping_edit_storage_purchased_hint">Déjà acheté : un nouveau choix s'appliquera la prochaine fois qu'il sera coché.</string>
+    <string name="shopping_edit_storage_none">Ne pas ajouter</string>
+    <string name="shopping_edit_storage_empty">Créez un espace de stockage pour y ranger vos achats.</string>
+    <string name="shopping_edit_priority_title">Urgence</string>
+    <string name="shopping_edit_priority_subtitle">Les articles urgents apparaissent en premier.</string>
+    <string name="shopping_priority_urgent">Urgent</string>
+    <string name="shopping_priority_urgent_description">En rupture, nécessaire aujourd'hui</string>
+    <string name="shopping_priority_standard">Normal</string>
+    <string name="shopping_priority_standard_description">Bientôt épuisé</string>
+    <string name="shopping_priority_nice">Facultatif</string>
+    <string name="shopping_priority_nice_description">Seulement si c'est une bonne affaire</string>
+    <string name="shopping_priority_badge_urgent">Urgent</string>
+    <string name="shopping_priority_badge_optional">Facultatif</string>
+    <string name="shopping_edit_notes_title">Notes pour les courses</string>
+    <string name="shopping_edit_brands_label">Marques préférées</string>
+    <string name="shopping_edit_note_label">Mémo</string>
+    <string name="shopping_edit_remove">Retirer de la liste de courses</string>
 </resources>

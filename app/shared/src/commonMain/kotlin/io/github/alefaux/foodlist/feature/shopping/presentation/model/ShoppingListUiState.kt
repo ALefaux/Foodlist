@@ -1,6 +1,6 @@
 package io.github.alefaux.foodlist.feature.shopping.presentation.model
 
-import io.github.alefaux.foodlist.feature.recipes.domain.RecipeDraftIngredient
+import io.github.alefaux.foodlist.feature.recipes.domain.MissingIngredient
 import io.github.alefaux.foodlist.feature.shopping.domain.ShoppingItem
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
@@ -17,6 +17,6 @@ data class ShoppingListUiState(
     /** Most recently purchased first. */
     val purchased: ImmutableList<ShoppingItem> = persistentListOf(),
     /** Missing recipe ingredients that are not on the list yet. */
-    val suggestions: ImmutableList<RecipeDraftIngredient> = persistentListOf(),
+    val suggestions: ImmutableList<MissingIngredient> = persistentListOf(),
     val isLoading: Boolean = true
 )

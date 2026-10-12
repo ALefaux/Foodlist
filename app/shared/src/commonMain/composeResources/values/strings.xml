@@ -266,4 +266,39 @@
         <item quantity="one">%1$d missing recipe ingredient found</item>
         <item quantity="other">%1$d missing recipe ingredients found</item>
     </plurals>
+
+    <!-- Shopping item edit -->
+    <string name="shopping_edit_top_bar_title">Edit Item</string>
+    <string name="shopping_edit_not_found">This item is no longer on the list.</string>
+    <string name="shopping_edit_status_to_buy">On Shopping List</string>
+    <string name="shopping_edit_status_purchased">Purchased</string>
+    <string name="shopping_edit_required_for">Required for</string>
+    <string name="shopping_edit_open_recipe">Open recipe</string>
+    <string name="shopping_edit_item_title">Item</string>
+    <string name="shopping_edit_name_label">Item name</string>
+    <string name="shopping_edit_name_error">Give the item a name</string>
+    <string name="shopping_edit_department">Department</string>
+    <string name="shopping_edit_quantity_title">Quantity</string>
+    <string name="shopping_edit_packages">Packages</string>
+    <string name="shopping_edit_package_size">Package size</string>
+    <string name="shopping_edit_package_size_hint">e.g. 1 L</string>
+    <string name="shopping_edit_storage_title">Store on Purchase</string>
+    <string name="shopping_edit_storage_subtitle">Where it goes in your pantry once you tick it as bought.</string>
+    <string name="shopping_edit_storage_purchased_hint">Already bought: a new choice applies the next time it is ticked.</string>
+    <string name="shopping_edit_storage_none">Don't add</string>
+    <string name="shopping_edit_storage_empty">Create a storage to add your purchases to the pantry.</string>
+    <string name="shopping_edit_priority_title">Restock Urgency</string>
+    <string name="shopping_edit_priority_subtitle">Urgent items come first in the list.</string>
+    <string name="shopping_priority_urgent">Urgent</string>
+    <string name="shopping_priority_urgent_description">Out of stock, needed today</string>
+    <string name="shopping_priority_standard">Standard</string>
+    <string name="shopping_priority_standard_description">Running low</string>
+    <string name="shopping_priority_nice">Nice to Have</string>
+    <string name="shopping_priority_nice_description">Only if there's a good deal</string>
+    <string name="shopping_priority_badge_urgent">Urgent</string>
+    <string name="shopping_priority_badge_optional">Optional</string>
+    <string name="shopping_edit_notes_title">Shopper Notes</string>
+    <string name="shopping_edit_brands_label">Preferred brands</string>
+    <string name="shopping_edit_note_label">Memo</string>
+    <string name="shopping_edit_remove">Remove from Shopping List</string>
 </resources>

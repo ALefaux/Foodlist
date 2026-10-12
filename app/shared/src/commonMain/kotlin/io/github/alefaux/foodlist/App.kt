@@ -41,13 +41,15 @@ fun App() {
             it.hasRoute(FoodlistDestinations.Login::class) || it.hasRoute(FoodlistDestinations.CreateAccount::class)
         } == true
 
-        val isOnRecipeEditRoute = currentDestination?.hierarchy?.any {
-            it.hasRoute(FoodlistDestinations.RecipeEdit::class)
+        // Edit forms have their own Cancel / Save bar
+        val isOnEditFormRoute = currentDestination?.hierarchy?.any {
+            it.hasRoute(FoodlistDestinations.RecipeEdit::class) ||
+                it.hasRoute(FoodlistDestinations.ShoppingItemEdit::class)
         } == true
 
         Scaffold(
             bottomBar = {
-                if (!isOnAuthRoute && !isOnRecipeEditRoute) {
+                if (!isOnAuthRoute && !isOnEditFormRoute) {
                     NavigationBar {
                         listOf(
                             BottomMenu.Dashboard,

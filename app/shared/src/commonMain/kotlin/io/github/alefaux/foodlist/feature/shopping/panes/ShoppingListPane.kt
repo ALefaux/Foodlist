@@ -46,6 +46,7 @@ fun ShoppingListPane(
     onTabSelected: (ShoppingListTab) -> Unit,
     onPurchasedChange: (Long, Boolean) -> Unit,
     onDeleteItem: (Long) -> Unit,
+    onItemClick: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -101,14 +102,14 @@ fun ShoppingListPane(
                 if (state.toBuy.isEmpty()) {
                     emptyMessage(Res.string.shopping_empty_to_buy)
                 } else {
-                    itemRows(state.toBuy, onPurchasedChange, onDeleteItem)
+                    itemRows(state.toBuy, onItemClick, onPurchasedChange, onDeleteItem)
                 }
 
                 if (state.purchased.isNotEmpty()) {
                     item {
                         RecentlyPurchasedHeader()
                     }
-                    itemRows(state.purchased.take(RECENTLY_PURCHASED_COUNT), onPurchasedChange, onDeleteItem)
+                    itemRows(state.purchased.take(RECENTLY_PURCHASED_COUNT), onItemClick, onPurchasedChange, onDeleteItem)
                 }
             }
 
@@ -116,7 +117,7 @@ fun ShoppingListPane(
                 if (state.purchased.isEmpty()) {
                     emptyMessage(Res.string.shopping_empty_purchased)
                 } else {
-                    itemRows(state.purchased, onPurchasedChange, onDeleteItem)
+                    itemRows(state.purchased, onItemClick, onPurchasedChange, onDeleteItem)
                 }
             }
         }
@@ -125,12 +126,14 @@ fun ShoppingListPane(
 
 private fun LazyListScope.itemRows(
     items: List<ShoppingItem>,
+    onItemClick: (Long) -> Unit,
     onPurchasedChange: (Long, Boolean) -> Unit,
     onDeleteItem: (Long) -> Unit
 ) {
     items(items, key = { it.id }) { item ->
         ShoppingItemRow(
             item = item,
+            onClick = { onItemClick(item.id) },
             onPurchasedChange = { onPurchasedChange(item.id, it) },
             onDelete = { onDeleteItem(item.id) }
         )

@@ -34,7 +34,7 @@ import kotlinx.coroutines.IO
         RecipeStepEntity::class,
         ShoppingItemEntity::class
     ],
-    version = 9
+    version = 10
 )
 @ConstructedBy(AppDatabaseConstructor::class)
 @TypeConverters(Converters::class)
@@ -143,10 +143,23 @@ private val MIGRATION_8_9 = object : Migration(startVersion = 8, endVersion = 9)
     }
 }
 
+private val MIGRATION_9_10 = object : Migration(startVersion = 9, endVersion = 10) {
+    override fun migrate(connection: androidx.sqlite.SQLiteConnection) {
+        connection.execSQL("ALTER TABLE ShoppingItemEntity ADD COLUMN count INTEGER NOT NULL DEFAULT 1")
+        connection.execSQL("ALTER TABLE ShoppingItemEntity ADD COLUMN category TEXT NOT NULL DEFAULT 'Other'")
+        connection.execSQL("ALTER TABLE ShoppingItemEntity ADD COLUMN storageId INTEGER")
+        connection.execSQL("ALTER TABLE ShoppingItemEntity ADD COLUMN priority TEXT NOT NULL DEFAULT 'STANDARD'")
+        connection.execSQL("ALTER TABLE ShoppingItemEntity ADD COLUMN brands TEXT NOT NULL DEFAULT ''")
+        connection.execSQL("ALTER TABLE ShoppingItemEntity ADD COLUMN note TEXT NOT NULL DEFAULT ''")
+        connection.execSQL("ALTER TABLE ShoppingItemEntity ADD COLUMN recipeId INTEGER")
+        connection.execSQL("ALTER TABLE ShoppingItemEntity ADD COLUMN productId INTEGER")
+    }
+}
+
 fun getRoomDatabase(
     builder: RoomDatabase.Builder<AppDatabase>
 ): AppDatabase = builder
     .setDriver(BundledSQLiteDriver())
     .setQueryCoroutineContext(Dispatchers.IO)
-    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8, MIGRATION_8_9)
+    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8, MIGRATION_8_9, MIGRATION_9_10)
     .build()

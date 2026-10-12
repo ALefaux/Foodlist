@@ -11,6 +11,7 @@ import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun ShoppingListScreen(
+    onItemClick: (Long) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ShoppingListViewModel = koinViewModel()
 ) {
@@ -33,7 +34,8 @@ fun ShoppingListScreen(
             onAddAllSuggestions = viewModel::addAllSuggestions,
             onTabSelected = viewModel::selectTab,
             onPurchasedChange = viewModel::setPurchased,
-            onDeleteItem = viewModel::deleteItem
+            onDeleteItem = viewModel::deleteItem,
+            onItemClick = onItemClick
         )
     }
 }

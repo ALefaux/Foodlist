@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.github.alefaux.foodlist.core.logging.AppLogging
 import io.github.alefaux.foodlist.feature.recipes.domain.GetMissingRecipeIngredientsUseCase
-import io.github.alefaux.foodlist.feature.recipes.domain.RecipeDraftIngredient
+import io.github.alefaux.foodlist.feature.recipes.domain.MissingIngredient
 import io.github.alefaux.foodlist.feature.shopping.domain.AddShoppingItemsUseCase
 import io.github.alefaux.foodlist.feature.shopping.domain.DeleteShoppingItemUseCase
 import io.github.alefaux.foodlist.feature.shopping.domain.GetShoppingItemsUseCase
@@ -35,7 +35,7 @@ class ShoppingListViewModel(
     val uiState: StateFlow<ShoppingListUiState> = _uiState
 
     private var items: List<ShoppingItem> = emptyList()
-    private var missingIngredients: List<RecipeDraftIngredient> = emptyList()
+    private var missingIngredients: List<MissingIngredient> = emptyList()
 
     fun loadData() {
         viewModelScope.launch(dispatcher) {
@@ -64,7 +64,11 @@ class ShoppingListViewModel(
     }
 
     fun addAllSuggestions() {
-        addItems(_uiState.value.suggestions.map { NewShoppingItem(name = it.name, quantity = it.quantity) })
+        addItems(
+            _uiState.value.suggestions.map {
+                NewShoppingItem(name = it.name, quantity = it.quantity, recipeId = it.recipeId)
+            }
+        )
     }
 
     private fun addItems(newItems: List<NewShoppingItem>) {
@@ -111,7 +115,7 @@ class ShoppingListViewModel(
             items = loaded
         }
 
-        val toBuy = items.filterNot { it.isPurchased }
+        val toBuy = items.filterNot { it.isPurchased }.sortedBy { it.priority.ordinal }
         val listedNames = toBuy.map { it.name.trim().lowercase() }.toSet()
 
         _uiState.update { state ->

@@ -21,7 +21,8 @@ val storageModule = module {
     factory<StorageRepository> {
         StorageRepositoryImpl(
             storageDao = get(),
-            productDao = get()
+            productDao = get(),
+            shoppingItemDao = get()
         )
     }
 

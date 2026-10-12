@@ -25,6 +25,7 @@ class DeleteTestDataUseCaseImpl(
         storageDao.getTestData().forEach { storage ->
             // Real products may have been added to a test storage: keep them, unassigned.
             productDao.clearStorageReference(storage.id)
+            shoppingItemDao.clearStorageReference(storage.id)
             storageDao.deleteById(storage.id)
         }
     }

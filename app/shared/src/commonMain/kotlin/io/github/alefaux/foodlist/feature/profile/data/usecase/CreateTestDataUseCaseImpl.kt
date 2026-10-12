@@ -120,22 +120,50 @@ class CreateTestDataUseCaseImpl(
             productDao.insert(product.copy(createdAt = now, isTestData = true))
         }
 
-        createTestRecipes()
-        createTestShoppingList()
+        val recipeIds = createTestRecipes()
+        createTestShoppingList(fridgeId = fridgeId, lasagnaId = recipeIds.getValue("Classic Lasagna"))
     }
 
-    private suspend fun createTestShoppingList() {
+    private suspend fun createTestShoppingList(fridgeId: Long, lasagnaId: Long) {
         val now = Clock.System.now()
 
         shoppingItemDao.insertAll(
             listOf(
-                ShoppingItemEntity(name = "Whole Milk", quantity = "1 L", createdAt = now, isTestData = true),
-                ShoppingItemEntity(name = "Cherry Tomatoes", quantity = "250 g", createdAt = now, isTestData = true),
-                // Also missing for the lasagna: must not be suggested again
-                ShoppingItemEntity(name = "Ground Beef", quantity = "500 g", createdAt = now, isTestData = true),
+                // Goes to the fridge when ticked as bought
+                ShoppingItemEntity(
+                    name = "Whole Milk",
+                    quantity = "1 L",
+                    count = 2,
+                    category = "Dairy",
+                    storageId = fridgeId,
+                    priority = "URGENT",
+                    brands = "Lactel",
+                    note = "Pick the latest expiration date.",
+                    createdAt = now,
+                    isTestData = true
+                ),
+                ShoppingItemEntity(
+                    name = "Cherry Tomatoes",
+                    quantity = "250 g",
+                    category = "Vegetables",
+                    priority = "NICE_TO_HAVE",
+                    createdAt = now,
+                    isTestData = true
+                ),
+                // Linked to the lasagna, and must not be suggested again
+                ShoppingItemEntity(
+                    name = "Ground Beef",
+                    quantity = "500 g",
+                    category = "Meat",
+                    storageId = fridgeId,
+                    recipeId = lasagnaId,
+                    createdAt = now,
+                    isTestData = true
+                ),
                 ShoppingItemEntity(
                     name = "Spinach",
                     quantity = "1 bag",
+                    category = "Vegetables",
                     purchasedAt = now - 1.days,
                     createdAt = now - 2.days,
                     isTestData = true
@@ -144,7 +172,8 @@ class CreateTestDataUseCaseImpl(
         )
     }
 
-    private suspend fun createTestRecipes() {
+    /** Returns the created recipe ids by name. */
+    private suspend fun createTestRecipes(): Map<String, Long> =
         listOf(
             // Every ingredient is fresh: can make
             TestRecipe(
@@ -250,7 +279,7 @@ class CreateTestDataUseCaseImpl(
                     TestStep("Grill", "Grill until the cheese is melted and golden.", 5)
                 )
             )
-        ).forEach { recipe ->
+        ).associate { recipe ->
             val recipeId = recipeDao.insert(
                 RecipeEntity(
                     name = recipe.name,
@@ -280,8 +309,8 @@ class CreateTestDataUseCaseImpl(
                     )
                 }
             )
+            recipe.name to recipeId
         }
-    }
 
     private data class TestRecipe(
         val name: String,

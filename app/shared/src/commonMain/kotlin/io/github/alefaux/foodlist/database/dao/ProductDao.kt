@@ -21,7 +21,7 @@ interface ProductDao {
     suspend fun getById(id: Int): ProductEntity?
 
     @Insert
-    suspend fun insert(product: ProductEntity)
+    suspend fun insert(product: ProductEntity): Long
 
     @Update
     suspend fun update(product: ProductEntity)

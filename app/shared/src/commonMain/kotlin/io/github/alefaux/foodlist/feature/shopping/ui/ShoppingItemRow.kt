@@ -1,5 +1,6 @@
 package io.github.alefaux.foodlist.feature.shopping.ui
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,6 +27,7 @@ import foodlist.app.shared.generated.resources.Res
 import foodlist.app.shared.generated.resources.shopping_delete
 import foodlist.app.shared.generated.resources.shopping_restore
 import io.github.alefaux.foodlist.feature.shopping.domain.ShoppingItem
+import io.github.alefaux.foodlist.feature.shopping.domain.ShoppingPriority
 import org.jetbrains.compose.resources.stringResource
 
 /**
@@ -35,6 +37,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun ShoppingItemRow(
     item: ShoppingItem,
+    onClick: () -> Unit,
     onPurchasedChange: (Boolean) -> Unit,
     onDelete: () -> Unit,
     modifier: Modifier = Modifier
@@ -42,6 +45,7 @@ fun ShoppingItemRow(
     val colorScheme = MaterialTheme.colorScheme
 
     Card(
+        onClick = onClick,
         modifier = modifier
             .fillMaxWidth()
             .alpha(if (item.isPurchased) 0.6f else 1f),
@@ -59,14 +63,27 @@ fun ShoppingItemRow(
                 onCheckedChange = onPurchasedChange
             )
             Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = item.name,
-                    style = MaterialTheme.typography.bodyLarge,
-                    textDecoration = if (item.isPurchased) TextDecoration.LineThrough else null
-                )
-                if (item.quantity.isNotBlank()) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
                     Text(
-                        text = item.quantity,
+                        text = item.name,
+                        style = MaterialTheme.typography.bodyLarge,
+                        textDecoration = if (item.isPurchased) TextDecoration.LineThrough else null,
+                        modifier = Modifier.weight(1f, fill = false)
+                    )
+                    if (!item.isPurchased) {
+                        ShoppingPriorityBadge(priority = item.priority)
+                    }
+                }
+                val amount = listOfNotNull(
+                    item.count.takeIf { it > 1 }?.let { "$it ×" },
+                    item.quantity.takeIf { it.isNotBlank() }
+                ).joinToString(" ")
+                if (amount.isNotBlank()) {
+                    Text(
+                        text = amount,
                         style = MaterialTheme.typography.labelMedium,
                         fontWeight = FontWeight.Bold,
                         color = colorScheme.onSurfaceVariant,
@@ -99,7 +116,15 @@ fun ShoppingItemRow(
 private fun ShoppingItemRowPreview() {
     MaterialTheme {
         ShoppingItemRow(
-            item = ShoppingItem(id = 1, name = "Whole Milk", quantity = "1 L", purchasedAt = null),
+            item = ShoppingItem(
+                id = 1,
+                name = "Whole Milk",
+                quantity = "1 L",
+                count = 2,
+                priority = ShoppingPriority.URGENT,
+                purchasedAt = null
+            ),
+            onClick = {},
             onPurchasedChange = {},
             onDelete = {}
         )
