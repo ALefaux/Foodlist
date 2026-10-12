@@ -7,11 +7,13 @@ import androidx.compose.material.icons.filled.Inventory2
 import androidx.compose.material.icons.filled.Kitchen
 import androidx.compose.ui.graphics.vector.ImageVector
 
+/** Picks an icon from the storage name, in English or French. */
 fun storageUnitIcon(name: String): ImageVector = when {
-    name.contains("fridge", ignoreCase = true) ||
-        name.contains("refrigerator", ignoreCase = true) -> Icons.Filled.Kitchen
-
-    name.contains("freezer", ignoreCase = true) -> Icons.Filled.AcUnit
-    name.contains("garage", ignoreCase = true) -> Icons.Filled.Garage
+    name.containsAny("fridge", "refrigerator", "frigo", "réfrigérateur") -> Icons.Filled.Kitchen
+    name.containsAny("freezer", "congélateur", "congel") -> Icons.Filled.AcUnit
+    name.containsAny("garage") -> Icons.Filled.Garage
     else -> Icons.Filled.Inventory2
 }
+
+internal fun String.containsAny(vararg keywords: String): Boolean =
+    keywords.any { contains(it, ignoreCase = true) }

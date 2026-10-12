@@ -28,28 +28,28 @@ class CreateTestDataUseCaseImpl(
 
     override suspend fun invoke() {
         val now = Clock.System.now()
-        val fridgeId = storageDao.insert(StorageEntity(name = "Fridge", isTestData = true))
-        val freezerId = storageDao.insert(StorageEntity(name = "Freezer", isTestData = true))
-        val pantryId = storageDao.insert(StorageEntity(name = "Pantry", isTestData = true))
+        val fridgeId = storageDao.insert(StorageEntity(name = "Réfrigérateur", isTestData = true))
+        val freezerId = storageDao.insert(StorageEntity(name = "Congélateur", isTestData = true))
+        val pantryId = storageDao.insert(StorageEntity(name = "Placard", isTestData = true))
 
         listOf(
             ProductEntity(
-                name = "Whole Milk",
+                name = "Lait entier",
                 ean = "3428273980046",
                 expirationDate = now - 2.days,
                 discardedDate = null,
                 storageId = fridgeId,
                 quantity = "1 L",
-                category = "Dairy"
+                category = "Produits laitiers"
             ),
             ProductEntity(
-                name = "Greek Yogurt",
+                name = "Yaourt grec",
                 ean = "3033490004743",
                 expirationDate = now + 1.days,
                 discardedDate = null,
                 storageId = fridgeId,
                 quantity = "4 x 125 g",
-                category = "Dairy",
+                category = "Produits laitiers",
                 stock = 2
             ),
             ProductEntity(
@@ -59,28 +59,28 @@ class CreateTestDataUseCaseImpl(
                 discardedDate = null,
                 storageId = fridgeId,
                 quantity = "200 g",
-                category = "Dairy"
+                category = "Produits laitiers"
             ),
             ProductEntity(
-                name = "Chicken Breast",
+                name = "Blanc de poulet",
                 ean = "3266980123456",
                 expirationDate = now + 6.days,
                 discardedDate = null,
                 storageId = fridgeId,
                 quantity = "400 g",
-                category = "Meat"
+                category = "Viande"
             ),
             ProductEntity(
-                name = "Frozen Peas",
+                name = "Petits pois surgelés",
                 ean = "3083681093223",
                 expirationDate = now + 180.days,
                 discardedDate = null,
                 storageId = freezerId,
                 quantity = "1 kg",
-                category = "Vegetables"
+                category = "Légumes"
             ),
             ProductEntity(
-                name = "Vanilla Ice Cream",
+                name = "Glace à la vanille",
                 ean = "8711327399373",
                 expirationDate = now - 10.days,
                 discardedDate = null,
@@ -95,33 +95,33 @@ class CreateTestDataUseCaseImpl(
                 discardedDate = null,
                 storageId = pantryId,
                 quantity = "500 g",
-                category = "Pasta",
+                category = "Pâtes",
                 stock = 3
             ),
             ProductEntity(
-                name = "Olive Oil",
+                name = "Huile d'olive",
                 ean = "3270190207603",
                 expirationDate = null,
                 discardedDate = null,
                 storageId = pantryId,
                 quantity = "75 cl",
-                category = "Oils"
+                category = "Huiles"
             ),
             ProductEntity(
-                name = "Sliced Bread",
+                name = "Pain de mie",
                 ean = "3029330003533",
                 expirationDate = now - 5.days,
                 discardedDate = now - 4.days,
                 storageId = pantryId,
                 quantity = "500 g",
-                category = "Bakery"
+                category = "Boulangerie"
             )
         ).forEach { product ->
             productDao.insert(product.copy(createdAt = now, isTestData = true))
         }
 
         val recipeIds = createTestRecipes()
-        createTestShoppingList(fridgeId = fridgeId, lasagnaId = recipeIds.getValue("Classic Lasagna"))
+        createTestShoppingList(fridgeId = fridgeId, lasagnaId = recipeIds.getValue("Lasagnes à la bolognaise"))
     }
 
     private suspend fun createTestShoppingList(fridgeId: Long, lasagnaId: Long) {
@@ -131,39 +131,39 @@ class CreateTestDataUseCaseImpl(
             listOf(
                 // Goes to the fridge when ticked as bought
                 ShoppingItemEntity(
-                    name = "Whole Milk",
+                    name = "Lait entier",
                     quantity = "1 L",
                     count = 2,
-                    category = "Dairy",
+                    category = "Produits laitiers",
                     storageId = fridgeId,
                     priority = "URGENT",
                     brands = "Lactel",
-                    note = "Pick the latest expiration date.",
+                    note = "Prendre la date de péremption la plus lointaine.",
                     createdAt = now,
                     isTestData = true
                 ),
                 ShoppingItemEntity(
-                    name = "Cherry Tomatoes",
+                    name = "Tomates cerises",
                     quantity = "250 g",
-                    category = "Vegetables",
+                    category = "Légumes",
                     priority = "NICE_TO_HAVE",
                     createdAt = now,
                     isTestData = true
                 ),
                 // Linked to the lasagna, and must not be suggested again
                 ShoppingItemEntity(
-                    name = "Ground Beef",
+                    name = "Bœuf haché",
                     quantity = "500 g",
-                    category = "Meat",
+                    category = "Viande",
                     storageId = fridgeId,
                     recipeId = lasagnaId,
                     createdAt = now,
                     isTestData = true
                 ),
                 ShoppingItemEntity(
-                    name = "Spinach",
-                    quantity = "1 bag",
-                    category = "Vegetables",
+                    name = "Épinards",
+                    quantity = "1 sachet",
+                    category = "Légumes",
                     purchasedAt = now - 1.days,
                     createdAt = now - 2.days,
                     isTestData = true
@@ -177,28 +177,28 @@ class CreateTestDataUseCaseImpl(
         listOf(
             // Every ingredient is fresh: can make
             TestRecipe(
-                name = "Spaghetti with Peas",
-                description = "A quick weeknight pasta made entirely from pantry staples.",
+                name = "Spaghetti aux petits pois",
+                description = "Des pâtes express du soir, faites uniquement avec les basiques du placard.",
                 prepMinutes = 5,
                 cookMinutes = 12,
                 servings = 2,
                 calories = 520,
                 isVegetarian = true,
-                tip = "Frozen peas keep their sweetness for months: add them straight from the freezer.",
+                tip = "Les petits pois surgelés gardent leur douceur des mois : ajoutez-les directement sortis du congélateur.",
                 ingredients = listOf(
                     "Spaghetti" to "200 g",
-                    "Frozen Peas" to "150 g",
-                    "Olive Oil" to "2 tbsp"
+                    "Petits pois surgelés" to "150 g",
+                    "Huile d'olive" to "2 c. à s."
                 ),
                 steps = listOf(
-                    TestStep("Cook the spaghetti", "Bring a large pot of salted water to a boil and cook the spaghetti until al dente.", 10),
-                    TestStep("Add the peas", "Add the frozen peas to the pot for the last 2 minutes of cooking.", 2),
-                    TestStep("Finish with olive oil", "Drain, toss with the olive oil and season with salt and pepper. Serve immediately.", null)
+                    TestStep("Cuire les spaghetti", "Portez une grande casserole d'eau salée à ébullition et faites cuire les spaghetti al dente.", 10),
+                    TestStep("Ajouter les petits pois", "Ajoutez les petits pois surgelés dans la casserole pendant les 2 dernières minutes de cuisson.", 2),
+                    TestStep("Finir à l'huile d'olive", "Égouttez, mélangez avec l'huile d'olive, salez et poivrez. Servez aussitôt.", null)
                 )
             ),
             TestRecipe(
-                name = "Chicken Stir Fry",
-                description = "Golden chicken and sweet peas tossed in a hot pan in under half an hour.",
+                name = "Poulet sauté aux petits pois",
+                description = "Du poulet doré et des petits pois sautés à la poêle en moins d'une demi-heure.",
                 prepMinutes = 10,
                 cookMinutes = 12,
                 servings = 2,
@@ -206,64 +206,64 @@ class CreateTestDataUseCaseImpl(
                 isVegetarian = false,
                 tip = null,
                 ingredients = listOf(
-                    "Chicken Breast" to "400 g",
-                    "Frozen Peas" to "200 g",
-                    "Olive Oil" to "1 tbsp"
+                    "Blanc de poulet" to "400 g",
+                    "Petits pois surgelés" to "200 g",
+                    "Huile d'olive" to "1 c. à s."
                 ),
                 steps = listOf(
-                    TestStep("Slice the chicken", "Cut the chicken breast into thin strips and season with salt and pepper.", null),
-                    TestStep("Sear the chicken", "Heat the olive oil in a wide pan over high heat and cook the chicken until golden.", 6),
-                    TestStep("Add the peas", "Add the frozen peas and stir fry until hot. Serve right away.", 4)
+                    TestStep("Émincer le poulet", "Coupez le blanc de poulet en fines lanières, salez et poivrez.", null),
+                    TestStep("Saisir le poulet", "Faites chauffer l'huile d'olive dans une grande poêle à feu vif et faites dorer le poulet.", 6),
+                    TestStep("Ajouter les petits pois", "Ajoutez les petits pois surgelés et faites sauter jusqu'à ce qu'ils soient chauds. Servez tout de suite.", 4)
                 )
             ),
-            // Greek Yogurt expires tomorrow: uses expiring items
+            // Yaourt grec expires tomorrow: uses expiring items
             TestRecipe(
-                name = "Creamy Chicken",
-                description = "Tender chicken in a light yogurt sauce, a good way to use yogurt before it expires.",
+                name = "Poulet crémeux",
+                description = "Du poulet tendre dans une sauce légère au yaourt, idéal pour finir un yaourt avant sa date.",
                 prepMinutes = 10,
                 cookMinutes = 20,
                 servings = 3,
                 calories = 380,
                 isVegetarian = false,
-                tip = "Stir the yogurt in off the heat so the sauce stays smooth instead of splitting.",
+                tip = "Incorporez le yaourt hors du feu pour que la sauce reste lisse et ne tranche pas.",
                 ingredients = listOf(
-                    "Chicken Breast" to "400 g",
-                    "Greek Yogurt" to "250 g",
-                    "Olive Oil" to "1 tbsp"
+                    "Blanc de poulet" to "400 g",
+                    "Yaourt grec" to "250 g",
+                    "Huile d'olive" to "1 c. à s."
                 ),
                 steps = listOf(
-                    TestStep("Brown the chicken", "Cut the chicken into pieces and brown them in the olive oil over medium heat.", 8),
-                    TestStep("Cook through", "Lower the heat, cover and cook until the chicken is cooked through.", 10),
-                    TestStep("Make the sauce", "Take the pan off the heat and stir in the Greek yogurt. Season and serve.", null)
+                    TestStep("Faire dorer le poulet", "Coupez le poulet en morceaux et faites-les dorer dans l'huile d'olive à feu moyen.", 8),
+                    TestStep("Terminer la cuisson", "Baissez le feu, couvrez et laissez cuire jusqu'à ce que le poulet soit cuit à cœur.", 10),
+                    TestStep("Préparer la sauce", "Retirez la poêle du feu et incorporez le yaourt grec. Assaisonnez et servez.", null)
                 )
             ),
-            // Lasagna sheets, beef and tomato sauce are not in the pantry: missing ingredients
+            // Feuilles de lasagne, bœuf haché and sauce tomate are not in the pantry: missing ingredients
             TestRecipe(
-                name = "Classic Lasagna",
-                description = "Layers of pasta, rich meat sauce and melted cheese baked until bubbling.",
+                name = "Lasagnes à la bolognaise",
+                description = "Des couches de pâtes, une sauce à la viande généreuse et du fromage fondu, gratinées au four.",
                 prepMinutes = 25,
                 cookMinutes = 45,
                 servings = 6,
                 calories = 610,
                 isVegetarian = false,
-                tip = "Leftover lasagna freezes well in portions for up to 3 months.",
+                tip = "Les restes de lasagnes se congèlent très bien en portions jusqu'à 3 mois.",
                 ingredients = listOf(
-                    "Lasagna Sheets" to "12 sheets",
-                    "Ground Beef" to "500 g",
-                    "Tomato Sauce" to "700 g",
+                    "Feuilles de lasagne" to "12 feuilles",
+                    "Bœuf haché" to "500 g",
+                    "Sauce tomate" to "700 g",
                     "Emmental" to "150 g",
-                    "Olive Oil" to "1 tbsp"
+                    "Huile d'olive" to "1 c. à s."
                 ),
                 steps = listOf(
-                    TestStep("Make the meat sauce", "Brown the ground beef in the olive oil, add the tomato sauce and simmer.", 15),
-                    TestStep("Assemble", "Alternate layers of lasagna sheets and meat sauce in a baking dish, finishing with sauce.", null),
-                    TestStep("Bake", "Cover with grated Emmental and bake at 180 °C until golden and bubbling.", 30)
+                    TestStep("Préparer la sauce bolognaise", "Faites revenir le bœuf haché dans l'huile d'olive, ajoutez la sauce tomate et laissez mijoter.", 15),
+                    TestStep("Monter les lasagnes", "Alternez feuilles de lasagne et sauce dans un plat à gratin, en terminant par de la sauce.", null),
+                    TestStep("Enfourner", "Parsemez d'emmental râpé et enfournez à 180 °C jusqu'à ce que ce soit doré et gratiné.", 30)
                 )
             ),
-            // Sliced Bread was discarded: missing ingredients
+            // Pain de mie was discarded: missing ingredients
             TestRecipe(
-                name = "Cheese Toast",
-                description = "Crispy bread topped with melted Emmental, ready in minutes.",
+                name = "Tartines au fromage",
+                description = "Du pain croustillant garni d'emmental fondu, prêt en quelques minutes.",
                 prepMinutes = 3,
                 cookMinutes = 7,
                 servings = 1,
@@ -271,12 +271,12 @@ class CreateTestDataUseCaseImpl(
                 isVegetarian = true,
                 tip = null,
                 ingredients = listOf(
-                    "Sliced Bread" to "2 slices",
+                    "Pain de mie" to "2 tranches",
                     "Emmental" to "60 g"
                 ),
                 steps = listOf(
-                    TestStep("Top the bread", "Cover the bread slices with grated Emmental.", null),
-                    TestStep("Grill", "Grill until the cheese is melted and golden.", 5)
+                    TestStep("Garnir le pain", "Recouvrez les tranches de pain d'emmental râpé.", null),
+                    TestStep("Gratiner", "Passez sous le gril jusqu'à ce que le fromage soit fondu et doré.", 5)
                 )
             )
         ).associate { recipe ->

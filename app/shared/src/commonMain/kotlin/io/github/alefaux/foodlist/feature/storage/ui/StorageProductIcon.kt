@@ -7,9 +7,10 @@ import androidx.compose.material.icons.filled.LocalDrink
 import androidx.compose.material.icons.filled.Restaurant
 import androidx.compose.ui.graphics.vector.ImageVector
 
+/** Picks an icon from the product category, in English or French. */
 fun productCategoryIcon(category: String): ImageVector = when {
-    category.contains("dairy", ignoreCase = true) -> Icons.Filled.LocalDrink
-    category.contains("produce", ignoreCase = true) -> Icons.Filled.Restaurant
-    category.contains("meat", ignoreCase = true) -> Icons.Filled.LocalDining
+    category.containsAny("dairy", "laitier", "crèmerie") -> Icons.Filled.LocalDrink
+    category.containsAny("produce", "légume", "fruit") -> Icons.Filled.Restaurant
+    category.containsAny("meat", "viande") -> Icons.Filled.LocalDining
     else -> Icons.Filled.Inventory2
 }
