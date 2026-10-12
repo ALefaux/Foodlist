@@ -13,6 +13,7 @@ import io.github.alefaux.foodlist.feature.recipes.domain.Recipe
 import io.github.alefaux.foodlist.feature.recipes.domain.RecipeAvailability
 import io.github.alefaux.foodlist.feature.recipes.domain.RecipeDetail
 import io.github.alefaux.foodlist.feature.recipes.domain.RecipeDraft
+import io.github.alefaux.foodlist.feature.recipes.domain.RecipeDraftIngredient
 import io.github.alefaux.foodlist.feature.recipes.domain.RecipeIngredient
 import io.github.alefaux.foodlist.feature.recipes.domain.RecipeStep
 import kotlin.time.Clock
@@ -109,6 +110,15 @@ class RecipesRepositoryImpl(
 
     override suspend fun deleteRecipe(recipeId: Long) {
         recipeDao.deleteRecipe(recipeId)
+    }
+
+    override suspend fun getMissingIngredients(): List<RecipeDraftIngredient> {
+        val pantry = loadPantry()
+
+        return recipeDao.getAllIngredients()
+            .filter { pantry.find(it.name) == null }
+            .distinctBy { it.name.trim().lowercase() }
+            .map { RecipeDraftIngredient(name = it.name, quantity = it.quantity) }
     }
 
     /** Usable pantry products: not discarded and not expired yet. */

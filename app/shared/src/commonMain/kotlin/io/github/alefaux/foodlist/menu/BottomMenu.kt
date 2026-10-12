@@ -5,11 +5,13 @@ import androidx.compose.material.icons.automirrored.filled.MenuBook
 import androidx.compose.material.icons.filled.Dashboard
 import androidx.compose.material.icons.filled.Inventory2
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.ui.graphics.vector.ImageVector
 import foodlist.app.shared.generated.resources.Res
 import foodlist.app.shared.generated.resources.menu_dashboard
 import foodlist.app.shared.generated.resources.menu_profile
 import foodlist.app.shared.generated.resources.menu_recipes
+import foodlist.app.shared.generated.resources.menu_shopping_list
 import foodlist.app.shared.generated.resources.menu_storage
 import org.jetbrains.compose.resources.StringResource
 
@@ -28,6 +30,10 @@ sealed class BottomMenu(
     data object Recipes: BottomMenu(
         icon = Icons.AutoMirrored.Default.MenuBook,
         label = Res.string.menu_recipes
+    )
+    data object ShoppingList: BottomMenu(
+        icon = Icons.Filled.ShoppingCart,
+        label = Res.string.menu_shopping_list
     )
     data object Profile: BottomMenu(
         icon = Icons.Filled.Person,

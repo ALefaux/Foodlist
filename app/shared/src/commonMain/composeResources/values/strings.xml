@@ -247,4 +247,23 @@
         <item quantity="one">%1$d step</item>
         <item quantity="other">%1$d steps</item>
     </plurals>
+
+    <!-- Shopping list -->
+    <string name="menu_shopping_list">List</string>
+    <string name="shopping_title">Shopping List</string>
+    <string name="shopping_add_item_label">Add item</string>
+    <string name="shopping_add_item_button">Add</string>
+    <string name="shopping_suggestions_title">Smart Suggestions</string>
+    <string name="shopping_suggestions_add_all">Add All</string>
+    <string name="shopping_tab_to_buy">To Buy</string>
+    <string name="shopping_tab_purchased">Purchased</string>
+    <string name="shopping_recently_purchased">RECENTLY PURCHASED</string>
+    <string name="shopping_empty_to_buy">Your shopping list is empty.</string>
+    <string name="shopping_empty_purchased">Nothing purchased yet.</string>
+    <string name="shopping_restore">Put back on the list</string>
+    <string name="shopping_delete">Remove</string>
+    <plurals name="shopping_suggestions_message">
+        <item quantity="one">%1$d missing recipe ingredient found</item>
+        <item quantity="other">%1$d missing recipe ingredients found</item>
+    </plurals>
 </resources>

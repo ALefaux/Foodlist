@@ -3,10 +3,12 @@ package io.github.alefaux.foodlist.feature.recipes.di
 import io.github.alefaux.foodlist.feature.recipes.data.repository.RecipesRepository
 import io.github.alefaux.foodlist.feature.recipes.data.repository.RecipesRepositoryImpl
 import io.github.alefaux.foodlist.feature.recipes.data.usecase.DeleteRecipeUseCaseImpl
+import io.github.alefaux.foodlist.feature.recipes.data.usecase.GetMissingRecipeIngredientsUseCaseImpl
 import io.github.alefaux.foodlist.feature.recipes.data.usecase.GetRecipeDetailUseCaseImpl
 import io.github.alefaux.foodlist.feature.recipes.data.usecase.GetRecipesUseCaseImpl
 import io.github.alefaux.foodlist.feature.recipes.data.usecase.UpdateRecipeUseCaseImpl
 import io.github.alefaux.foodlist.feature.recipes.domain.DeleteRecipeUseCase
+import io.github.alefaux.foodlist.feature.recipes.domain.GetMissingRecipeIngredientsUseCase
 import io.github.alefaux.foodlist.feature.recipes.domain.GetRecipeDetailUseCase
 import io.github.alefaux.foodlist.feature.recipes.domain.GetRecipesUseCase
 import io.github.alefaux.foodlist.feature.recipes.domain.UpdateRecipeUseCase
@@ -31,6 +33,10 @@ val recipesModule = module {
 
     factory<GetRecipeDetailUseCase> {
         GetRecipeDetailUseCaseImpl(repository = get())
+    }
+
+    factory<GetMissingRecipeIngredientsUseCase> {
+        GetMissingRecipeIngredientsUseCaseImpl(repository = get())
     }
 
     factory<UpdateRecipeUseCase> {

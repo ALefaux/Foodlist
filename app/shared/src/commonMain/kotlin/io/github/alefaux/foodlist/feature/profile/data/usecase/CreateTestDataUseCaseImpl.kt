@@ -2,11 +2,13 @@ package io.github.alefaux.foodlist.feature.profile.data.usecase
 
 import io.github.alefaux.foodlist.database.dao.ProductDao
 import io.github.alefaux.foodlist.database.dao.RecipeDao
+import io.github.alefaux.foodlist.database.dao.ShoppingItemDao
 import io.github.alefaux.foodlist.database.dao.StorageDao
 import io.github.alefaux.foodlist.database.entity.ProductEntity
 import io.github.alefaux.foodlist.database.entity.RecipeEntity
 import io.github.alefaux.foodlist.database.entity.RecipeIngredientEntity
 import io.github.alefaux.foodlist.database.entity.RecipeStepEntity
+import io.github.alefaux.foodlist.database.entity.ShoppingItemEntity
 import io.github.alefaux.foodlist.database.entity.StorageEntity
 import io.github.alefaux.foodlist.feature.profile.domain.CreateTestDataUseCase
 import kotlin.time.Clock
@@ -14,13 +16,14 @@ import kotlin.time.Duration.Companion.days
 
 /**
  * Debug only: seeds storage units and products covering every freshness state, and recipes
- * built from those products covering every recipe availability.
+ * built from those products covering every recipe availability, and a shopping list.
  * Everything is flagged with `isTestData` so [DeleteTestDataUseCaseImpl] can remove it.
  */
 class CreateTestDataUseCaseImpl(
     private val storageDao: StorageDao,
     private val productDao: ProductDao,
-    private val recipeDao: RecipeDao
+    private val recipeDao: RecipeDao,
+    private val shoppingItemDao: ShoppingItemDao
 ) : CreateTestDataUseCase {
 
     override suspend fun invoke() {
@@ -118,6 +121,27 @@ class CreateTestDataUseCaseImpl(
         }
 
         createTestRecipes()
+        createTestShoppingList()
+    }
+
+    private suspend fun createTestShoppingList() {
+        val now = Clock.System.now()
+
+        shoppingItemDao.insertAll(
+            listOf(
+                ShoppingItemEntity(name = "Whole Milk", quantity = "1 L", createdAt = now, isTestData = true),
+                ShoppingItemEntity(name = "Cherry Tomatoes", quantity = "250 g", createdAt = now, isTestData = true),
+                // Also missing for the lasagna: must not be suggested again
+                ShoppingItemEntity(name = "Ground Beef", quantity = "500 g", createdAt = now, isTestData = true),
+                ShoppingItemEntity(
+                    name = "Spinach",
+                    quantity = "1 bag",
+                    purchasedAt = now - 1.days,
+                    createdAt = now - 2.days,
+                    isTestData = true
+                )
+            )
+        )
     }
 
     private suspend fun createTestRecipes() {

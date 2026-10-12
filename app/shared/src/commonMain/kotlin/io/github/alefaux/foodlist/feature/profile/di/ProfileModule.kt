@@ -13,7 +13,8 @@ val profileModule = module {
         CreateTestDataUseCaseImpl(
             storageDao = get(),
             productDao = get(),
-            recipeDao = get()
+            recipeDao = get(),
+            shoppingItemDao = get()
         )
     }
 
@@ -21,7 +22,8 @@ val profileModule = module {
         DeleteTestDataUseCaseImpl(
             storageDao = get(),
             productDao = get(),
-            recipeDao = get()
+            recipeDao = get(),
+            shoppingItemDao = get()
         )
     }
 

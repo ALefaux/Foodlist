@@ -12,12 +12,14 @@ import io.github.alefaux.foodlist.database.converter.Converters
 import io.github.alefaux.foodlist.database.dao.ProductDao
 import io.github.alefaux.foodlist.database.dao.RecipeDao
 import io.github.alefaux.foodlist.database.dao.SessionDao
+import io.github.alefaux.foodlist.database.dao.ShoppingItemDao
 import io.github.alefaux.foodlist.database.dao.StorageDao
 import io.github.alefaux.foodlist.database.entity.ProductEntity
 import io.github.alefaux.foodlist.database.entity.RecipeEntity
 import io.github.alefaux.foodlist.database.entity.RecipeIngredientEntity
 import io.github.alefaux.foodlist.database.entity.RecipeStepEntity
 import io.github.alefaux.foodlist.database.entity.SessionEntity
+import io.github.alefaux.foodlist.database.entity.ShoppingItemEntity
 import io.github.alefaux.foodlist.database.entity.StorageEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -29,9 +31,10 @@ import kotlinx.coroutines.IO
         SessionEntity::class,
         RecipeEntity::class,
         RecipeIngredientEntity::class,
-        RecipeStepEntity::class
+        RecipeStepEntity::class,
+        ShoppingItemEntity::class
     ],
-    version = 8
+    version = 9
 )
 @ConstructedBy(AppDatabaseConstructor::class)
 @TypeConverters(Converters::class)
@@ -40,6 +43,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun storageDao(): StorageDao
     abstract fun sessionDao(): SessionDao
     abstract fun recipeDao(): RecipeDao
+    abstract fun shoppingItemDao(): ShoppingItemDao
 }
 
 @Suppress("KotlinNoActualForExpect")
@@ -129,10 +133,20 @@ private val MIGRATION_7_8 = object : Migration(startVersion = 7, endVersion = 8)
     }
 }
 
+private val MIGRATION_8_9 = object : Migration(startVersion = 8, endVersion = 9) {
+    override fun migrate(connection: androidx.sqlite.SQLiteConnection) {
+        connection.execSQL(
+            "CREATE TABLE IF NOT EXISTS `ShoppingItemEntity` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
+                "`name` TEXT NOT NULL, `quantity` TEXT NOT NULL, `purchasedAt` INTEGER, " +
+                "`createdAt` INTEGER NOT NULL, `isTestData` INTEGER NOT NULL)"
+        )
+    }
+}
+
 fun getRoomDatabase(
     builder: RoomDatabase.Builder<AppDatabase>
 ): AppDatabase = builder
     .setDriver(BundledSQLiteDriver())
     .setQueryCoroutineContext(Dispatchers.IO)
-    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8)
+    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8, MIGRATION_8_9)
     .build()

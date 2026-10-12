@@ -10,6 +10,7 @@ import androidx.navigation.toRoute
 import io.github.alefaux.foodlist.feature.auth.presentation.CreateAccountScreen
 import io.github.alefaux.foodlist.feature.auth.presentation.LoginScreen
 import io.github.alefaux.foodlist.feature.search.presentation.SearchScreen
+import io.github.alefaux.foodlist.feature.shopping.presentation.ShoppingListScreen
 import io.github.alefaux.foodlist.feature.dashboard.presentation.DashboardScreen
 import io.github.alefaux.foodlist.feature.productdetail.presentation.ProductDetailScreen
 import io.github.alefaux.foodlist.feature.profile.presentation.ProfileScreen
@@ -171,6 +172,9 @@ fun FoodlistNavHost(
                     navController.popBackStack(FoodlistDestinations.Recipes, inclusive = false)
                 }
             )
+        }
+        composable<FoodlistDestinations.ShoppingList> {
+            ShoppingListScreen()
         }
         composable<FoodlistDestinations.Profile> {
             ProfileScreen(

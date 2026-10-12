@@ -3,6 +3,7 @@ package io.github.alefaux.foodlist.di
 import io.github.alefaux.foodlist.core.theme.di.themeModule
 import io.github.alefaux.foodlist.feature.auth.di.authModule
 import io.github.alefaux.foodlist.feature.search.di.searchModule
+import io.github.alefaux.foodlist.feature.shopping.di.shoppingModule
 import io.github.alefaux.foodlist.feature.dashboard.di.dashboardModule
 import io.github.alefaux.foodlist.feature.productdetail.di.productDetailModule
 import io.github.alefaux.foodlist.feature.profile.di.profileModule
@@ -26,6 +27,7 @@ fun initKoin(configuration: KoinAppDeclaration? = null) {
             profileModule,
             recipesModule,
             scanModule,
+            shoppingModule,
             storageModule,
             syncModule,
             themeModule,

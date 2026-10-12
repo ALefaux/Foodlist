@@ -52,6 +52,7 @@ fun App() {
                             BottomMenu.Dashboard,
                             BottomMenu.Storage,
                             BottomMenu.Recipes,
+                            BottomMenu.ShoppingList,
                             BottomMenu.Profile,
                         ).forEach { menu ->
                             val destination = menu.toDestination()
@@ -99,5 +100,6 @@ private fun BottomMenu.toDestination(): FoodlistDestinations = when (this) {
     BottomMenu.Dashboard -> FoodlistDestinations.Dashboard
     BottomMenu.Storage -> FoodlistDestinations.Storage
     BottomMenu.Recipes -> FoodlistDestinations.Recipes
+    BottomMenu.ShoppingList -> FoodlistDestinations.ShoppingList
     BottomMenu.Profile -> FoodlistDestinations.Profile
 }
