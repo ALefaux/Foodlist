@@ -45,16 +45,16 @@ import foodlist.app.shared.generated.resources.recipe_edit_name_error
 import foodlist.app.shared.generated.resources.recipe_edit_name_label
 import foodlist.app.shared.generated.resources.recipe_edit_prep_label
 import foodlist.app.shared.generated.resources.recipe_edit_steps_count
-import foodlist.app.shared.generated.resources.recipe_edit_tip_hint
 import foodlist.app.shared.generated.resources.recipe_edit_time_title
+import foodlist.app.shared.generated.resources.recipe_edit_tip_hint
 import foodlist.app.shared.generated.resources.recipe_edit_unit_kcal
 import foodlist.app.shared.generated.resources.recipe_edit_unit_minutes
+import io.github.alefaux.foodlist.core.component.EditSection
+import io.github.alefaux.foodlist.core.component.NumberField
+import io.github.alefaux.foodlist.core.component.Stepper
 import io.github.alefaux.foodlist.feature.recipes.presentation.model.RecipeEditUiState
-import io.github.alefaux.foodlist.feature.recipes.ui.edit.EditSection
 import io.github.alefaux.foodlist.feature.recipes.ui.edit.EditableIngredientRow
 import io.github.alefaux.foodlist.feature.recipes.ui.edit.EditableStepCard
-import io.github.alefaux.foodlist.feature.recipes.ui.edit.NumberField
-import io.github.alefaux.foodlist.feature.recipes.ui.edit.Stepper
 import org.jetbrains.compose.resources.pluralStringResource
 import org.jetbrains.compose.resources.stringResource
 

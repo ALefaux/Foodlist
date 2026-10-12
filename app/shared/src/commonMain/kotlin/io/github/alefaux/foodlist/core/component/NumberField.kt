@@ -1,4 +1,4 @@
-package io.github.alefaux.foodlist.feature.recipes.ui.edit
+package io.github.alefaux.foodlist.core.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -44,7 +44,7 @@ fun NumberField(
     )
 }
 
-/** Value with − and + buttons, used for the number of servings. */
+/** Value with − and + buttons, e.g. a number of servings or packages. */
 @Composable
 fun Stepper(
     value: Int,

@@ -1,4 +1,4 @@
-package io.github.alefaux.foodlist.feature.recipes.ui.edit
+package io.github.alefaux.foodlist.core.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
-/** A titled card grouping fields of the edit recipe form. */
+/** A titled card grouping the fields of an edit form. */
 @Composable
 fun EditSection(
     title: String,
