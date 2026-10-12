@@ -11,7 +11,7 @@
     <string name="search_pantry_placeholder">Rechercher dans votre garde-manger…</string>
 
     <!-- Bottom navigation menu -->
-    <string name="menu_dashboard">Tableau de bord</string>
+    <string name="menu_dashboard">Accueil</string>
     <string name="menu_storage">Stockage</string>
     <string name="menu_recipes">Recettes</string>
     <string name="menu_profile">Profil</string>
